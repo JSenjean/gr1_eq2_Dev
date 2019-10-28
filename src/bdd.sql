@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Serveur: localhost
--- Généré le : Lun 28 Octobre 2019 à 09:42
+-- Généré le : Lun 28 Octobre 2019 à 10:27
 -- Version du serveur: 5.0.75
 -- Version de PHP: 5.2.6-3ubuntu4.6
 
@@ -51,12 +51,10 @@ CREATE TABLE IF NOT EXISTS `Doc_Section` (
 CREATE TABLE IF NOT EXISTS `Inside_Project_Role` (
   `id` int(10) unsigned NOT NULL auto_increment,
   `project_id` int(10) unsigned NOT NULL,
-  `user_story_id` int(10) unsigned NOT NULL,
   `name` varchar(50) collate utf8_unicode_ci NOT NULL,
   `description` text collate utf8_unicode_ci NOT NULL,
   PRIMARY KEY  (`id`),
-  KEY `project_id` (`project_id`,`user_story_id`),
-  KEY `user_story_id` (`user_story_id`)
+  KEY `project_id` (`project_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
 --
@@ -298,7 +296,6 @@ ALTER TABLE `Doc_Section`
 -- Contraintes pour la table `Inside_Project_Role`
 --
 ALTER TABLE `Inside_Project_Role`
-  ADD CONSTRAINT `Inside_Project_Role_ibfk_2` FOREIGN KEY (`user_story_id`) REFERENCES `User_Story` (`id`),
   ADD CONSTRAINT `Inside_Project_Role_ibfk_1` FOREIGN KEY (`project_id`) REFERENCES `Project` (`id`);
 
 --
