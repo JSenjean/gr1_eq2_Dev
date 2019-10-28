@@ -8,7 +8,7 @@ if (isset($_GET['action'])) {
         include_once("controller/signup.php");
     }
     elseif ($_GET['action'] == 'login') {
-        include_once("controller/signup.php");
+        include_once("controller/login.php");
     }
 } else {
     if (!isset($_SESSION['username'])) {
