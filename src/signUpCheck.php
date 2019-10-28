@@ -17,7 +17,7 @@
     else if (isset($_POST['action']) && $_POST['action'] == 'mail'){
         $mail = $_POST['mail'];
         $bdd = dbConnect();
-        $stmt = $bdd->prepare("SELECT * FROM users WHERE email=:mail");
+        $stmt = $bdd->prepare("SELECT * FROM user WHERE email=:mail");
         $stmt->execute(array(
             'mail' => $mail
         ));
