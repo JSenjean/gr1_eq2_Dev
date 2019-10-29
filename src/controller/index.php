@@ -10,6 +10,12 @@ if (isset($_GET['action'])) {
     elseif ($_GET['action'] == 'login') {
         include_once("controller/login.php");
     }
+    elseif ($_GET['action'] == 'profile') {
+        include_once("controller/profile.php");
+      }
+    elseif ($_GET['action'] == 'projects') {
+        include_once("controller/projects.php");
+      }
 } else {
     if (!isset($_SESSION['username'])) {
         include_once("view/index.php");
