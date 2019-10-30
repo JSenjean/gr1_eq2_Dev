@@ -19,8 +19,21 @@ if (isset($_GET['action'])) {
         include_once("controller/projects.php");
         }
     }
+    else if ($_GET['action'] == 'logout'){
+        include_once("controller/logout.php");
+    }else if ($_GET['action'] == 'modPanel') {
+        include_once("controller/modPanel.php");
+    }
 } else {
     if (!isset($_SESSION['username'])) {
         include_once("view/index.php");
+    }else {
+        if (isset($_SESSION['role']) && ($_SESSION['role'] == 'user'))
+            include_once("view/memberHeader.php");
+        else
+            include_once("view/modHeader.php");
+        include_once("view/member.php");
     }
+}
+    
 }
