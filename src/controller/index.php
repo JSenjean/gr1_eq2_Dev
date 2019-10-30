@@ -35,5 +35,5 @@ if (isset($_GET['action'])) {
         include_once("view/member.php");
     }
 }
-    
-}
+
+?>    
