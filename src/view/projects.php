@@ -15,12 +15,12 @@
             foreach ($projects as $u) {
                 //print_r($u);
                 ?>
-                <div class="card">
-                    <div class="card-header">
+                <div class="card mt-3">
+                    <div class="card-header row">
                         <h3>
                             <?php echo ($u['name']); //project name
-
-                                if ($u['role'] == 'master') { ?>
+                        ?>
+                        <?php if ($u['role'] == 'master') { ?>
                                 <i class='fas fa-crown' style="color:yellow"></i>
                             <?php
                                 }
