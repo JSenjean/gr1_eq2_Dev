@@ -3,29 +3,23 @@
 -- http://www.phpmyadmin.net
 --
 -- Serveur: localhost
--- Généré le : Lun 28 Octobre 2019 à 10:27
+-- Généré le : Mer 30 Octobre 2019 à 14:28
 -- Version du serveur: 5.0.75
 -- Version de PHP: 5.2.6-3ubuntu4.6
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
-
 --
--- Base de données: `gfloret`
+-- Base de données: `Cdp`
 --
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `Doc_Section`
+-- Structure de la table `doc_section`
 --
 
-CREATE TABLE IF NOT EXISTS `Doc_Section` (
+CREATE TABLE IF NOT EXISTS `doc_section` (
   `id` int(10) unsigned NOT NULL auto_increment,
   `project_id` int(10) unsigned NOT NULL,
   `category` varchar(50) collate utf8_unicode_ci NOT NULL,
@@ -38,17 +32,17 @@ CREATE TABLE IF NOT EXISTS `Doc_Section` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
 --
--- Contenu de la table `Doc_Section`
+-- Contenu de la table `doc_section`
 --
 
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `Inside_Project_Role`
+-- Structure de la table `inside_project_role`
 --
 
-CREATE TABLE IF NOT EXISTS `Inside_Project_Role` (
+CREATE TABLE IF NOT EXISTS `inside_project_role` (
   `id` int(10) unsigned NOT NULL auto_increment,
   `project_id` int(10) unsigned NOT NULL,
   `name` varchar(50) collate utf8_unicode_ci NOT NULL,
@@ -58,17 +52,17 @@ CREATE TABLE IF NOT EXISTS `Inside_Project_Role` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
 --
--- Contenu de la table `Inside_Project_Role`
+-- Contenu de la table `inside_project_role`
 --
 
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `Inside_Sprint_Us`
+-- Structure de la table `inside_sprint_us`
 --
 
-CREATE TABLE IF NOT EXISTS `Inside_Sprint_Us` (
+CREATE TABLE IF NOT EXISTS `inside_sprint_us` (
   `id` int(10) unsigned NOT NULL auto_increment,
   `sprint_id` int(10) unsigned NOT NULL,
   `user_story_id` int(10) unsigned NOT NULL,
@@ -78,17 +72,17 @@ CREATE TABLE IF NOT EXISTS `Inside_Sprint_Us` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
 --
--- Contenu de la table `Inside_Sprint_Us`
+-- Contenu de la table `inside_sprint_us`
 --
 
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `Project`
+-- Structure de la table `project`
 --
 
-CREATE TABLE IF NOT EXISTS `Project` (
+CREATE TABLE IF NOT EXISTS `project` (
   `id` int(11) unsigned NOT NULL auto_increment,
   `name` varchar(50) character set latin1 NOT NULL,
   `description` text character set latin1 NOT NULL,
@@ -98,17 +92,17 @@ CREATE TABLE IF NOT EXISTS `Project` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
 --
--- Contenu de la table `Project`
+-- Contenu de la table `project`
 --
 
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `Project_invitation`
+-- Structure de la table `project_invitation`
 --
 
-CREATE TABLE IF NOT EXISTS `Project_invitation` (
+CREATE TABLE IF NOT EXISTS `project_invitation` (
   `id` int(11) unsigned NOT NULL auto_increment,
   `user_id` int(11) unsigned NOT NULL,
   `project_id` int(11) unsigned NOT NULL,
@@ -119,17 +113,17 @@ CREATE TABLE IF NOT EXISTS `Project_invitation` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
 --
--- Contenu de la table `Project_invitation`
+-- Contenu de la table `project_invitation`
 --
 
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `Project_member`
+-- Structure de la table `project_member`
 --
 
-CREATE TABLE IF NOT EXISTS `Project_member` (
+CREATE TABLE IF NOT EXISTS `project_member` (
   `id` int(11) unsigned NOT NULL auto_increment,
   `role` enum('member','master') collate utf8_unicode_ci NOT NULL,
   `project_id` int(11) unsigned NOT NULL,
@@ -140,17 +134,17 @@ CREATE TABLE IF NOT EXISTS `Project_member` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
 --
--- Contenu de la table `Project_member`
+-- Contenu de la table `project_member`
 --
 
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `Sprint`
+-- Structure de la table `sprint`
 --
 
-CREATE TABLE IF NOT EXISTS `Sprint` (
+CREATE TABLE IF NOT EXISTS `sprint` (
   `id` int(10) unsigned NOT NULL auto_increment,
   `project_id` int(10) unsigned NOT NULL,
   `name` varchar(50) collate utf8_unicode_ci NOT NULL,
@@ -161,17 +155,17 @@ CREATE TABLE IF NOT EXISTS `Sprint` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
 --
--- Contenu de la table `Sprint`
+-- Contenu de la table `sprint`
 --
 
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `Task`
+-- Structure de la table `task`
 --
 
-CREATE TABLE IF NOT EXISTS `Task` (
+CREATE TABLE IF NOT EXISTS `task` (
   `id` int(10) unsigned NOT NULL auto_increment,
   `sprint_id` int(10) unsigned NOT NULL,
   `member_id` int(10) unsigned NOT NULL,
@@ -188,17 +182,17 @@ CREATE TABLE IF NOT EXISTS `Task` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
 --
--- Contenu de la table `Task`
+-- Contenu de la table `task`
 --
 
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `Test`
+-- Structure de la table `test`
 --
 
-CREATE TABLE IF NOT EXISTS `Test` (
+CREATE TABLE IF NOT EXISTS `test` (
   `id` int(10) unsigned NOT NULL auto_increment,
   `project_id` int(10) unsigned NOT NULL,
   `name` varchar(50) collate utf8_unicode_ci NOT NULL,
@@ -210,17 +204,17 @@ CREATE TABLE IF NOT EXISTS `Test` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
 --
--- Contenu de la table `Test`
+-- Contenu de la table `test`
 --
 
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `User`
+-- Structure de la table `user`
 --
 
-CREATE TABLE IF NOT EXISTS `User` (
+CREATE TABLE IF NOT EXISTS `user` (
   `id` int(11) unsigned NOT NULL auto_increment,
   `username` varchar(50) collate utf8_unicode_ci NOT NULL,
   `first_name` varchar(50) collate utf8_unicode_ci NOT NULL,
@@ -230,20 +224,22 @@ CREATE TABLE IF NOT EXISTS `User` (
   `role` enum('admin','user') collate utf8_unicode_ci NOT NULL,
   `reg_date` timestamp NOT NULL default CURRENT_TIMESTAMP,
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=2 ;
 
 --
--- Contenu de la table `User`
+-- Contenu de la table `user`
 --
 
+INSERT INTO `user` (`id`, `username`, `first_name`, `last_name`, `password`, `email`, `role`, `reg_date`) VALUES
+(1, 'admin1', 'admin1prenom', 'admin1nom', '6c7ca345f63f835cb353ff15bd6c5e052ec08e7a', 'admin1mail@mail.com', 'user', '2019-10-30 14:12:40');
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `User_Story`
+-- Structure de la table `user_story`
 --
 
-CREATE TABLE IF NOT EXISTS `User_Story` (
+CREATE TABLE IF NOT EXISTS `user_story` (
   `id` int(10) unsigned NOT NULL auto_increment,
   `project_id` int(10) unsigned NOT NULL,
   `name` varchar(50) collate utf8_unicode_ci NOT NULL,
@@ -258,17 +254,17 @@ CREATE TABLE IF NOT EXISTS `User_Story` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
 --
--- Contenu de la table `User_Story`
+-- Contenu de la table `user_story`
 --
 
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `Us_Task`
+-- Structure de la table `us_task`
 --
 
-CREATE TABLE IF NOT EXISTS `Us_Task` (
+CREATE TABLE IF NOT EXISTS `us_task` (
   `id` int(10) unsigned NOT NULL auto_increment,
   `task_id` int(10) unsigned NOT NULL,
   `user_story_id` int(10) unsigned NOT NULL,
@@ -278,7 +274,7 @@ CREATE TABLE IF NOT EXISTS `Us_Task` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
 --
--- Contenu de la table `Us_Task`
+-- Contenu de la table `us_task`
 --
 
 
@@ -287,71 +283,67 @@ CREATE TABLE IF NOT EXISTS `Us_Task` (
 --
 
 --
--- Contraintes pour la table `Doc_Section`
+-- Contraintes pour la table `doc_section`
 --
-ALTER TABLE `Doc_Section`
-  ADD CONSTRAINT `Doc_Section_ibfk_1` FOREIGN KEY (`project_id`) REFERENCES `Project` (`id`);
+ALTER TABLE `doc_section`
+  ADD CONSTRAINT `doc_section_ibfk_1` FOREIGN KEY (`project_id`) REFERENCES `project` (`id`);
 
 --
--- Contraintes pour la table `Inside_Project_Role`
+-- Contraintes pour la table `inside_project_role`
 --
-ALTER TABLE `Inside_Project_Role`
-  ADD CONSTRAINT `Inside_Project_Role_ibfk_1` FOREIGN KEY (`project_id`) REFERENCES `Project` (`id`);
+ALTER TABLE `inside_project_role`
+  ADD CONSTRAINT `inside_project_role_ibfk_1` FOREIGN KEY (`project_id`) REFERENCES `project` (`id`);
 
 --
--- Contraintes pour la table `Inside_Sprint_Us`
+-- Contraintes pour la table `inside_sprint_us`
 --
-ALTER TABLE `Inside_Sprint_Us`
-  ADD CONSTRAINT `Inside_Sprint_Us_ibfk_2` FOREIGN KEY (`user_story_id`) REFERENCES `User_Story` (`id`),
-  ADD CONSTRAINT `Inside_Sprint_Us_ibfk_1` FOREIGN KEY (`sprint_id`) REFERENCES `Sprint` (`id`);
+ALTER TABLE `inside_sprint_us`
+  ADD CONSTRAINT `inside_sprint_us_ibfk_1` FOREIGN KEY (`sprint_id`) REFERENCES `sprint` (`id`),
+  ADD CONSTRAINT `inside_sprint_us_ibfk_2` FOREIGN KEY (`user_story_id`) REFERENCES `user_story` (`id`);
 
 --
--- Contraintes pour la table `Project_invitation`
+-- Contraintes pour la table `project_invitation`
 --
-ALTER TABLE `Project_invitation`
-  ADD CONSTRAINT `Project_invitation_ibfk_2` FOREIGN KEY (`project_id`) REFERENCES `Project` (`id`),
-  ADD CONSTRAINT `Project_invitation_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `User` (`id`);
+ALTER TABLE `project_invitation`
+  ADD CONSTRAINT `project_invitation_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`),
+  ADD CONSTRAINT `project_invitation_ibfk_2` FOREIGN KEY (`project_id`) REFERENCES `project` (`id`);
 
 --
--- Contraintes pour la table `Project_member`
+-- Contraintes pour la table `project_member`
 --
-ALTER TABLE `Project_member`
-  ADD CONSTRAINT `Project_member_ibfk_1` FOREIGN KEY (`project_id`) REFERENCES `Project` (`id`),
-  ADD CONSTRAINT `Project_member_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `User` (`id`);
+ALTER TABLE `project_member`
+  ADD CONSTRAINT `project_member_ibfk_1` FOREIGN KEY (`project_id`) REFERENCES `project` (`id`),
+  ADD CONSTRAINT `project_member_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`);
 
 --
--- Contraintes pour la table `Sprint`
+-- Contraintes pour la table `sprint`
 --
-ALTER TABLE `Sprint`
-  ADD CONSTRAINT `Sprint_ibfk_1` FOREIGN KEY (`project_id`) REFERENCES `Project` (`id`);
+ALTER TABLE `sprint`
+  ADD CONSTRAINT `sprint_ibfk_1` FOREIGN KEY (`project_id`) REFERENCES `project` (`id`);
 
 --
--- Contraintes pour la table `Task`
+-- Contraintes pour la table `task`
 --
-ALTER TABLE `Task`
-  ADD CONSTRAINT `Task_ibfk_1` FOREIGN KEY (`sprint_id`) REFERENCES `Sprint` (`id`),
-  ADD CONSTRAINT `Task_ibfk_3` FOREIGN KEY (`member_id`) REFERENCES `Project_member` (`id`);
+ALTER TABLE `task`
+  ADD CONSTRAINT `task_ibfk_1` FOREIGN KEY (`sprint_id`) REFERENCES `sprint` (`id`),
+  ADD CONSTRAINT `task_ibfk_3` FOREIGN KEY (`member_id`) REFERENCES `project_member` (`id`);
 
 --
--- Contraintes pour la table `Test`
+-- Contraintes pour la table `test`
 --
-ALTER TABLE `Test`
-  ADD CONSTRAINT `Test_ibfk_1` FOREIGN KEY (`project_id`) REFERENCES `Project` (`id`);
+ALTER TABLE `test`
+  ADD CONSTRAINT `test_ibfk_1` FOREIGN KEY (`project_id`) REFERENCES `project` (`id`);
 
 --
--- Contraintes pour la table `User_Story`
+-- Contraintes pour la table `user_story`
 --
-ALTER TABLE `User_Story`
-  ADD CONSTRAINT `User_Story_ibfk_2` FOREIGN KEY (`role_id`) REFERENCES `Inside_Project_Role` (`id`),
-  ADD CONSTRAINT `User_Story_ibfk_1` FOREIGN KEY (`project_id`) REFERENCES `Project` (`id`);
+ALTER TABLE `user_story`
+  ADD CONSTRAINT `user_story_ibfk_1` FOREIGN KEY (`project_id`) REFERENCES `project` (`id`),
+  ADD CONSTRAINT `user_story_ibfk_2` FOREIGN KEY (`role_id`) REFERENCES `inside_project_role` (`id`);
 
 --
--- Contraintes pour la table `Us_Task`
+-- Contraintes pour la table `us_task`
 --
-ALTER TABLE `Us_Task`
-  ADD CONSTRAINT `Us_Task_ibfk_2` FOREIGN KEY (`user_story_id`) REFERENCES `User_Story` (`id`),
-  ADD CONSTRAINT `Us_Task_ibfk_1` FOREIGN KEY (`task_id`) REFERENCES `Task` (`id`);
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+ALTER TABLE `us_task`
+  ADD CONSTRAINT `us_task_ibfk_1` FOREIGN KEY (`task_id`) REFERENCES `task` (`id`),
+  ADD CONSTRAINT `us_task_ibfk_2` FOREIGN KEY (`user_story_id`) REFERENCES `user_story` (`id`);
