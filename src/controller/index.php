@@ -44,7 +44,7 @@ if (isset($_GET['action'])) {
             include_once("view/memberHeader.php");
         else
             include_once("view/modHeader.php");
-        include_once("view/projects.php");
+        include_once("controller/projects.php");
     }
 }
     
