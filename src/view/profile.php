@@ -18,7 +18,7 @@
         </br>
         <div class="card">
             <div class="card-body p-3">
-                <h6><?php $_SESSION['role']=="admin" ? print 'Administrateur' : print 'Utilisateur') ?></h6>
+                <h6><?php $_SESSION['role']=="admin" ? print 'Administrateur' : print 'Utilisateur' ?></h6>
                 <p class="card-text">Inscrit le <?php $date = date("j/m/Y", strtotime($infoUser['reg_date'])); echo $date;?></p>
             </div>
         </div>

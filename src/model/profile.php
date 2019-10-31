@@ -26,7 +26,7 @@
     function getUserNbParticipation(){
         try{
             $bdd = dbConnect();
-            $stmt = $bdd->prepare("SELECT COUNT(*) FROM Project_member WHERE user_id=:id");
+            $stmt = $bdd->prepare("SELECT COUNT(*) FROM project_member WHERE user_id=:id");
             $stmt->execute(array(
                 'id' => $_SESSION['id']
             ));
