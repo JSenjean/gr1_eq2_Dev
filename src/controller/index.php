@@ -13,10 +13,9 @@ if (isset($_GET['action'])) {
     } elseif ($_GET['action'] == 'projects') {
         include_once("controller/projects.php");
     } elseif ($_GET['action'] == 'projectDelete') {
-        if(isset($_GET['projectId']))
-        {
-        $_SESSION["projectToDelete"]=$_GET['projectId'];
-        include_once("controller/projects.php");
+        if(isset($_GET['projectId'])){
+            $_SESSION["projectToDelete"]=$_GET['projectId'];
+            include_once("controller/projects.php");
         }
     }
     else if ($_GET['action'] == 'logout'){
@@ -26,6 +25,16 @@ if (isset($_GET['action'])) {
     }
     else if ($_GET['action'] == 'newProject') {
         include_once("controller/projects.php");
+    }else if ($_GET['action'] == 'faq') {
+        include_once("controller/faq.php");
+    }else if ($_GET['action'] == 'editQA') {
+        include_once("model/faq.php");
+        editQA($_GET['id']);
+        include_once("controller/faq.php");
+    }else if ($_GET['action'] == 'delQA') {
+        include_once("model/faq.php");
+        delQA($_GET['id']);
+        include_once("controller/faq.php");
     }
 } else {
     if (!isset($_SESSION['username'])) {
