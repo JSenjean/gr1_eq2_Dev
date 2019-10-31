@@ -45,7 +45,7 @@
                         include_once("view/errors/noRights.php");
                 }
 */
-                if ($_SESSION['role'] == 'member')
+                if ($_SESSION['role'] == 'user')
                     include_once("view/memberHeader.php");
                 else
                     include_once("view/modHeader.php");
