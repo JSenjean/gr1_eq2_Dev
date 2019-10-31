@@ -18,6 +18,12 @@ if (isset($_GET['action'])) {
             include_once("controller/projects.php");
         }
     }
+    elseif ($_GET['action'] == 'leaveProject') {
+        if(isset($_GET['projectId'])){
+            $_SESSION["projectToLeave"]=$_GET['projectId'];
+            include_once("controller/projects.php");
+        }
+    }
     else if ($_GET['action'] == 'logout'){
         include_once("controller/logout.php");
     }else if ($_GET['action'] == 'modPanel') {

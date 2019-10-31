@@ -76,3 +76,22 @@ function associat_project_and_user($userId,$projectId,$role)
         echo  "<br>" . $e->getMessage();
     }
 }
+function leave_a_project($userId,$projectId)
+{
+    try {
+        $bdd = dbConnect();
+        $stmt = $bdd->prepare(
+            "DELETE FROM  project_member
+            WHERE project_id=:projectId AND user_id=:userId"
+        );
+
+        $stmt->execute(array(':projectId' => $projectId,
+        ':userId' => $userId
+       
+    ));   
+    //echo($userId);echo($projectId);
+    return 1; 
+    } catch (PDOException $e) {
+        echo  "<br>" . $e->getMessage();
+    }
+}

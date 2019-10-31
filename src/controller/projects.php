@@ -20,6 +20,22 @@ if(isset($_SESSION['projectToDelete']))
     unset($_SESSION['projectToDelete']);
     include_once("view/errors/deletedProject.php");
     }
+
+}
+
+if(isset($_SESSION['projectToLeave']))
+{
+    if(leave_a_project($id,($_SESSION['projectToLeave']))==1)
+    {
+    unset($_SESSION['projectToLeave']);
+    include_once("view/successes/deletedProject.php");
+    }
+    else
+    {
+    unset($_SESSION['projectToLeave']);
+    include_once("view/errors/deletedProject.php");
+    }
+
 }
 
 if(isset($_POST['projectName']) && isset($_POST['projectDescription']))

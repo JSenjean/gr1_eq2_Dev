@@ -45,7 +45,7 @@
                         <?php
                             } else {
                                 ?>
-                            <a href='index.php?action=selectedProject&projectId=<?php echo ($u['id']) ?>'>
+                            <a href='index.php?action=leaveProject&projectId=<?php echo ($u['id']) ?>'>
                                 <i class='fas fa-arrow-alt-circle-left	 ' style="color:red ; cursor:pointer" data-toggle="tooltip" data-placement="top" title="Entrer dans le projet"></i>
                             </a>
                         <?php } ?>
