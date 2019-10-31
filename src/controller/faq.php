@@ -19,7 +19,7 @@
         $keywords = $_POST['search'];
         $search = searchQA($keywords);
     }
-    if (isset($_SESSION['role']) && ($_SESSION['role'] == 'moderator' || $_SESSION['role'] == 'admin'))
+    if (isset($_SESSION['role']) && ($_SESSION['role'] == 'admin'))
         include_once("view/modHeader.php");
     else if (isset($_SESSION['role']) && $_SESSION['role'] == 'member')
         include_once("view/memberHeader.php");

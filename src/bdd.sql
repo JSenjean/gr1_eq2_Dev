@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Serveur: localhost
--- Généré le : Jeu 31 Octobre 2019 à 14:25
+-- Généré le : Jeu 31 Octobre 2019 à 15:04
 -- Version du serveur: 5.0.75
 -- Version de PHP: 5.2.6-3ubuntu4.6
 
@@ -40,10 +40,11 @@ CREATE TABLE IF NOT EXISTS `doc_section` (
 CREATE TABLE IF NOT EXISTS `faq` (
   `id` int(11) NOT NULL auto_increment,
   `id_category` int(11) NOT NULL,
-  `question` text character set utf8 collate utf8_unicode_ci NOT NULL,
-  `answer` text character set utf8 collate utf8_unicode_ci NOT NULL,
-  PRIMARY KEY  (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+  `question` text collate utf8_unicode_ci NOT NULL,
+  `answer` text collate utf8_unicode_ci NOT NULL,
+  PRIMARY KEY  (`id`),
+  KEY `id_category` (`id_category`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -53,9 +54,9 @@ CREATE TABLE IF NOT EXISTS `faq` (
 
 CREATE TABLE IF NOT EXISTS `faq_category` (
   `id` int(11) NOT NULL auto_increment,
-  `category` text character set utf8 collate utf8_unicode_ci NOT NULL,
+  `category` text collate utf8_unicode_ci NOT NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -100,7 +101,7 @@ CREATE TABLE IF NOT EXISTS `project` (
   `visibility` tinyint(1) NOT NULL default '1',
   `release_git` varchar(255) character set latin1 NOT NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -132,7 +133,7 @@ CREATE TABLE IF NOT EXISTS `project_member` (
   PRIMARY KEY  (`id`),
   KEY `project_id` (`project_id`,`user_id`),
   KEY `user_id` (`user_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -253,6 +254,12 @@ ALTER TABLE `doc_section`
   ADD CONSTRAINT `doc_section_ibfk_1` FOREIGN KEY (`project_id`) REFERENCES `project` (`id`);
 
 --
+-- Contraintes pour la table `faq`
+--
+ALTER TABLE `faq`
+  ADD CONSTRAINT `faq_ibfk_1` FOREIGN KEY (`id_category`) REFERENCES `faq_category` (`id`) ON DELETE CASCADE;
+
+--
 -- Contraintes pour la table `inside_project_role`
 --
 ALTER TABLE `inside_project_role`
@@ -276,8 +283,8 @@ ALTER TABLE `project_invitation`
 -- Contraintes pour la table `project_member`
 --
 ALTER TABLE `project_member`
-  ADD CONSTRAINT `project_member_ibfk_1` FOREIGN KEY (`project_id`) REFERENCES `project` (`id`),
-  ADD CONSTRAINT `project_member_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`);
+  ADD CONSTRAINT `project_member_ibfk_4` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `project_member_ibfk_3` FOREIGN KEY (`project_id`) REFERENCES `project` (`id`) ON DELETE CASCADE;
 
 --
 -- Contraintes pour la table `sprint`

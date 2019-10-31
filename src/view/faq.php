@@ -13,7 +13,7 @@
 
   <div id="accordion">
     <?php
-    if (isset($_SESSION['role']) && ($_SESSION['role'] == 'admin' || $_SESSION['role'] == 'moderator')){
+    if (isset($_SESSION['role']) && ($_SESSION['role'] == 'admin')){
       echo 
         '<div class="card border-secondary">
           <div class="card-header text-white bg-secondary" id="heading00" data-toggle="collapse" data-target="#collapse00" aria-expanded="false" aria-controls="collapse00">
@@ -131,7 +131,7 @@
                     </div>
                     <?php
                       $QA_ID = $value['id'];
-                      if (isset($_SESSION['role']) && ($_SESSION['role'] == 'admin' || $_SESSION['role'] == 'moderator')){
+                      if (isset($_SESSION['role']) && ($_SESSION['role'] == 'admin')){
                         echo 
                           '<div class="card-footer bg-transparent">
                             <button type="button" class="btn btn-link p-0" data-toggle="modal" data-target="#editInfoModalSearch'.$value['id'].'">Modifier</button>
@@ -227,7 +227,7 @@
                     </div>
                     <?php
                       $QA_ID = $value['id'];
-                      if (isset($_SESSION['role']) && ($_SESSION['role'] == 'admin' || $_SESSION['role'] == 'moderator')){
+                      if (isset($_SESSION['role']) && ($_SESSION['role'] == 'admin')){
                         echo 
                           '<div class="card-footer bg-transparent">
                             <button type="button" class="btn btn-link p-0" data-toggle="modal" data-target="#editInfoModal'.$value['id'].'">Modifier</button>

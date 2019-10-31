@@ -45,10 +45,10 @@
 
     /**
      * Modify the informations of a FAQ specified by its id from a POST request
-     * For administrators and moderators only
+     * For administrators only
      */
     function editQA($id){
-        if ($_SESSION['role'] == 'admin' || $_SESSION['role'] == 'moderator'){
+        if ($_SESSION['role'] == 'admin'){
             if (isset ($_POST ['submit'])) {
                 $bdd = dbConnect();
                 $question = trim(strip_tags($_POST['question']));
@@ -77,10 +77,10 @@
 
     /**
      * Add a new FAQ to the database from a POST request
-     * For administrators and moderators only
+     * For administrator only
      */
     function addQA(){
-        if ($_SESSION['role'] == 'admin' || $_SESSION['role'] == 'moderator'){
+        if ($_SESSION['role'] == 'admin'){
             try{
                 $bdd = dbConnect();
                 $question = trim(strip_tags($_POST['question']));
@@ -103,10 +103,10 @@
 
     /**
      * Delete a FAQ from the database by specifying its id
-     * For administrators and moderators only
+     * For administrators only
      */
     function delQA($id){
-        if ($_SESSION['role'] == 'admin' || $_SESSION['role'] == 'moderator'){
+        if ($_SESSION['role'] == 'admin'){
             try{
                 $bdd = dbConnect();
                 $stmt = $bdd->prepare("DELETE FROM faq WHERE id=:id");
@@ -144,10 +144,10 @@
 
     /**
      * Add a new category of FAQ to the database
-     * For administrators and moderators only
+     * For administrators only
      */
     function addCategory(){
-        if ($_SESSION['role'] == 'admin' || $_SESSION['role'] == 'moderator'){       
+        if ($_SESSION['role'] == 'admin'){       
             try{
                 $bdd = dbConnect();
                 $category = trim(strip_tags($_POST['category']));
@@ -165,10 +165,10 @@
 
     /**
      * Delete a category of FAQ from the database and all the FAQ it contains
-     * For administrators and moderators only
+     * For administrators only
      */
     function delCategory(){
-        if ($_SESSION['role'] == 'admin' || $_SESSION['role'] == 'moderator'){  
+        if ($_SESSION['role'] == 'admin'){  
             try{
                 $bdd = dbConnect();
                 $stmt = $bdd->prepare("DELETE FROM faq_category WHERE category=:category");
