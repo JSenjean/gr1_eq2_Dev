@@ -28,7 +28,7 @@
             </ul>
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-item nav-link" href="index.php?action=services">Espace d'annonces</a>
+                    <a class="nav-item nav-link" href="index.php?action=projects">Mes Projets</a>
                 </li>
             </ul>
             <ul class="navbar-nav mr-auto">
