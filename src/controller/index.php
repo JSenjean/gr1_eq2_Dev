@@ -24,6 +24,9 @@ if (isset($_GET['action'])) {
     }else if ($_GET['action'] == 'modPanel') {
         include_once("controller/modPanel.php");
     }
+    else if ($_GET['action'] == 'newProject') {
+        include_once("controller/projects.php");
+    }
 } else {
     if (!isset($_SESSION['username'])) {
         include_once("view/index.php");
@@ -35,5 +38,4 @@ if (isset($_GET['action'])) {
         include_once("view/member.php");
     }
 }
-
-?>    
+    

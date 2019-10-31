@@ -6,9 +6,12 @@
                     <h2>Mes projets </h2>
                 </div>
                 <div class="col-md-4 float-right">
-                    <button class="float-sm-right btn-block btn btn-primary" type="button">
-                        Nouveau projet
-                        <i class='fas fa-plus-square' style="color:white ; cursor:pointer" data-toggle="tooltip" data-placement="top" title="Ajouter membre"></i></button>
+                    <a data-target='#NewProjectModal' href='index.php?action=newProject' data-toggle="modal" class="confirmNewProjectModalLink">
+                        <button class="float-sm-right btn-block btn btn-primary" type="button" data-target="#deleteProjectModal">
+                            Nouveau projet
+                            <i class='fas fa-plus-square' style="color:white ; cursor:pointer" data-toggle="tooltip" data-placement="top" title="Ajouter membre"></i>
+                        </button>
+                    </a>
                 </div>
             </div>
             <?php
@@ -19,8 +22,8 @@
                     <div class="card-header row">
                         <h3>
                             <?php echo ($u['name']); //project name
-                        ?>
-                        <?php if ($u['role'] == 'master') { ?>
+                                ?>
+                            <?php if ($u['role'] == 'master') { ?>
                                 <i class='fas fa-crown' style="color:yellow"></i>
                             <?php
                                 }

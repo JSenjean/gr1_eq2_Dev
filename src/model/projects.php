@@ -34,3 +34,45 @@ function remove_by_project_id($id)
         echo  "<br>" . $e->getMessage();
     }
 }
+
+function create_new_project($userId,$name,$description,$visibility=1)
+{
+    
+    try {
+        $bdd = dbConnect();
+        $stmt = $bdd->prepare(
+            "INSERT INTO 
+             project(name,description,visibility) 
+            VALUES(:name,:description,:visibility)"
+        );
+
+        $stmt->execute(array(':name' => $name,
+        ':description' => $description,
+        ':visibility' => $visibility
+    ));
+    $projectId=$bdd->lastInsertId();
+    associat_project_and_user($userId,$projectId,"master");
+    } catch (PDOException $e) {
+        echo  "<br>" . $e->getMessage();
+    }
+}
+function associat_project_and_user($userId,$projectId,$role)
+{
+    try {
+        $bdd = dbConnect();
+        $stmt = $bdd->prepare(
+            "INSERT INTO 
+             project_member(role,project_id,user_id) 
+            VALUES(:role,:project_id,:user_id)"
+        );
+
+        $stmt->execute(array(':role' => $role,
+        ':project_id' => $projectId,
+        ':user_id' => $userId
+       
+    ));   
+    return 1; 
+    } catch (PDOException $e) {
+        echo  "<br>" . $e->getMessage();
+    }
+}
