@@ -59,13 +59,59 @@
             }
             ?>
         </div>
-
-
+      
+           
         <!-- search a project -->
-        <div class="col-lg-6 border rounded my-custom-scrollbar bg-light ">
+        <div class="col-lg-6 card my-custom-scrollbar bg-light" >
+            
+            <div class="card-header row">
+                <div class="col-md-8 active-cyan-3 active-cyan-4">
+                        <input class="form-control" type="text" placeholder="Rechercher Projet" aria-label="Search" id="myInputSearch">
+                </div>
+            </div>
+            <div id="searchProjectDiv">
+            <?php        
+            foreach ($otherProjects as $u) {
+                //print_r($otherProjects);
+                ?>
+                <div class="card mt-3">
+                    <div class="card-header row">
+                        <h3>
+                            <?php echo ($u['name']); //project name
+                                ?>
+                        </h3>
+                    </div>
 
-            <p> bla </i> bla</p>
+                    
+                    <div class="card-footer " style="background-color: #E0DAD9">
+                        <?php
+                            if ($u['role'] == 'master') { ?>
+                            <a data-target='#deleteProjectModal' href='index.php?action=projectDelete&projectId=<?php echo ($u['id']) ?>' data-toggle="modal" class="confirmDeleteProjectModalLink">
+                                <i class='fas fa-trash' style="color:red; cursor:pointer" data-toggle="tooltip" data-placement="top" title="supprimer projet"></i>
+                            </a>
+
+                            <a href='index.php?action=addMemberToProject&projectId=<?php echo ($u['id']) ?>'>
+                                <i class='fas fa-plus-square' style="color:blue ; cursor:pointer" data-toggle="tooltip" data-placement="top" title="Ajouter membre"></i>
+                            </a>
+
+                        <?php
+                            } else {
+                                ?>
+                            <a href='index.php?action=leaveProject&projectId=<?php echo ($u['id']) ?>'>
+                                <i class='fas fa-arrow-alt-circle-left	 ' style="color:red ; cursor:pointer" data-toggle="tooltip" data-placement="top" title="Entrer dans le projet"></i>
+                            </a>
+                        <?php } ?>
+                        <a href='index.php?action=selectedProject&projectId=<?php echo ($u['id']) ?>'>
+                            <i class='fas fa-arrow-alt-circle-right	 ' style="color:green ; cursor:pointer" data-toggle="tooltip" data-placement="top" title="Entrer dans le projet"></i>
+                        </a>
+                    </div>
+                </div>
+            <?php
+
+            }
+            ?>
         </div>
+        </div >
     </div>
 
 

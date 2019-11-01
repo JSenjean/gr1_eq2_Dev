@@ -3,7 +3,7 @@
 /**
  * Return all project with id
  */
-function get_all_project_by_id($id)
+function get_all_project_by_user_id($id)
 {
     try {
         $bdd = dbConnect();
@@ -11,6 +11,22 @@ function get_all_project_by_id($id)
             "SELECT p.id, p.name, p.description, p.visibility, pm.role
                     FROM project=p,project_member=pm
                     WHERE p.id=pm.project_id AND pm.user_id=:usrId"
+        );
+
+        $stmt->execute(array(':usrId' => (int) $id));
+        return $stmt;
+    } catch (PDOException $e) {
+        echo  "<br>" . $e->getMessage();
+    }
+}
+function get_all_project_without_user_id($id)
+{
+    try {
+        $bdd = dbConnect();
+        $stmt = $bdd->prepare(
+            "SELECT p.id, p.name, p.description, p.visibility, pm.role, u.username
+                    FROM project=p,project_member=pm,user=u
+                    WHERE p.id=pm.project_id AND pm.user_id!=:usrId AND pm.role='master' AND pm.user_id=u.id"
         );
 
         $stmt->execute(array(':usrId' => (int) $id));

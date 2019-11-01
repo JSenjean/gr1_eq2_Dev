@@ -48,7 +48,8 @@ if(isset($_POST['projectName']) && isset($_POST['projectDescription']))
 
     create_new_project($id,$_POST['projectName'],$_POST['projectDescription'],$visibility);
 }
-$projects=get_all_project_by_id($_SESSION["id"]);
+$projects=get_all_project_by_user_id($id);
+$otherProjects=get_all_project_without_user_id($id);
 //print_r($projects);
 include_once("view/projects.php");
 include_once("view/validate/deleteProject.php");
