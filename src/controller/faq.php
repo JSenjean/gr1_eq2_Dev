@@ -21,7 +21,7 @@
     }
     if (isset($_SESSION['role']) && ($_SESSION['role'] == 'admin'))
         include_once("view/modHeader.php");
-    else if (isset($_SESSION['role']) && $_SESSION['role'] == 'member')
+    else if (isset($_SESSION['role']) && $_SESSION['role'] == 'user')
         include_once("view/memberHeader.php");
     else
         include_once("view/header.php");
