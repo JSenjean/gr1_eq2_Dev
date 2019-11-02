@@ -81,25 +81,25 @@
         <input class="form-control" type="text" placeholder="Rechercher Projet" aria-label="Search" id="myInputSearch">
         <br>
         
-        <div class="list-group">
+        <div class="list-group" id="projectSearchList">
             <?php foreach ($otherProjects as $u) {
                 if ($u['visibility'] == 1) { ?>
-                    <div class="list-group-item flex-column align-items-start">
+                    <div class="list-group-item flex-column align-items-start" id="oneProject">
                         <div class="media">
 
                             <div class="media-body">
                                 <div class="d-flex justify-content-between">
-                                    <h5 class="mt-0"><?php echo $u['name']?></h5>
+                                    <h5 class="mt-0" id="projectName"><?php echo $u['name']?></h5>
                                     <h6 class="test-muted">
                                         <span class="font-weight-bold">Chef du projet : </span>
                                         <?php echo ($u['username']); ?>
                                     </h6>
                                 </div>
                                 <br>
-                                <div class="d-flex justify-content-between">
+                                <div class="d-flex justify-content-between" id="test">
                                     <h6 class="text-muted">
-                                        <span class="font-weight-bold">
-                                            <a role="button" class="btn btn-success mb-4 mr-2" data-target='#JoinProject' href='' data-toggle="modal">
+                                        <span class="font-weight-bold" id="buttonJoinSpan">
+                                            <a role="button" class="btn btn-success mb-4 mr-2" data-target='#JoinProject' href='' data-toggle="modal" id="patate">
                                                 Demander à rejoindre
                                             </a>
                                         </span>
@@ -120,4 +120,13 @@
     </body>
 
     </html>
-    
+    <script>
+$(document).ready(function(){
+  $("#myInputSearch").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("#projectSearchList #oneProject").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  });
+});
+</script>
