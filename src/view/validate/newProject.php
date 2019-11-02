@@ -14,12 +14,12 @@
                             <input type="text" id="projectName" maxlength="50 " name="projectName" required>
                     </div>
                     <div class="form-group">
-                        <label for="projectDescription"> description : </label>
+                        <label for="projectDescription"> Description : </label>
                             <textarea required  type="textarea" class="form-control"id="projectDescription" name="projectDescription"></textarea>
                     </div>
                     <div class="form-check">
                     <input class="form-check-input" type="checkbox" id="visibility" checked name="visibility">
-                        <label for="visibility"> visible de tous ? : </label>
+                        <label for="visibility"> Public ?</label>
                             
                     </div>
                 
