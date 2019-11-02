@@ -2,13 +2,13 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="deleteProjectModalLabel">Supression d'un projet</h5>
+                <h5 class="modal-title" id="deleteProjectModalLabel">Suppression d'un projet</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">×</span>
                 </button>
             </div>
             <div class="modal-body">
-                Vous êtes sur le point de supprimer un projet, cette action est définitive, aucun retour en arrière est possible voulez, vous continuez ?
+                Vous êtes sur le point de supprimer un projet, cette action est irréversible, aucun retour en arrière n'est possible, voulez-vous continuer ?
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>

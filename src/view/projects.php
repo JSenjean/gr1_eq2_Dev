@@ -95,7 +95,7 @@
                                         <?php echo ($u['username']); ?>
                                     </h6>
                                 </div>
-
+                                <br>
                                 <div class="d-flex justify-content-between">
                                     <h6 class="text-muted">
                                         <span class="font-weight-bold">
@@ -111,11 +111,6 @@
                     </div>
             <?php } } ?>
         </div>
-
-
-
-
-
     </div>
 
     </div>
@@ -125,3 +120,4 @@
     </body>
 
     </html>
+    
