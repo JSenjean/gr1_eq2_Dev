@@ -24,7 +24,7 @@ function get_all_project_without_user_id($id)
     try {
         $bdd = dbConnect();
         $stmt = $bdd->prepare(
-            "SELECT p.id, p.name, p.description, p.visibility, pm.role, u.username
+            "SELECT p.id, p.name, p.description, p.visibility, pm.role, u.username,u.id
                     FROM project=p,project_member=pm,user=u
                     WHERE p.id=pm.project_id AND pm.user_id!=:usrId AND pm.role='master' AND pm.user_id=u.id"
         );
@@ -111,3 +111,25 @@ function leave_a_project($userId,$projectId)
         echo  "<br>" . $e->getMessage();
     }
 }
+function add_invitation_request($requesterUserId,$projectId)
+{
+    try {
+        $bdd = dbConnect();
+        $stmt = $bdd->prepare(
+            "INSERT INTO 
+            project_invitation(user_id,project_id,request) 
+           VALUES(:user_id,:project_id,:request)"
+        );
+
+        $stmt->execute(array(':project_id' => $projectId,
+        ':user_id' => $requesterUserId,
+        ':request' => 1
+       
+    ));   
+    return 1; 
+    } catch (PDOException $e) {
+        echo  "<br>" . $e->getMessage();
+    }
+}
+
+?>
