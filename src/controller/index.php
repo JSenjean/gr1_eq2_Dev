@@ -41,6 +41,9 @@ if (isset($_GET['action'])) {
         include_once("model/faq.php");
         delQA($_GET['id']);
         include_once("controller/faq.php");
+    }else if ($_GET['action'] == 'selectedProject') {
+        $projectId = $_GET['projectId'];
+        include_once("controller/selectedProject.php");
     }
 } else {
     if (!isset($_SESSION['username'])) {
