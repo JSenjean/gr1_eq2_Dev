@@ -147,7 +147,8 @@
                         requesterUserId: <?php echo ($id); ?>
                     },
                     success: function(response) {
-                        if (response == 1) {
+                        if (response == 1 || response == 0) {
+                            console.log(response);
                             alert("la demande est transmise");
                             buttonRequest.html("invitation envoyer");
                             buttonRequest.attr("disabled", true);
