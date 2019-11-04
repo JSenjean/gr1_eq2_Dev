@@ -11,7 +11,12 @@
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">Membres</h5>
-                        
+                            <?php foreach ($projectMaster as $pm) { ?>
+                                <?php echo $pm['username']; break; ?>
+                            <?php } ?>
+                            <?php foreach ($members as $m) { ?>
+                                <?php echo $m['username'] ?>
+                            <?php } ?>                        
                     </div>
                 </div>
 
