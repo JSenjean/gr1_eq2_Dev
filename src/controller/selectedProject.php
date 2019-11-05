@@ -9,6 +9,7 @@ $projectMaster = get_project_master($_GET['projectId']);
 $members = get_all_project_members($_GET['projectId']);
 $requests = get_all_project_joining_requests($_GET['projectId']);
 $invitations = get_all_project_invitations($_GET['projectId']);
+$project = get_project_by_id($_GET['projectId']);
 
 if (isset($_GET['page']) == 'backlog') {    
     include_once("view/backlog.php");

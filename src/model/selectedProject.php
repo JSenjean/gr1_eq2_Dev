@@ -64,4 +64,37 @@ function get_all_project_invitations($id) {
     }
 }
 
+function get_project_by_id($id) {
+    try {
+        $bdd = dbConnect();
+        $stmt = $bdd->prepare(
+            "SELECT * FROM project
+            WHERE project.id=:projectId"
+        );
+        $stmt->execute(array('projectId' => $id));
+        return $stmt;
+    } catch (PDOException $e) {
+        echo "<br>" . $e->getMessage();
+    }
+}
+
+function editProject ($id) {
+    $bdd = dbConnect();
+    $name = trim(strip_tags($_POST['name']));
+    $description = trim(strip_tags($_POST['description']));
+    $visibility = isset($_POST['visibility']);
+    print ($visibility);
+    try{
+        $stmt = $bdd->prepare("UPDATE project SET name=:name, description=:description, visibility=:visibility WHERE id=:id");
+        $stmt->execute(array(
+            ':name' => $name,
+            ':desription' => $description,
+            ':visibility' => $visibility
+        ));
+    }
+    catch(PDOException $e){
+        echo  "<br>" . $e->getMessage();
+    }
+}
+
 ?>
