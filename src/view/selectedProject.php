@@ -11,28 +11,33 @@
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">Membres</h5>
-                            <?php foreach ($projectMaster as $pm) { ?>
-                                <?php echo $pm['username']; break; ?>
-                            <?php } ?>
-                            <?php foreach ($members as $m) { ?>
-                                <?php echo $m['username'] ?>
-                            <?php } ?>                        
+                            <?php foreach ($projectMaster as $pm) {
+                                echo $pm['username']; 
+                                break;
+                            }
+                            foreach ($members as $m) {
+                                echo '<br>' . $m['username'];
+                            } ?>                        
                     </div>
                 </div>
 
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">Requêtes en attente</h5>
-
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Requêtes en attente</h5>
+                            <?php foreach ($requests as $r) {
+                                echo $r['username'] . '<br>';
+                            } ?>     
+                    </div>
                 </div>
-            </div>
 
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">Invitations envoyées</h5>
-
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Invitations envoyées</h5>
+                            <?php foreach ($invitations as $i) {
+                                echo $i['username'] . '<br>';
+                            } ?>     
+                    </div>
                 </div>
-            </div>
 
             </div>
         </div>

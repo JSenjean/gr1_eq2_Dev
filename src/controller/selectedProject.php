@@ -7,8 +7,8 @@ include_once("view/projectNav.php");
 
 $projectMaster = get_project_master($_GET['projectId']);
 $members = get_all_project_members($_GET['projectId']);
-//$requests = get_all_project_joining_requests($id);
-//$invitations = get_all_project_invitations($id);
+$requests = get_all_project_joining_requests($_GET['projectId']);
+$invitations = get_all_project_invitations($_GET['projectId']);
 
 if (isset($_GET['page']) == 'backlog') {    
     include_once("view/backlog.php");
