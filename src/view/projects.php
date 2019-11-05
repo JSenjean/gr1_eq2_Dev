@@ -34,14 +34,14 @@
                                         <h6 class="text-muted">
                                             <span class="font-weight-bold">
                                                 <?php if ($u['role'] == 'master') { ?>
-                                                    <a href='index.php?action=addMemberToProject&projectId=<?php echo ($u['id']) ?>'>
+                                                    <a href='index.php?action=addMemberToProject&projectId=<?php echo ($u['id']) ?>' data-target='#inviteToProjectModal'  data-toggle="modal" class="inviteToProjectModalLink">
                                                         <i class='fas fa-plus-square' style="color:blue ; cursor:pointer" data-toggle="tooltip" data-placement="top" title="Ajouter des membres"></i>
                                                     </a>
                                                     <a data-target='#deleteProjectModal' href='index.php?action=projectDelete&projectId=<?php echo ($u['id']) ?>' data-toggle="modal" class="confirmDeleteProjectModalLink">
                                                         <i class='fas fa-trash' style="color:red; cursor:pointer" data-toggle="tooltip" data-placement="top" title="Supprimer projet"></i>
                                                     </a>
                                                 <?php } else { ?>
-                                                    <a href='index.php?action=leaveProject&projectId=<?php echo ($u['id']) ?>'>
+                                                    <a  href='index.php?action=leaveProject&projectId=<?php echo ($u['id']) ?>'>
                                                         <i class='fas fa-arrow-alt-circle-left	 ' style="color:red ; cursor:pointer" data-toggle="tooltip" data-placement="top" title="Quitter le projet"></i>
                                                     </a>
                                                 <?php } ?>

@@ -162,3 +162,26 @@ function check_if_request_already_exist($requesterUserId, $projectId)
         echo  "<br>" . $e->getMessage();
     }
 }
+
+function get_all_user_not_in_project($projectId)
+{
+    try {
+        $bdd = dbConnect();
+        $stmt = $bdd->prepare(
+            "SELECT u.username,u.id
+                FROM user=u 
+                WHERE u.id NOT IN ( SELECT user_id 
+                                    FROM project_member
+                                    WHERE project_id=:project_id)"
+        );
+
+        $stmt->execute(
+            array(
+                ':project_id' => $projectId
+            )
+        );
+        return $stmt;
+    } catch (PDOException $e) {
+        echo  "<br>" . $e->getMessage();
+    }
+}
