@@ -101,8 +101,14 @@ function acceptRequest ($project_id, $user_id, $role) {
     try {
         $bdd = dbConnect();
         $stmt = $bdd->prepare(
-            "INSERT INTO project_member(role, project_id, user_id) VALUES(:role, :project_id, :user_id);
-            DELETE FROM project_invitation WHERE user_id=:user_id AND project_id=:project_id
+            "INSERT INTO project_member(role, project_id, user_id) 
+            SELECT :role, :project_id, :user_id
+                WHERE NOT EXISTS(
+                    SELECT * FROM project_member
+                    WHERE user_id=:user_id
+            );
+            DELETE FROM project_invitation 
+            WHERE user_id=:user_id AND project_id=:project_id
         ");
         $stmt->execute(array(
             'role' => $role,
@@ -115,7 +121,7 @@ function acceptRequest ($project_id, $user_id, $role) {
     }
 }
 
-function deletedMember($project_id, $user_id) {
+function deleteMember($project_id, $user_id) {
     try {
         $bdd = dbConnect();
         $stmt = $bdd->prepare(
@@ -131,23 +137,59 @@ function deletedMember($project_id, $user_id) {
     }
 }
 
-function is_master($id) {
+function is_master($id, $project_id) {
     try {
         $bdd = dbConnect();
-        $stmt = $bdd->prepare("SELECT pm.role FROM project_member=pm WHERE pm.user_id=:id");
+        $stmt = $bdd->prepare(
+            "SELECT pm.role 
+            FROM project_member=pm 
+            WHERE pm.user_id=:id 
+            AND pm.project_id=:project_id");
         $stmt->execute(array(
-            'id' => $id
+            'id' => $id,
+            'project_id' => $project_id
         ));
     } catch (PDOException $e) {
         echo "<br>" . $e->getMessage();
     }
-    foreach($stmt as $s){
-        $result = $s['role'];
+    if (isset($stmt)){
+        $result = NULL;
+        foreach($stmt as $s){
+            $result = $s['role'];
+        }
+        if ($result == 'master'){
+            return true;
+        } else {
+            return false;
+        }
     }
-    if ($result == 'master'){
-        return true;
-    } else {
-        return false;
+}
+
+function is_member($id, $project_id) {
+    try {
+        $bdd = dbConnect();
+        $stmt = $bdd->prepare(
+            "SELECT pm.role 
+            FROM project_member=pm 
+            WHERE pm.user_id=:id 
+            AND pm.project_id=:project_id");
+        $stmt->execute(array(
+            'id' => $id,
+            'project_id' => $project_id
+        ));
+    } catch (PDOException $e) {
+        echo "<br>" . $e->getMessage();
+    }
+    if (isset($stmt)){
+        $result = NULL;
+        foreach($stmt as $s){
+            $result = $s['role'];
+        }
+        if ($result == 'member'){
+            return true;
+        } else {
+            return false;
+        }
     }
 }
 
