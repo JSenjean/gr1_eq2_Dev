@@ -46,10 +46,14 @@
 
         var nbUser = 0;
         $("#addUser").click(function(e) {
+            var currentName=$("#userName").val();
+            console.log(currentName);
             $("#userAdding").append('<span class="bg-success m-1 rounded" id="' + nbUser + '"><span class="text-white m-2">' + $("#userName").val() + '<a href="#"><i class="fas fa-times removeUser" style="color:white ;cursor:pointer" id="' + nbUser + '"></i></a></span></span>');
             nbUser++;
             $("#userName").val('');
-            userForAutocomplete.splice(userForAutocomplete.indexOf($("#userName").val()), 1);
+
+            //remove the user chose
+            userForAutocomplete.splice(userForAutocomplete.indexOf(currentName),1);
             $("#userName").autocomplete("option", "source", userForAutocomplete);
         });
 
