@@ -53,7 +53,19 @@ if (isset($_GET['action'])) {
         $projectId = $_GET['projectId'];
         $userId = $_GET['userId'];
         include_once("model/selectedProject.php");
-        acceptRequest($projectId, $userId);
+        acceptRequest($projectId, $userId, 'member');
+        include_once("controller/selectedProject.php");
+    }else if ($_GET['action'] == 'selectedProjectDeletedMember') {
+        $projectId = $_GET['projectId'];
+        $userId = $_GET['userId'];
+        include_once("model/selectedProject.php");
+        deletedMember($projectId, $userId);
+        include_once("controller/selectedProject.php");
+    }else if ($_GET['action'] == 'selectedProjectDeleteInvitationOrRequest') {
+        $projectId = $_GET['projectId'];
+        $userId = $_GET['userId'];
+        include_once("model/selectedProject.php");
+        deleteInvitationOrRequest($projectId, $userId);
         include_once("controller/selectedProject.php");
     }
 } else {

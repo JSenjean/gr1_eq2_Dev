@@ -97,15 +97,70 @@ function editProject ($id) {
     }
 }
 
-function acceptRequest ($projectId, $userId) {
+function acceptRequest ($project_id, $user_id, $role) {
     try {
         $bdd = dbConnect();
         $stmt = $bdd->prepare(
-            "
+            "INSERT INTO project_member(role, project_id, user_id) VALUES(:role, :project_id, :user_id);
+            DELETE FROM project_invitation WHERE user_id=:user_id AND project_id=:project_id
         ");
-        $stmt->execute(
-            
-        );
+        $stmt->execute(array(
+            'role' => $role,
+            'project_id' => $project_id,
+            'user_id' => $user_id
+        ));
+        return $stmt;
+    } catch (PDOException $e) {
+        echo "<br>" . $e->getMessage();
+    }
+}
+
+function deletedMember($project_id, $user_id) {
+    try {
+        $bdd = dbConnect();
+        $stmt = $bdd->prepare(
+            "DELETE FROM project_member WHERE project_id=:project_id AND user_id=:user_id
+        ");
+        $stmt->execute(array(
+            'project_id' => $project_id,
+            'user_id' => $user_id
+        ));
+        return $stmt;
+    } catch (PDOException $e) {
+        echo "<br>" . $e->getMessage();
+    }
+}
+
+function is_master($id) {
+    try {
+        $bdd = dbConnect();
+        $stmt = $bdd->prepare("SELECT pm.role FROM project_member=pm WHERE pm.user_id=:id");
+        $stmt->execute(array(
+            'id' => $id
+        ));
+    } catch (PDOException $e) {
+        echo "<br>" . $e->getMessage();
+    }
+    foreach($stmt as $s){
+        $result = $s['role'];
+    }
+    if ($result == 'master'){
+        return true;
+    } else {
+        return false;
+    }
+}
+
+function deleteInvitationOrRequest($project_id, $user_id) {
+    try {
+        $bdd = dbConnect();
+        $stmt = $bdd->prepare(
+            "DELETE FROM project_invitation WHERE project_id=:project_id AND user_id=:user_id
+        ");
+        $stmt->execute(array(
+            'project_id' => $project_id,
+            'user_id' => $user_id
+        ));
         return $stmt;
     } catch (PDOException $e) {
         echo "<br>" . $e->getMessage();
