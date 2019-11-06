@@ -2,11 +2,16 @@
 
     include_once("model/profile.php");
 
-    if (!checkConnection()){
+    if (isset($_POST['cancelRequestOrInvitation'])) {
+        echo (CancelRequest($_POST["projectId"]));
+    } else if (isset($_POST['acceptInvitation'])) {
+        echo (AcceptInvitaion($_POST["projectId"]));
+    }
+
+    else if(!checkConnection()){
         include_once("view/errors/notLogged.php");
         include_once("view/index.php");
     } else {
-
         if(isset($_GET['editInfo'])){
             $result = editInfo($_SESSION["username"]);
             if ($result == -3) {
@@ -37,7 +42,6 @@
             } else {
                 $id=$_SESSION['id'];
 /*
-
                 if (isset($_POST['delAnnonce'])) {
                     if (deleteUserPost($_POST['idA']) > 0)
                         include_once("view/success/deleteService.php");
@@ -51,10 +55,10 @@
                     include_once("view/modHeader.php");
                 $infoUser = getUserProfile();
                 $userNumberOfProject = getUserNbParticipation();
+                $userInvitations = getUserInvitationsOrRequest(0);
+                $userRequests = getUserInvitationsOrRequest(1);
                 include_once("view/profile.php");
             }
         }
 
     }
-
-?>
