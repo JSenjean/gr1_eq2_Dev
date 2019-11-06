@@ -83,13 +83,13 @@ function editProject ($id) {
     $name = trim(strip_tags($_POST['name']));
     $description = trim(strip_tags($_POST['description']));
     $visibility = isset($_POST['visibility']);
-    print ($visibility);
     try{
         $stmt = $bdd->prepare("UPDATE project SET name=:name, description=:description, visibility=:visibility WHERE id=:id");
         $stmt->execute(array(
-            ':name' => $name,
-            ':desription' => $description,
-            ':visibility' => $visibility
+            'id' => $id,
+            'name' => $name,
+            'description' => $description,
+            'visibility' => $visibility
         ));
     }
     catch(PDOException $e){

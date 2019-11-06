@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <b><a class="navbar-brand" href="#">Vue générale</a></b>
+  <b><a class="navbar-brand" href='index.php?action=selectedProject&projectId=<?php echo($projectId) ?>'>Vue générale</a></b>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
