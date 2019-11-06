@@ -134,10 +134,12 @@
         });
 
 
-        $(document).ready(function() {
+        $(document).ready(function() {     
             $(".askForInvitationButton").click(function() {
                 console.log($(this).attr('id'));
                 var buttonRequest = $(this);
+                
+                
                 $.ajax({
                     type: 'POST',
                     url: 'index.php?action=projects',
