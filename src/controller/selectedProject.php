@@ -2,7 +2,12 @@
 
 include_once("model/selectedProject.php");
 
-include_once("view/memberHeader.php");
+if ($_SESSION['role'] == 'user') {
+    include_once("view/memberHeader.php");
+} else {
+    include_once("view/modHeader.php");
+}
+
 include_once("view/projectNav.php");
 
 $projectMaster = get_project_master($_GET['projectId']);

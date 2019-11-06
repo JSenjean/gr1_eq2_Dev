@@ -49,6 +49,12 @@ if (isset($_GET['action'])) {
         include_once("model/selectedProject.php");
         editProject($projectId);
         include_once("controller/selectedProject.php");
+    }else if ($_GET['action'] == 'selectedProjectAcceptRequest') {
+        $projectId = $_GET['projectId'];
+        $userId = $_GET['userId'];
+        include_once("model/selectedProject.php");
+        acceptRequest($projectId, $userId);
+        include_once("controller/selectedProject.php");
     }
 } else {
     if (!isset($_SESSION['username'])) {

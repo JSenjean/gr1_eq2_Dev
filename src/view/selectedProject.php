@@ -6,18 +6,23 @@
 
                 <div class="clearfix">
                     <h3 class="text-dark card-link">Gestion des membres</h1>
+                    <br><a href="#" class="btn btn-primary">Ajouter des membres</a>
                 </div>
 
                 <div class="card mt-4">
                     <div class="card-body">
-                        <h5 class="card-title">Membres</h5>
-                        <?php foreach ($projectMaster as $pm) {
-                            echo $pm['username']; 
-                            break;
-                        }
+                        <h5 class="card-title mt-0">Membres</h5>
+                        <div class="d-flex justify-content-between">
+                            <?php foreach ($projectMaster as $pm) {
+                                echo $pm['username']; 
+                                break;
+                            } ?>
+                            <i class='fas fa-crown' style="color:#F3E90A"></i>
+                        </div>
+                        <?php
                         foreach ($members as $m) {
                             echo '<br>' . $m['username'];
-                        } ?>                        
+                        } ?>
                     </div>
                 </div>
 
@@ -25,7 +30,14 @@
                     <div class="card-body">
                         <h5 class="card-title">Requêtes en attente</h5>
                         <?php foreach ($requests as $r) {
+                            echo '<div class="d-flex justify-content-between">';
                             echo $r['username'] . '<br>';
+                            echo '
+                            <a href="index.php?action=selectedProjectAcceptRequest&projectId='.$projectId.'&userId='.$r['user_id'].'" class="btn">
+                                <i class="fas fa-check" style="color:#20CF2D" alt="Validate"></i>
+                            </a>
+                            ';
+                            echo '</div>';
                         } ?>     
                     </div>
                 </div>
@@ -91,6 +103,7 @@
 
                 <div class="clearfix">
                     <h3 class="text-dark card-link">Informations générales</h1>
+                    <br><button type="button" class="btn btn-outline-primary btn-sm float-left" data-toggle="modal" data-target="#editInfoModal">Éditer</button>
                 </div>
 
                 <?php // Will be used later on with the edit info modal
@@ -119,9 +132,6 @@
                         } ?>                  
                     </div>
                 </div>
-                
-                <br><button type="button" class="btn btn-outline-primary btn-sm float-left" data-toggle="modal" data-target="#editInfoModal">Éditer</button>
-
             </div>
         </div>
     </div>
