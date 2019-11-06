@@ -6,7 +6,9 @@
 
                 <div class="clearfix">
                     <h3 class="text-dark card-link">Gestion des membres</h1>
-                    <br><a href="#" class="btn btn-primary">Ajouter des membres</a>
+                    <?php if ($isMaster) { ?>
+                        <br><a href="#" class="btn btn-primary">Ajouter des membres</a>
+                    <?php } ?>
                 </div>
 
                 <div class="card mt-4">
@@ -16,12 +18,27 @@
                             <?php foreach ($projectMaster as $pm) {
                                 echo $pm['username']; 
                                 break;
-                            } ?>
-                            <i class='fas fa-crown' style="color:#F3E90A"></i>
+                            } 
+                            if ($isMaster){ ?>
+                            <a data-toggle="modal" data-target="#editInfoModal" class="btn">
+                                <i class='fas fa-crown' style="color:#F3E90A"></i>
+                            </a>
+                            <?php } else { ?>
+                                <i class='fas fa-crown' style="color:#F3E90A"></i>
+                            <?php } ?>
                         </div>
                         <?php
                         foreach ($members as $m) {
-                            echo '<br>' . $m['username'];
+                            echo '<div class="d-flex justify-content-between">';
+                            echo $m['username'] . '<br>';
+                            if ($isMaster) {
+                                echo '
+                                    <a href="index.php?action=selectedProjectDeletedMember&projectId='.$projectId.'&userId='.$m['user_id'].'" class="btn">
+                                        <i class="fas fa-times" style="color:#C12F2F; padding-right:4px;" alt="Delete"></i>
+                                    </a>
+                                    ';
+                                }
+                            echo '</div>';
                         } ?>
                     </div>
                 </div>
@@ -32,11 +49,18 @@
                         <?php foreach ($requests as $r) {
                             echo '<div class="d-flex justify-content-between">';
                             echo $r['username'] . '<br>';
-                            echo '
-                            <a href="index.php?action=selectedProjectAcceptRequest&projectId='.$projectId.'&userId='.$r['user_id'].'" class="btn">
-                                <i class="fas fa-check" style="color:#20CF2D" alt="Validate"></i>
-                            </a>
-                            ';
+                            if ($isMaster) {
+                                echo '
+                                <div>
+                                    <a href="index.php?action=selectedProjectAcceptRequest&projectId='.$projectId.'&userId='.$r['user_id'].'" class="btn">
+                                        <i class="fas fa-check" style="color:#20CF2D" alt="Validate"></i>
+                                    </a>
+                                    <a href="index.php?action=selectedProjectDeleteInvitationOrRequest&projectId='.$projectId.'&userId='.$r['user_id'].'" class="btn">
+                                        <i class="fas fa-times" style="color:#C12F2F" alt="Deny"></i>
+                                    </a>
+                                </div>
+                                ';
+                            }
                             echo '</div>';
                         } ?>     
                     </div>
@@ -46,7 +70,16 @@
                     <div class="card-body">
                         <h5 class="card-title">Invitations envoyées</h5>
                         <?php foreach ($invitations as $i) {
+                            echo '<div class="d-flex justify-content-between">';
                             echo $i['username'] . '<br>';
+                            if ($isMaster) {
+                                echo '
+                                    <a href="index.php?action=selectedProjectDeleteInvitationOrRequest&projectId='.$projectId.'&userId='.$i['user_id'].'" class="btn">
+                                        <i class="fas fa-times" style="color:#C12F2F" alt="Cancel"></i>
+                                    </a>
+                                    ';
+                                }
+                            echo '</div>';
                         } ?>     
                     </div>
                 </div>
@@ -103,7 +136,9 @@
 
                 <div class="clearfix">
                     <h3 class="text-dark card-link">Informations générales</h1>
-                    <br><button type="button" class="btn btn-outline-primary btn-sm float-left" data-toggle="modal" data-target="#editInfoModal">Éditer</button>
+                    <?php if ($isMaster) { ?>
+                        <br><button type="button" class="btn btn-outline-primary btn-sm float-left" data-toggle="modal" data-target="#editInfoModal">Éditer</button>
+                    <?php } ?>
                 </div>
 
                 <?php // Will be used later on with the edit info modal
@@ -136,6 +171,7 @@
         </div>
     </div>
 
+
 <!-- EDIT INFORMATION -->
 <div class="modal fade" id="editInfoModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
@@ -154,7 +190,7 @@
           </div>
           <div class="form-group">
             <label for="InputDescription">Description</label>
-            <input type="textfield" class="form-control" id="InputName" name="description" value="<?php echo $description?>" required>
+            <textarea type="textarea" class="form-control" id="InputName" name="description" required><?php echo $description?></textarea>
           </div>
           <div class="form-group ml-4">
             <input class="form-check-input" type="checkbox" id="InputVisiblity" <?php if ($visibility == 1) { echo ' checked ';  } ?> name="visibility" value="<?php echo $visibility ?>">
