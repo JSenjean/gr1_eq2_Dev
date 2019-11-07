@@ -83,7 +83,7 @@
 
                     <div class="list-group" id="projectSearchList">
                         <?php foreach ($otherProjects as $u) {
-                            var_dump($u);
+                            //var_dump($u);
                             if ($u['visibility'] == 1) { ?>
                                 <div class="list-group-item flex-column align-items-start" id="oneProject">
                                     <div class="media">
