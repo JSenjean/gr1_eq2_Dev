@@ -34,7 +34,7 @@
                                         <h6 class="text-muted">
                                             <span class="font-weight-bold">
                                                 <?php if ($u['role'] == 'master') { ?>
-                                                    <a href='index.php?action=addMemberToProject&projectId=<?php echo ($u['id']) ?>' data-target='#inviteToProjectModal'  data-toggle="modal" class="inviteToProjectModalLink">
+                                                    <a  data-target='#inviteToProjectModal'  data-toggle="modal" class="inviteToProjectModalLink" data-projectid="<?php echo ($u['id']) ?>">
                                                         <i class='fas fa-plus-square' style="color:blue ; cursor:pointer" data-toggle="tooltip" data-placement="top" title="Ajouter des membres"></i>
                                                     </a>
                                                     <a data-target='#deleteProjectModal' href='index.php?action=projectDelete&projectId=<?php echo ($u['id']) ?>' data-toggle="modal" class="confirmDeleteProjectModalLink">

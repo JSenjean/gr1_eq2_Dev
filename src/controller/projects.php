@@ -45,8 +45,8 @@ if (isset($_POST['askForInvitation'])) {
     }
     $projects = get_all_project_by_user_id($id);
     $otherProjects = get_all_project_without_user_id($id);
-    $users=get_all_user_not_in_project(4)->fetchAll();
-    $jsonUsers=json_encode($users);
+    //$users=get_all_user_not_in_project(4)->fetchAll();
+    //$jsonUsers=json_encode($users);
     //print_r($projects);
     include_once("view/projects.php");
     include_once("view/validate/deleteProject.php");

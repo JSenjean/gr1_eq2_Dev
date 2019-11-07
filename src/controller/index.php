@@ -65,6 +65,8 @@ if (isset($_GET['action'])) {
             $_SESSION['userRequestToDelete']=$_GET['userId'];
             include_once("controller/selectedProject.php");
         }
+    }else if ($_GET['action'] == 'utility') {
+         include_once("controller/utility.php");
     }
 } else {
     if (!isset($_SESSION['username'])) {
@@ -77,4 +79,3 @@ if (isset($_GET['action'])) {
         include_once("controller/projects.php");
     }
 }
-    
