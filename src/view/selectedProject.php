@@ -183,7 +183,7 @@
         </button>
       </div>
       <div class="modal-body">
-        <form method="POST" data-toggle="validator" action="index.php?action=editSelectedProject&projectId=<?php echo ($projectId) ?>">
+        <form method="POST" data-toggle="validator" action="index.php?action=editSelectedProject&projectId=<?php echo $projectId ?>">
           <div class="form-group">
             <label for="InputName">Nom</label>
             <input type="textfield" class="form-control" id="InputName" name="name" value="<?php echo $name?>" required>
