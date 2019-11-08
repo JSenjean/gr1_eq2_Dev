@@ -53,10 +53,10 @@
                 <div class="card-body">
                   <div class="justify-content-between row">
                     <div class="col-md">
-                      <button class="btn btn-success btn-default btn-block acceptInvitation" id="<?php echo ($value['project_id']); ?>">Accepter</button>
+                      <button class="btn btn-success btn-default btn-block acceptInvitation" id="<?php echo $value['project_id']; ?>">Accepter</button>
                     </div>
                     <div class="col-md">
-                      <button class="btn btn-danger btn-default btn-block cancelRequestOrInvitation" id="<?php echo ($value['project_id']); ?>">Refuser</button>
+                      <button class="btn btn-danger btn-default btn-block cancelRequestOrInvitation" id="<?php echo $value['project_id']; ?>">Refuser</button>
                     </div>
                   </div>
                 </div>
@@ -78,7 +78,7 @@
                       <h6><?php echo $value['name'] ?></h6>
                     </div>
                     <div class="col-sm my-auto">
-                      <button class="btn btn-danger float-right py-1 cancelRequestOrInvitation" type="button" id="<?php echo ($value['project_id']); ?>">Annuler la requête</button>
+                      <button class="btn btn-danger float-right py-1 cancelRequestOrInvitation" type="button" id="<?php echo $value['project_id']; ?>">Annuler la requête</button>
                     </div>
                   </div>
                 </div>
