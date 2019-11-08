@@ -3,9 +3,9 @@
     include_once("model/profile.php");
 
     if (isset($_POST['cancelRequestOrInvitation'])) {
-        echo (CancelRequest($_POST["projectId"]));
+        echo CancelRequest($_POST["projectId"]);
     } else if (isset($_POST['acceptInvitation'])) {
-        echo (AcceptInvitaion($_POST["projectId"]));
+        echo AcceptInvitaion($_POST["projectId"]);
     }
 
     else if(!checkConnection()){
@@ -40,15 +40,7 @@
                 deleteAccount();
                 include_once("logout.php");
             } else {
-                $id=$_SESSION['id'];
-/*
-                if (isset($_POST['delAnnonce'])) {
-                    if (deleteUserPost($_POST['idA']) > 0)
-                        include_once("view/success/deleteService.php");
-                    else
-                        include_once("view/errors/noRights.php");
-                }
-*/
+                $id = $_SESSION['id'];
                 if ($_SESSION['role'] == 'user')
                     include_once("view/memberHeader.php");
                 else
