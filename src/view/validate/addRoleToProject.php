@@ -93,7 +93,7 @@
                                 htmlToWrite += roleDescription
                                 htmlToWrite += '</div>'
                                 htmlToWrite += '<div class="card-footer">'
-                                htmlToWrite += '<button type="button" class="btn btn-danger">'
+                                htmlToWrite += '<button type="button" class="btn btn-danger removeRoleButton" data-roleid="' + response + '">'
                                 htmlToWrite += 'Suppprimer'
                                 htmlToWrite +=  '</button>'
                                 htmlToWrite += '<button type="button" class="btn btn-primary" data-target="#addOrModifyRoleToProjectModal" data-toggle="modal" class="addOrModifyRoleToProjectLink" data-roleid="' + response + '" data-rolename="' + roleName + '" data-roleDescription="' + roleDescription + '" data-projectid="' + projectId + '" data-writeEndTo="card' + response + '">'

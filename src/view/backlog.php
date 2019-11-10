@@ -43,7 +43,7 @@
 <script>
   $(document).ready(function() {
 
-    $(".removeRoleButton").click(function() {
+    $(document).on("click",".removeRoleButton",function() {
       var r=confirm("Cette action est irréversible confirmez, vous la suppression ?");
       if(r)
       {
