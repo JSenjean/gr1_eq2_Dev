@@ -6,27 +6,27 @@
   <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
             <li class="nav-item">
-                <b><a class="nav-item nav-link" href="index.php?action=selectedProject&projectId=<?php echo $projectId ?>&page=backlog">Backlog</a></b>
+                <b><a class="nav-item nav-link" href="index.php?action=backlog&projectId=<?php echo $projectId ?>">Backlog</a></b>
             </li>
         </ul>
         <ul class="navbar-nav">
             <li class="nav-item">
-                <b><a class="nav-item nav-link" href="index.php?action=selectedProject&projectId=<?php echo $projectId ?>&page=sprints">Sprints</a></b>
+                <b><a class="nav-item nav-link" href="index.php?action=sprints&projectId=<?php echo $projectId ?>">Sprints</a></b>
             </li>
         </ul>
         <ul class="navbar-nav">
             <li class="nav-item">
-                <b><a class="nav-item nav-link" href="index.php?action=selectedProject&projectId=<?php echo $projectId ?>&page=tests">Tests</a></b>
+                <b><a class="nav-item nav-link" href="index.php?action=tests&projectId=<?php echo $projectId ?>">Tests</a></b>
             </li>
         </ul>
         <ul class="navbar-nav">
             <li class="nav-item">
-                <b><a class="nav-item nav-link" href="index.php?action=selectedProject&projectId=<?php echo $projectId ?>&page=doc">Documentation</a></b>
+                <b><a class="nav-item nav-link" href="index.php?action=doc&projectId=<?php echo $projectId ?>">Documentation</a></b>
             </li>
         </ul>
         <ul class="navbar-nav">
             <li class="nav-item">
-                <b><a class="nav-item nav-link" href="index.php?action=selectedProject&projectId=<?php echo $projectI ?>&page=release">Release</a></b>
+                <b><a class="nav-item nav-link" href="index.php?action=release&projectId=<?php echo $projectId ?>">Release</a></b>
             </li>
         </ul>
   </div>

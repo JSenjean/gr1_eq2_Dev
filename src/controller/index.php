@@ -68,6 +68,9 @@ if (isset($_GET['action'])) {
     }else if ($_GET['action'] == 'utility') {
          include_once("controller/utility.php");
     }
+    else if ($_GET['action'] == 'backlog') {
+        include_once("controller/backlog.php");
+   }
 } else {
     if (!isset($_SESSION['username'])) {
         include_once("view/index.php");
