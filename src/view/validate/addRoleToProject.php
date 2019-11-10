@@ -35,10 +35,10 @@
 
 <script>
     $(document).ready(function() {
-        var projectId;
-        var roleName;
-        var roleDescription;
-        var writeEndTo;
+        var projectId=null;
+        var roleName=null;
+        var roleDescription=null;
+        var writeEndTo=null;
         var modify = false;
         var roleId;
         $("#addOrModifyRoleToProjectModal").on("shown.bs.modal", function(event) {
@@ -107,6 +107,9 @@
                                 if(modify)
                                 $(writeEndTo).empty();
                                 $(writeEndTo).append(htmlToWrite);
+                                modify=false;
+                                roleId=null
+                                
                                 $('#closeCross').click();
                             
 
