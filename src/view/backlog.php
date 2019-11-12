@@ -27,41 +27,66 @@
       </div>
     <?php endforeach; ?>
   </div>
-
-
-
-
-
-
   <div class="card">
     <div class="card-body" id="divAddRole">
       <button class="btn btn-primary btn-lg btn-block " type="button" data-target='#addOrModifyRoleToProjectModal' data-toggle="modal" class="addOrModifyRoleToProjectLink" data-projectid="<?php echo $projectId; ?>" data-writeEndTo="accordionRole">Ajouter un nouveaux rôle</button>
     </div>
   </div>
 </div>
+<h1 class="text-center">Team Design Section with Pure CSS Effect</h1>
 
+<!-- User storys-->
+<div class="container">
+  <div class="row">
+
+    <!--one US-->
+    <div class="col-lg-4">
+      <div class="userstory">
+
+        <div class="userstory-front">
+          <img src="http://placehold.it/110x110/9c27b0/fff?text=US1" class="img-fluid" />
+          <h3>US1</h3>
+          <p>Un role</p>
+        </div>
+
+        <div class="userstory-back">
+          <div class="row">
+            <div class="col">
+              <button class="btn btn-primary-outline" type="button"><em class='fas fa-pen' style="color:blue" title="Modifier US"></em>
+            </div>
+            <div class="col">
+              <button class="btn btn-primary-outline float-right" type="button"><em class='fas fa-times' style="color:red" title="Modifier US"></em>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <!--team-1-->
+  </div>
+</div>
+<link rel="stylesheet" href="backlog.css">
 <script>
   $(document).ready(function() {
 
-    $(document).on("click",".removeRoleButton",function() {
-      var r=confirm("Cette action est irréversible confirmez, vous la suppression ?");
-      if(r)
-      {
-      var roleId = $(this).data('roleid');
-      var button = $(this);
-      $.ajax({
-        type: 'POST',
-        url: 'index.php?action=backlog',
-        data: {
-          removeRole: true,
-          roleId: roleId
+    $(document).on("click", ".removeRoleButton", function() {
+      var r = confirm("Cette action est irréversible confirmez, vous la suppression ?");
+      if (r) {
+        var roleId = $(this).data('roleid');
+        var button = $(this);
+        $.ajax({
+          type: 'POST',
+          url: 'index.php?action=backlog',
+          data: {
+            removeRole: true,
+            roleId: roleId
 
-        },
-        success: function(response) {
-          button.closest('.card').remove();
+          },
+          success: function(response) {
+            button.closest('.card').remove();
 
-        }
-      })
+          }
+        })
 
       }
 
