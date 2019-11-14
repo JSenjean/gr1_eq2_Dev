@@ -65,11 +65,9 @@ if (isset($_POST["projectIdToModifyRole"])) {
     {
         $rolesID+= array("".$role['id']."" => "".$role['name']."");  
     }
-    var_dump($rolesID);
 
     $userStories = get_all_US_by_project_id($projectId)->fetchAll();    
     $sprints = get_all_sprints($projectId)->fetchAll();
-    var_dump($userStories);
     include_once("view/projectNav.php");
     include_once("view/backlog.php");
     include_once("view/validate/addRoleToProject.php");

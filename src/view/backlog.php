@@ -37,10 +37,10 @@
 
 <!-- User storys-->
 <div class="container">
-  <div class="row">
+  <div class="row" id="rowUS">
     <?php foreach ($userStories as $userStory) : $roleName = ($userStory["role_id"]!=null) ? $rolesID[($userStory["role_id"])] : "pas de role"; ?>
       <!--one US-->
-      <div class="col-lg-4">
+      <div class="col-lg-4" id="<?php echo $userStory['id']; ?>">
 
         <div class="userstory">
 
@@ -75,7 +75,7 @@
       <!--one US-->
     <?php endforeach; ?>
     <div class="col-lg-4 text-center">
-      <button type="button" class="btn btn-primary btn-lg" style="height:35%; " data-target='#addOrModifyUSToProjectModal' data-toggle="modal" class="addOrModifyUSToProjectLink" data-projectid="<?php echo $projectId; ?>" data-writeEndTo="accordionRole">
+      <button type="button" class="btn btn-primary btn-lg" style="height:35%; " data-target='#addOrModifyUSToProjectModal' data-toggle="modal" class="addOrModifyUSToProjectLink" data-projectid="<?php echo $projectId; ?>" data-writeEndTo="rowUS">
         <em class='fas fa-plus fa-3x' style="color:white; " title="Modifier US"></em>
       </button>
     </div>
