@@ -43,7 +43,9 @@ else {
     }
 
     $roles = get_all_inside_project_role($projectId)->fetchAll();
+    $userStories= get_all_US_by_project_id($projectId)->fetchAll();
 
+    include_once("view/projectNav.php");
     include_once("view/backlog.php");
     include_once("view/validate/addRoleToProject.php");
 }

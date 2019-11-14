@@ -38,31 +38,42 @@
 <!-- User storys-->
 <div class="container">
   <div class="row">
+    <?php foreach ($userStories as $userStory) : $roleName = $userStory['iprName']; ?>
+      <!--one US-->
+      <div class="col-lg-4">
 
-    <!--one US-->
-    <div class="col-lg-4">
-      <div class="userstory">
+        <div class="userstory">
 
-        <div class="userstory-front">
-          <img src="http://placehold.it/110x110/9c27b0/fff?text=US1" class="img-fluid" />
-          <h3>US1</h3>
-          <p>Un role</p>
-        </div>
-
-        <div class="userstory-back">
-          <div class="row">
-            <div class="col">
-              <button class="btn btn-primary-outline" type="button"><em class='fas fa-pen' style="color:blue" title="Modifier US"></em>
-            </div>
-            <div class="col">
-              <button class="btn btn-primary-outline float-right" type="button"><em class='fas fa-times' style="color:red" title="Modifier US"></em>
-            </div>
+          <div class="userstory-front">
+            <img src="http://placehold.it/110x110/9c27b0/fff?text=<?php echo $userStory['name']; ?>" class="img-fluid" />
+            <p>effort: <?php echo $userStory['effort']; ?> / Priorité: <?php echo $userStory['priority']; ?> </p>
+            <p><?php echo $roleName ?></p>
           </div>
-        </div>
 
+          <div class="userstory-back">
+            <div class="row">
+              <div class="col">
+                <button class="btn btn-primary-outline" type="button"><em class='fas fa-pen' style="color:blue" title="Modifier US"></em>
+              </div>
+              <div class="col">
+                <button class="btn btn-primary-outline float-right" type="button"><em class='fas fa-times' style="color:red" title="Modifier US"></em>
+              </div>
+            </div>
+            <span>
+              <p><b>En tant que</b> <?php echo $roleName ?></p>
+            </span>
+            <span>
+              <p><b>Je peux</b> <?php echo $userStory['i_can']; ?></p>
+            </span>
+            <span>
+              <p><b>Afin De </b><?php echo $userStory['so_that']; ?></p>
+            </span>
+          </div>
+
+        </div>
       </div>
-    </div>
-    <!--team-1-->
+      <!--one US-->
+    <?php endforeach; ?>
   </div>
 </div>
 <link rel="stylesheet" href="backlog.css">

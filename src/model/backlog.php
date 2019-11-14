@@ -74,3 +74,19 @@ function remove_by_role_id($id)
         echo  "<br>" . $e->getMessage();
     }
 }
+function get_all_US_by_project_id($project_id)
+{
+    try {
+        $bdd = dbConnect();
+        $stmt = $bdd->prepare(
+            "SELECT us.*,ipr.name as iprName
+                FROM inside_project_role=ipr,user_story=us
+                WHERE us.role_id=ipr.id AND us.project_id=:projectID"
+        );
+
+        $stmt->execute(array(':projectID' => $project_id));
+        return $stmt; //success
+    } catch (PDOException $e) {
+        echo  "<br>" . $e->getMessage();
+    }
+}
