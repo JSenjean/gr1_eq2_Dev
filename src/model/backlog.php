@@ -79,14 +79,42 @@ function get_all_US_by_project_id($project_id)
     try {
         $bdd = dbConnect();
         $stmt = $bdd->prepare(
-            "SELECT us.*,ipr.name as iprName
+            "SELECT us.*
                 FROM inside_project_role=ipr,user_story=us
-                WHERE us.role_id=ipr.id AND us.project_id=:projectID"
+                WHERE us.project_id=:projectID"
         );
 
         $stmt->execute(array(':projectID' => $project_id));
         return $stmt; //success
     } catch (PDOException $e) {
         echo  "<br>" . $e->getMessage();
+    }
+}
+function add_inside_project_US($projectID, $USName, $roleId, $iCan, $soThat,$difficulty,$workValue,$done)
+{
+    try {
+        $bdd = dbConnect();
+        $stmt = $bdd->prepare(
+            "INSERT INTO 
+             user_story(project_id,name,priority,effort,i_can,so_that,role_id,done) 
+            VALUES(:projectID,:USName,:workValue,:difficulty,:iCan,:soThat,:roleId,:done)"
+        );
+
+        $stmt->execute(array(
+            ':projectID' => $projectID,
+            ':USName' => $USName,
+            ':roleId' => $roleId,
+            ':workValue' => $workValue,
+            ':difficulty' => $difficulty,
+            ':iCan' => $iCan,
+            ':soThat' => $soThat,
+            ':roleId' => $roleId,
+            ':done' => $done,
+
+        ));
+        return $bdd->lastInsertId();
+    } catch (PDOException $e) {
+        echo  "<br>" . $e->getMessage();
+        return -1;
     }
 }

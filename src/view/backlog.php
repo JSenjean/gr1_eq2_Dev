@@ -38,7 +38,7 @@
 <!-- User storys-->
 <div class="container">
   <div class="row">
-    <?php foreach ($userStories as $userStory) : $roleName = $userStory['iprName']; ?>
+    <?php foreach ($userStories as $userStory) : $roleName = ($userStory["role_id"]!=null) ? $rolesID[($userStory["role_id"])] : "pas de role"; ?>
       <!--one US-->
       <div class="col-lg-4">
 
@@ -60,13 +60,13 @@
               </div>
             </div>
             <span>
-              <p><b>En tant que</b> <?php echo $roleName ?></p>
+              <p><strong>En tant que</strong> <?php echo $roleName ?></p>
             </span>
             <span>
-              <p><b>Je peux</b> <?php echo $userStory['i_can']; ?></p>
+              <p><strong>Je peux</strong> <?php echo $userStory['i_can']; ?></p>
             </span>
             <span>
-              <p><b>Afin De </b><?php echo $userStory['so_that']; ?></p>
+              <p><strong>Afin De </strong><?php echo $userStory['so_that']; ?></p>
             </span>
           </div>
 
@@ -74,6 +74,11 @@
       </div>
       <!--one US-->
     <?php endforeach; ?>
+    <div class="col-lg-4 text-center">
+      <button type="button" class="btn btn-primary btn-lg" style="height:35%; " data-target='#addOrModifyUSToProjectModal' data-toggle="modal" class="addOrModifyUSToProjectLink" data-projectid="<?php echo $projectId; ?>" data-writeEndTo="accordionRole">
+        <em class='fas fa-plus fa-3x' style="color:white; " title="Modifier US"></em>
+      </button>
+    </div>
   </div>
 </div>
 <link rel="stylesheet" href="backlog.css">
@@ -89,6 +94,7 @@
           type: 'POST',
           url: 'index.php?action=backlog',
           data: {
+            projectIdToModifyRole: "exist",
             removeRole: true,
             roleId: roleId
 

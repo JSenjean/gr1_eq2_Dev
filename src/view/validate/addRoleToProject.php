@@ -47,7 +47,6 @@
                 writeEndTo = button.data('writeendto');
                 writeEndTo = '#' + writeEndTo;
 
-
             if (typeof button.data('roleid') != 'undefined') {
                 modify = true;
                 roleId = button.data('roleid')
@@ -72,7 +71,7 @@
                         type: 'POST',
                         url: 'index.php?action=backlog',
                         data: {
-                            projectIdToAdd: projectId,
+                            projectIdToModifyRole: projectId,
                             roleName: roleName,
                             roleDescription: roleDescription,
                             roleId:roleId
@@ -108,7 +107,6 @@
                                 $(writeEndTo).empty();
                                 $(writeEndTo).append(htmlToWrite);
                                 modify=false;
-                                roleId=null
                                 
                                 $('#closeCross').click();
                             
