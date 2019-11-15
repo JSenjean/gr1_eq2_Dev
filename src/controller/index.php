@@ -71,6 +71,8 @@ if (isset($_GET['action'])) {
         include_once("controller/backlog.php");
     } else if ($_GET['action'] == 'sprints') {
         include_once("controller/sprints.php");
+    } else if ($_GET['action'] == 'addSprint') {
+        include_once("controller/sprints.php");
     } else if ($_GET['action'] == 'tests') {
         include_once("controller/tests.php");
     }
