@@ -34,15 +34,15 @@
   </div>
 </div>
 <h1 class="text-center">Team Design Section with Pure CSS Effect</h1>
-
 <!-- User storys-->
 <div class="container">
   <div class="row" id="rowUS">
-    <?php foreach ($userStories as $userStory) : $roleName = ($userStory["role_id"]!=null) ? $rolesID[($userStory["role_id"])] : "pas de role"; ?>
+    <?php foreach ($userStories as $userStory) : $roleName = ($userStory["role_id"] != null) ? $rolesID[($userStory["role_id"])] : "pas de role"; ?>
       <!--one US-->
-      <div class="col-lg-4" id="<?php echo $userStory['id']; ?>">
 
-        <div class="userstory">
+      <div class="col-lg-4 usTop">
+
+        <div class="userstory" id="US<?php echo $userStory['id']; ?>">
 
           <div class="userstory-front">
             <img src="http://placehold.it/110x110/9c27b0/fff?text=<?php echo $userStory['name']; ?>" class="img-fluid" />
@@ -53,10 +53,11 @@
           <div class="userstory-back">
             <div class="row">
               <div class="col">
-                <button class="btn btn-primary-outline" type="button"><em class='fas fa-pen' style="color:blue" title="Modifier US"></em>
+                <button data-target='#addOrModifyUSToProjectModal' data-toggle="modal" class="btn btn-primary-outline" data-projectid="<?php echo $projectId; ?>" data-userstoryid="<?php echo $userStory['id']; ?>"  data-usname="<?php echo $userStory['name']; ?>"  data-rolename="<?php echo $roleName; ?>"  data-done="<?php echo $userStory['done']; ?>" data-effort="<?php echo $userStory['effort']; ?>" data-priority="<?php echo $userStory['priority']; ?>"  data-writeEndTo="US<?php echo $userStory['id']; ?>" type="button">
+                <em class='fas fa-pen' style="color:blue" title="Modifier US" ></em>
               </div>
               <div class="col">
-                <button class="btn btn-primary-outline float-right" type="button"><em class='fas fa-times' style="color:red" title="Modifier US"></em>
+                <button class="btn btn-primary-outline float-right removeUsButton" data-userstoryid="<?php echo $userStory['id']; ?>" type="button"><em class='fas fa-times' style="color:red" title="Modifier US"></em>
               </div>
             </div>
             <span>
@@ -74,12 +75,14 @@
       </div>
       <!--one US-->
     <?php endforeach; ?>
+
     <div class="col-lg-4 text-center">
-      <button type="button" class="btn btn-primary btn-lg" style="height:35%; " data-target='#addOrModifyUSToProjectModal' data-toggle="modal" class="addOrModifyUSToProjectLink" data-projectid="<?php echo $projectId; ?>" data-writeEndTo="rowUS">
+      <button type="button" class="btn btn-primary btn-lg" style="height:auto; " data-target='#addOrModifyUSToProjectModal' data-toggle="modal"  data-projectid="<?php echo $projectId; ?>" data-writeEndTo="rowUS">
         <em class='fas fa-plus fa-3x' style="color:white; " title="Modifier US"></em>
       </button>
     </div>
   </div>
+
 </div>
 <link rel="stylesheet" href="backlog.css">
 <script>
@@ -101,6 +104,29 @@
           },
           success: function(response) {
             button.closest('.card').remove();
+
+          }
+        })
+
+      }
+
+    })
+
+    $(document).on("click", ".removeUsButton", function() {
+      var r = confirm("Cette action est irréversible confirmez, vous la suppression ?");
+      if (r) {
+        var UsId = $(this).data('userstoryid');
+        var button = $(this);
+        $.ajax({
+          type: 'POST',
+          url: 'index.php?action=backlog',
+          data: {
+            projectIdToModifyUS: "exist",
+            removeUSId: UsId,
+
+          },
+          success: function(response) {
+            button.closest('.usTop').remove();
 
           }
         })

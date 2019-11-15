@@ -88,15 +88,30 @@
 
 <script>
     $(document).ready(function() {
-        var writeEndTo;
-        var roles;
-        var projectId;
+        var writeEndTo= null;
+        var roles=null;
+        var projectId=null;
+        var usName=null;
+        var modify = false;
         $("#addOrModifyUSToProjectModal").on("shown.bs.modal", function(event) {
             var button = $(event.relatedTarget); // Button that triggered the modal
             projectId = button.data('projectid');
             writeEndTo = button.data('writeendto');
             writeEndTo = '#' + writeEndTo;
 
+            if (typeof button.data('userstoryid') != 'undefined') {
+                modify = true;
+                usName = button.data('usname')
+                console.log(usName);
+
+                $("#USName").val(usName);
+                $("#roleDescription").val(button.data('roledescription'));
+
+            } else {
+                
+                $("#roleName").val('');
+                $("#roleDescription").val('');
+            }
             $.ajax({
                 type: 'POST',
                 url: 'index.php?action=backlog',
@@ -156,7 +171,7 @@
                     rolename = (roleName=="choisissez un role" ? "pas de role": roleName);
 
                     var htmlToWrite = '';
-                    htmlToWrite += '<div class="col-lg-4" id="' + response + '">'
+                    htmlToWrite += '<div class="col-lg-4 usTop">'
                     htmlToWrite += '<div class="userstory">'
                     htmlToWrite += '<div class="userstory-front">'
                     htmlToWrite += '<img src="http://placehold.it/110x110/9c27b0/fff?text=' + name + '" class="img-fluid" />'
@@ -166,10 +181,12 @@
                     htmlToWrite += '<div class="userstory-back">';
                     htmlToWrite += '<div class="row">';
                     htmlToWrite += '<div class="col">'
-                    htmlToWrite += '<button class="btn btn-primary-outline" type="button"><em class="fas fa-pen" style="color:blue" title="Modifier US"></em>'
+                    htmlToWrite += '<button class="btn btn-primary-outline" type="button">'
+                    htmlToWrite += '<em class="fas fa-pen" style="color:blue" title="Modifier US"></em>'
                     htmlToWrite += '</div>'
                     htmlToWrite += '<div class="col">'
-                    htmlToWrite += '<button class="btn btn-primary-outline float-right" type="button"><em class="fas fa-times" style="color:red" title="Modifier US"></em>'
+                    htmlToWrite += '<button class="btn btn-primary-outline float-right removeUsButton" data-userstoryid="' + response + '"type="button">'
+                    htmlToWrite += '<em class="fas fa-times" style="color:red" title="Modifier US"></em>'
                     htmlToWrite += '</div>'
                     htmlToWrite += '</div>'
                     htmlToWrite += '<span>'

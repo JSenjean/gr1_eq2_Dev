@@ -39,7 +39,7 @@
         var roleName=null;
         var roleDescription=null;
         var writeEndTo=null;
-        var modify = false;
+        var modify=false;
         var roleId;
         $("#addOrModifyRoleToProjectModal").on("shown.bs.modal", function(event) {
             var button = $(event.relatedTarget); // Button that triggered the modal
@@ -47,9 +47,9 @@
                 writeEndTo = button.data('writeendto');
                 writeEndTo = '#' + writeEndTo;
 
-            if (typeof button.data('roleid') != 'undefined') {
+            if (typeof button.data('userstoryid') != 'undefined') {
                 modify = true;
-                roleId = button.data('roleid')
+                roleId = button.data('userstoryid')
 
                 $("#roleName").val(button.data('rolename'));
                 $("#roleDescription").val(button.data('roledescription'));

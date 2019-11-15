@@ -80,7 +80,7 @@ function get_all_US_by_project_id($project_id)
         $bdd = dbConnect();
         $stmt = $bdd->prepare(
             "SELECT us.*
-                FROM inside_project_role=ipr,user_story=us
+                FROM user_story=us
                 WHERE us.project_id=:projectID"
         );
 
@@ -116,5 +116,20 @@ function add_inside_project_US($projectID, $USName, $roleId, $iCan, $soThat,$dif
     } catch (PDOException $e) {
         echo  "<br>" . $e->getMessage();
         return -1;
+    }
+}
+function remove_US_by_id($USId)
+{
+    try {
+        $bdd = dbConnect();
+        $stmt = $bdd->prepare(
+            "DELETE FROM user_story
+                    WHERE id=:USId"
+        );
+
+        $stmt->execute(array(':USId' => $USId));
+        return 1; //success
+    } catch (PDOException $e) {
+        echo  "<br>" . $e->getMessage();
     }
 }

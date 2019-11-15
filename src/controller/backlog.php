@@ -44,6 +44,9 @@ if (isset($_POST["projectIdToModifyRole"])) {
         if(intval($sprint)=="0") $sprint=NULL;
         echo add_inside_project_US($_POST["projectIdToModifyUS"],$name,$roleId,$iCan,$soThat,$difficulty,$workValue,$done);
 
+    }elseif(isset($_POST["removeUSId"]))
+    {
+        echo remove_US_by_id($_POST["removeUSId"]);
     }
 } else {
     $projectId = $_GET["projectId"];
@@ -68,6 +71,7 @@ if (isset($_POST["projectIdToModifyRole"])) {
 
     $userStories = get_all_US_by_project_id($projectId)->fetchAll();    
     $sprints = get_all_sprints($projectId)->fetchAll();
+
     include_once("view/projectNav.php");
     include_once("view/backlog.php");
     include_once("view/validate/addRoleToProject.php");
