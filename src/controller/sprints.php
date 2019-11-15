@@ -7,7 +7,6 @@ if (isset($_POST['sprintName']) && isset($_POST['startDate']) && isset($_POST['e
     create_new_sprint($_POST['sprintName'], $_POST['startDate'], $_POST['endDate'], $_POST['projectID']);
     $projectId = $_POST['projectID'];
 } else if (isset($_POST['delete']) && isset($_POST['sprintToDeleteId'])) {
-    //var_dump($_POST);
     echo delete_sprint_by_id($_POST['sprintToDeleteId']);
 } else {
     $projectId = $_GET['projectId'];
@@ -24,5 +23,3 @@ if ($_SESSION['role'] == 'user') {
 include_once("view/validate/addSprintToProject.php");
 include_once("view/sprints.php");
 include_once("view/validate/addSprintToProject.php");
-
-
