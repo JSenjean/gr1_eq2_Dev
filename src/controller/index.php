@@ -67,12 +67,13 @@ if (isset($_GET['action'])) {
         }
     }else if ($_GET['action'] == 'utility') {
          include_once("controller/utility.php");
-    }
-    else if ($_GET['action'] == 'backlog') {
+    } else if ($_GET['action'] == 'backlog') {
         include_once("controller/backlog.php");
-   } else if ($_GET['action'] == 'sprints') {
+    } else if ($_GET['action'] == 'sprints') {
         include_once("controller/sprints.php");
-   }
+    } else if ($_GET['action'] == 'tests') {
+        include_once("controller/tests.php");
+    }
 } else {
     if (!isset($_SESSION['username'])) {
         include_once("view/index.php");
