@@ -38,4 +38,38 @@
             $('#addpassed').hide();
         }
     });
+
+    var projectId=<?php echo $projectId ?>;
+
+    function refreshDiv(state) {
+        $.ajax({
+            type: "POST",
+            url: 'index.php?action=tests',
+            data: {
+                projectId: projectId,
+                divToRefresh: state
+            },
+            success:
+                function(response){
+                    var div = '#add' + state
+                    $(div).html(response);
+                }
+        });
+    }
+
+    function refreshProgressBar() {
+        $.ajax({
+            type: "POST",
+            url: 'index.php?action=tests',
+            data: {
+                projectId: projectId,
+                refreshProgressBar: true
+            },
+            success:
+                function(response){
+                    $('#progressBar').html(response);
+                }
+        });
+    }
+
 </script>

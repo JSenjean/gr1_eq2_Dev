@@ -154,4 +154,83 @@ function add_new_test($projectId, $name, $description, $state) {
     }
 }
 
+function pass_all_tests($projectId) {
+    date_default_timezone_set('Europe/Paris');
+    $currentDate = date('Y-m-d', time());
+    try {
+        $bdd = dbConnect();
+        $stmt = $bdd->prepare(
+            "UPDATE test
+            SET state=:state, last_run=:last_run
+            WHERE project_id=:project_id"
+        );
+        $stmt->execute(array(
+            ':project_id' => $projectId,
+            ':last_run' => $currentDate,
+            ':state' => 'passed'
+        ));
+        return $stmt;
+    } catch (PDOException $e) {
+        echo "<br>" . $e->getMessage();
+        return -1;
+    }
+}
+
+function edit_test($id, $name, $description, $state) {
+    try{
+        $bdd = dbConnect();
+        $stmt = $bdd->prepare(
+            "UPDATE test
+            SET name=:name, description=:description, state=:state
+            WHERE id=:id"
+        );
+        $stmt->execute(array(
+            'id' => $id,
+            'name' => $name,
+            'description' => $description,
+            'state' => $state
+        ));
+        return $state;
+    } catch (PDOException $e) {
+        echo "<br>" . $e->getMessage();
+        return -1;
+    }
+}
+
+function delete_test($id, $state) {
+    try{
+        $bdd = dbConnect();
+        $stmt = $bdd->prepare(
+            "DELETE FROM test
+            WHERE id=:id"
+        );
+        $stmt->execute(array(
+            'id' => $id
+        ));
+        return $state;
+    } catch (PDOException $e) {
+        echo "<br>" . $e->getMessage();
+        return -1;
+    }
+}
+
+function change_state($id, $old_state, $new_state) {
+    try{
+        $bdd = dbConnect();
+        $stmt = $bdd->prepare(
+            "UPDATE test
+            set state=:state
+            WHERE id=:id"
+        );
+        $stmt->execute(array(
+            'id' => $id,
+            'state' => $new_state
+        ));
+        return $old_state;
+    } catch (PDOException $e) {
+        echo "<br>" . $e->getMessage();
+        return -1;
+    }
+}
+
 ?>
