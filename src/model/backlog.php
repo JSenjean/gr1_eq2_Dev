@@ -133,3 +133,41 @@ function remove_US_by_id($USId)
         echo  "<br>" . $e->getMessage();
     }
 }
+function modify_inside_project_US($usID,$projectID, $USName, $roleId, $iCan, $soThat,$difficulty,$workValue,$done)
+{
+    try {
+        $bdd = dbConnect();
+        $stmt = $bdd->prepare(
+            "UPDATE user_story
+                SET 
+                    project_id=:projectID,
+                    name=:USName,
+                    priority=:workValue,
+                    effort=:difficulty,
+                    i_can=:iCan,
+                    so_that=:soThat,
+                    role_id=:roleId,
+                    done=:done
+                WHERE id=:usId"
+        );
+
+        $stmt->execute(array(
+            ':projectID' => $projectID,
+            ':USName' => $USName,
+            ':roleId' => $roleId,
+            ':workValue' => $workValue,
+            ':difficulty' => $difficulty,
+            ':iCan' => $iCan,
+            ':soThat' => $soThat,
+            ':roleId' => $roleId,
+            ':done' => $done,
+            ':usId' => $usID
+
+        ));
+        return $usID;
+    } catch (PDOException $e) {
+        echo  "<br>" . $e->getMessage();
+        return -1;
+    }
+}
+?>

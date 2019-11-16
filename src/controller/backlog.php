@@ -32,17 +32,25 @@ if (isset($_POST["projectIdToModifyRole"])) {
         echo json_encode(get_all_inside_project_role($_POST["projectIdToModifyUS"])->fetchAll());
     }elseif(isset($_POST["modifyOrCreateUS"]))
     {
+        
         $name=$_POST["name"];
         $roleId=$_POST["roleId"];
         if(intval($roleId)=="0")$roleId=NULL;
-        $done=($_POST['done']) ? 1 : 0;
+        $done=($_POST["done"]=="true") ? 1 : 0;
         $iCan=$_POST["iCan"];
         $soThat=$_POST["soThat"];
         $difficulty=$_POST["difficulty"];
+        $difficulty;
         $workValue=$_POST["workValue"];
-        $sprint=$_POST["sprint"];
-        if(intval($sprint)=="0") $sprint=NULL;
-        echo add_inside_project_US($_POST["projectIdToModifyUS"],$name,$roleId,$iCan,$soThat,$difficulty,$workValue,$done);
+        if(isset($_POST["usId"]))
+        {
+            echo modify_inside_project_US($_POST["usId"],$_POST["projectIdToModifyUS"],$name,$roleId,$iCan,$soThat,$difficulty,$workValue,$done);
+        }
+        else
+        {
+            echo add_inside_project_US($_POST["projectIdToModifyUS"],$name,$roleId,$iCan,$soThat,$difficulty,$workValue,$done);
+        }
+       
 
     }elseif(isset($_POST["removeUSId"]))
     {
@@ -70,7 +78,6 @@ if (isset($_POST["projectIdToModifyRole"])) {
     }
 
     $userStories = get_all_US_by_project_id($projectId)->fetchAll();    
-    $sprints = get_all_sprints($projectId)->fetchAll();
 
     include_once("view/projectNav.php");
     include_once("view/backlog.php");

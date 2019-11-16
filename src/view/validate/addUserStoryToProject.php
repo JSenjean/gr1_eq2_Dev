@@ -61,15 +61,6 @@
                                 <option value="very high">Very high</option>
                             </select>
                         </div>
-                        <div class="form-group row m-1">
-                            <label for="USSprint">Sprint :</label>
-                            <select class="form-control" id="USSprint" name="USSprint">
-                                <option value="0">aucun</option>
-                                <?php foreach ($sprints as $sprint) : ?>
-                                    <option value=" <?php echo $sprint["id"]; ?>"><?php echo $sprint["name"]; ?></option>
-                                <?php endforeach; ?>
-                            </select>
-                        </div>
                     </div>
             </div>
 
@@ -88,10 +79,18 @@
 
 <script>
     $(document).ready(function() {
-        var writeEndTo= null;
-        var roles=null;
-        var projectId=null;
-        var usName=null;
+        var writeEndTo = null;
+        var roles = null;
+        var projectId = null;
+        var usName = null;
+        var roleId = "0";
+        var done = null;
+        var usId;
+        var iCan = null;
+        var soThat = null;
+        var difficulty = "1";
+        var workValue = "low";
+
         var modify = false;
         $("#addOrModifyUSToProjectModal").on("shown.bs.modal", function(event) {
             var button = $(event.relatedTarget); // Button that triggered the modal
@@ -99,18 +98,27 @@
             writeEndTo = button.data('writeendto');
             writeEndTo = '#' + writeEndTo;
 
-            if (typeof button.data('userstoryid') != 'undefined') {
+            if (typeof button.data('userstoryid') != 'undefined') { //if we are in a modification
                 modify = true;
-                usName = button.data('usname')
-                console.log(usName);
-
-                $("#USName").val(usName);
-                $("#roleDescription").val(button.data('roledescription'));
-
-            } else {
-                
-                $("#roleName").val('');
-                $("#roleDescription").val('');
+                usName = button.data('usname');
+                roleId = (button.data('roleid')!='' ? button.data('roleid') : "0") ;
+                done = button.data('done');
+                usId = button.data('userstoryid');
+                iCan = button.data('ican');
+                soThat = button.data('sothat');
+                difficulty = button.data('effort');
+                workValue = button.data('priority');
+            }
+            else
+            {
+                 usName = null;
+                 roleId = "0";
+                 done = null;
+                 usId;
+                 iCan = null;
+                 soThat = null;
+                 difficulty = "1";
+                 workValue = "low";
             }
             $.ajax({
                 type: 'POST',
@@ -132,56 +140,74 @@
                             text: role.name
                         }));
                     });
+                    //put all the value inside input and select
+                    $("#USName").val(usName);
+                    $('#USRole').val(roleId);
+                    $("#done").prop("checked", done == "1");
+                    $("#USICan").val(iCan);
+                    $("#USSoThat").val(soThat);
+                    $("#USDifficulty").val(difficulty);
+                    $("#USWorkValue").val(workValue);
                 },
 
             })
+
         })
 
         $("#newOrModifyUSForm").submit(function(event) {
             event.preventDefault();
-            var name = $("#USName").val();
-            var roleId = $("#USRole option:selected").val()
-            var roleName = $("#USRole option:selected").text()
-            var done = $("#done").is(':checked');
-            var iCan = $("#USICan").val();
-            var soThat = $("#USSoThat").val();
-            var difficulty = $("#USDifficulty option:selected").val()
-            var workValue = $("#USWorkValue option:selected").val()
-            var sprint = $("#USSprint option:selected").val()
-            //console.log(typeof difficulty);console.log(typeof workValue);console.log(typeof sprint);
+             usName = $("#USName").val();
+             roleId = $("#USRole option:selected").val()
+             roleName = $("#USRole option:selected").text()
+             done = $("#done").is(':checked');
+             iCan = $("#USICan").val();
+             soThat = $("#USSoThat").val();
+             difficulty = $("#USDifficulty option:selected").val()
+             workValue = $("#USWorkValue option:selected").val()
             $.ajax({
                 type: 'POST',
                 url: 'index.php?action=backlog',
                 data: {
                     projectIdToModifyUS: projectId,
                     modifyOrCreateUS: "exist",
-                    name: name,
+                    name: usName,
                     roleId: roleId,
                     done: done,
                     iCan: iCan,
                     soThat: soThat,
                     difficulty: difficulty,
                     workValue: workValue,
-                    sprint: sprint
+                    usId: usId,
 
                 },
                 success: function(response) {
-                    roleId;
-                   
-                    rolename = (roleName=="choisissez un role" ? "pas de role": roleName);
+                    console.log(response);
+                    rolename = (roleName == "choisissez un role" ? "pas de role" : roleName);
 
+                    done = (done ? 1:0);
                     var htmlToWrite = '';
-                    htmlToWrite += '<div class="col-lg-4 usTop">'
+                    if (!modify)
+                        htmlToWrite += '<div class="col-lg-4 usTop" id="US' + response + '">'
                     htmlToWrite += '<div class="userstory">'
                     htmlToWrite += '<div class="userstory-front">'
-                    htmlToWrite += '<img src="http://placehold.it/110x110/9c27b0/fff?text=' + name + '" class="img-fluid" />'
+                    htmlToWrite += '<img src="http://placehold.it/110x110/9c27b0/fff?text=' + usName + '" class="img-fluid" />'
                     htmlToWrite += '<p>effort: ' + difficulty + ' / Priorité: ' + workValue + ' </p>'
                     htmlToWrite += '<p>' + rolename + '</p>'
                     htmlToWrite += '</div>'
                     htmlToWrite += '<div class="userstory-back">';
                     htmlToWrite += '<div class="row">';
                     htmlToWrite += '<div class="col">'
-                    htmlToWrite += '<button class="btn btn-primary-outline" type="button">'
+                    htmlToWrite += '<button data-target="#addOrModifyUSToProjectModal" data-toggle="modal" class="btn btn-primary-outline" ' 
+                    htmlToWrite += 'data-projectid="' + projectId + '" ' 
+                    htmlToWrite += 'data-userstoryid="' + response + '" ' 
+                    htmlToWrite += 'data-usname="' + usName + '" ' 
+                    htmlToWrite += 'data-roleid="' + roleId + '"  '
+                    htmlToWrite += 'data-done="' + done + '" '
+                    htmlToWrite += 'data-effort="' + difficulty + '" ' 
+                    htmlToWrite += 'data-priority="' + workValue + '" '
+                    htmlToWrite += 'data-ican="' + iCan + '" '
+                    htmlToWrite += 'data-sothat="' + soThat + '" '
+                    htmlToWrite += 'data-writeEndTo="US' + response + '" type="button">'
                     htmlToWrite += '<em class="fas fa-pen" style="color:blue" title="Modifier US"></em>'
                     htmlToWrite += '</div>'
                     htmlToWrite += '<div class="col">'
@@ -192,18 +218,22 @@
                     htmlToWrite += '<span>'
                     htmlToWrite += '<p><strong>En tant que</strong> ' + rolename + '</p>'
                     htmlToWrite += '</span>'
-                    htmlToWrite += ' <span>'
-                    htmlToWrite += ' <p><strong>Je peux</strong>' + iCan + '</p>'
+                    htmlToWrite += '<span>'
+                    htmlToWrite += '<p><strong>Je peux</strong> ' + iCan + '</p>'
                     htmlToWrite += '</span>'
                     htmlToWrite += '<span>'
-                    htmlToWrite += '<p><strong>Afin De </strong>' + soThat + '</p>'
+                    htmlToWrite += '<p><strong>Afin De </strong> ' + soThat + '</p>'
                     htmlToWrite += '</span>'
                     htmlToWrite += '</div>'
                     htmlToWrite += '</div>'
-                    htmlToWrite += '</div>'
+                    if (!modify)
+                        htmlToWrite += '</div>'
 
-                                $(writeEndTo).append(htmlToWrite);
-                                $('#closeCrossUS').click();
+                    if (modify)
+                        $(writeEndTo).empty();
+
+                    $(writeEndTo).append(htmlToWrite);
+                    $('#closeCrossUS').click();
                 },
 
             })
@@ -213,4 +243,5 @@
 
 
     })
+    
 </script>

@@ -19,7 +19,7 @@
             <button type="button" class="btn btn-danger removeRoleButton" data-roleid="<?php echo $role["id"]; ?>">
               Suppprimer
             </button>
-            <button type="button" class="btn btn-primary" data-target='#addOrModifyRoleToProjectModal' data-toggle="modal" class="addOrModifyRoleToProjectLink" data-roleid="<?php echo $role["id"]; ?>" data-rolename="<?php echo $role["name"]; ?>" data-roleDescription="<?php echo $role["description"]; ?>" data-projectid="<?php echo $projectId; ?>" data-writeEndTo="card<?php echo $role["id"]; ?>">
+            <button type="button" class="btn btn-primary" data-target='#addOrModifyRoleToProjectModal' data-toggle="modal" class="addOrModifyRoleToProjectLink" data-roleid="<?php echo $role["id"]; ?>" data-rolename="<?php echo $role["name"]; ?>" data-roleDescription="<?php echo $role["description"]; ?>" data-projectid="<?php echo $projectId; ?>"  data-writeEndTo="card<?php echo $role["id"]; ?>">
               Modifier
             </button>
           </div>
@@ -40,9 +40,9 @@
     <?php foreach ($userStories as $userStory) : $roleName = ($userStory["role_id"] != null) ? $rolesID[($userStory["role_id"])] : "pas de role"; ?>
       <!--one US-->
 
-      <div class="col-lg-4 usTop">
+      <div class="col-lg-4 usTop" id="US<?php echo $userStory['id']; ?>">
 
-        <div class="userstory" id="US<?php echo $userStory['id']; ?>">
+        <div class="userstory">
 
           <div class="userstory-front">
             <img src="http://placehold.it/110x110/9c27b0/fff?text=<?php echo $userStory['name']; ?>" class="img-fluid" />
@@ -53,7 +53,7 @@
           <div class="userstory-back">
             <div class="row">
               <div class="col">
-                <button data-target='#addOrModifyUSToProjectModal' data-toggle="modal" class="btn btn-primary-outline" data-projectid="<?php echo $projectId; ?>" data-userstoryid="<?php echo $userStory['id']; ?>"  data-usname="<?php echo $userStory['name']; ?>"  data-rolename="<?php echo $roleName; ?>"  data-done="<?php echo $userStory['done']; ?>" data-effort="<?php echo $userStory['effort']; ?>" data-priority="<?php echo $userStory['priority']; ?>"  data-writeEndTo="US<?php echo $userStory['id']; ?>" type="button">
+                <button data-target='#addOrModifyUSToProjectModal' data-toggle="modal" class="btn btn-primary-outline" data-projectid="<?php echo $projectId; ?>" data-userstoryid="<?php echo $userStory['id']; ?>"  data-usname="<?php echo $userStory['name']; ?>"  data-roleid="<?php echo $userStory['role_id']; ?>"  data-done="<?php echo $userStory['done']; ?>" data-effort="<?php echo $userStory['effort']; ?>" data-priority="<?php echo $userStory['priority']; ?>" data-ican="<?php echo $userStory['i_can']; ?>" data-sothat="<?php echo $userStory['so_that']; ?>" data-writeEndTo="US<?php echo $userStory['id']; ?>" type="button">
                 <em class='fas fa-pen' style="color:blue" title="Modifier US" ></em>
               </div>
               <div class="col">
@@ -76,13 +76,13 @@
       <!--one US-->
     <?php endforeach; ?>
 
-    <div class="col-lg-4 text-center">
+    
+  </div>
+  <div class="col-lg-4 text-center">
       <button type="button" class="btn btn-primary btn-lg" style="height:auto; " data-target='#addOrModifyUSToProjectModal' data-toggle="modal"  data-projectid="<?php echo $projectId; ?>" data-writeEndTo="rowUS">
         <em class='fas fa-plus fa-3x' style="color:white; " title="Modifier US"></em>
       </button>
     </div>
-  </div>
-
 </div>
 <link rel="stylesheet" href="backlog.css">
 <script>
