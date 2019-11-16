@@ -46,9 +46,28 @@ if (isset($_POST["projectIdToModifyRole"])) {
         $workValue=$_POST["workValue"];
 
         if ($_POST["modify"]=="true") {
-            echo modify_inside_project_US($_POST["usId"], $projectIdToModify, $name, $roleId, $iCan, $soThat, $difficulty, $workValue, $done);
+            echo modify_inside_project_US(
+                $_POST["usId"], 
+                $projectIdToModify, 
+                $name, 
+                $roleId, 
+                $iCan, 
+                $soThat, 
+                $difficulty, 
+                $workValue, 
+                $done
+            );
         } else {
-            echo add_inside_project_US($projectIdToModify, $name, $roleId, $iCan, $soThat, $difficulty, $workValue, $done);
+            echo add_inside_project_US(
+                $projectIdToModify, 
+                $name, 
+                $roleId, 
+                $iCan, 
+                $soThat, 
+                $difficulty, 
+                $workValue, 
+                $done
+            );
         }
     } elseif (isset($_POST["removeUSId"])) {
         echo remove_US_by_id($_POST["removeUSId"]);

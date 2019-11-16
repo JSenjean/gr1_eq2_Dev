@@ -132,7 +132,7 @@
                   </div>
                   <div id="collapseSearch<?php echo $id?>" class="collapse" aria-labelledby="headingSearch<?php echo $id?>" data-parent="#accordion">
                     <div class="card-body">
-                      <?php echo(nl2br($a)); ?>
+                      <?php echonl2br($a); ?>
                     </div>
                     <?php
                       $QA_ID = $id;

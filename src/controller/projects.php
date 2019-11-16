@@ -1,7 +1,7 @@
 <?php
 include_once("model/projects.php");
 if (isset($_POST['askForInvitation'])) {
-    echo (add_invitation_request($_POST["requesterUserId"], $_POST["projectId"]));
+    echo add_invitation_request($_POST["requesterUserId"], $_POST["projectId"]);
 } else {
     include_once("model/projects.php");
     if (isset($_SESSION['username'])) {
