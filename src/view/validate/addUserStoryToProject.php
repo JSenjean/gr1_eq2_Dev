@@ -97,7 +97,7 @@
             projectId = button.data('projectid');
             writeEndTo = button.data('writeendto');
             writeEndTo = '#' + writeEndTo;
-
+            modify=false;
             if (typeof button.data('userstoryid') != 'undefined') { //if we are in a modification
                 modify = true;
                 usName = button.data('usname');
@@ -114,7 +114,6 @@
                  usName = null;
                  roleId = "0";
                  done = null;
-                 usId;
                  iCan = null;
                  soThat = null;
                  difficulty = "1";
@@ -169,7 +168,6 @@
                 url: 'index.php?action=backlog',
                 data: {
                     projectIdToModifyUS: projectId,
-                    modifyOrCreateUS: "exist",
                     name: usName,
                     roleId: roleId,
                     done: done,
@@ -178,6 +176,7 @@
                     difficulty: difficulty,
                     workValue: workValue,
                     usId: usId,
+                    modify:modify
 
                 },
                 success: function(response) {
@@ -231,7 +230,7 @@
 
                     if (modify)
                         $(writeEndTo).empty();
-
+                    modify=false;
                     $(writeEndTo).append(htmlToWrite);
                     $('#closeCrossUS').click();
                 },
@@ -240,6 +239,9 @@
 
         })
 
+        $("#addOrModifyUSToProjectModal").on("hidden.bs.modal", function(event) {
+            modify=false;
+            })
 
 
     })

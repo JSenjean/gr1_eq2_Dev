@@ -47,15 +47,14 @@
                 writeEndTo = button.data('writeendto');
                 writeEndTo = '#' + writeEndTo;
 
-            if (typeof button.data('userstoryid') != 'undefined') {
+            if (typeof button.data('roleid') != 'undefined') {
                 modify = true;
-                roleId = button.data('userstoryid')
+                roleId = button.data('roleid')
 
                 $("#roleName").val(button.data('rolename'));
                 $("#roleDescription").val(button.data('roledescription'));
 
             } else {
-                
                 $("#roleName").val('');
                 $("#roleDescription").val('');
             }
@@ -66,7 +65,6 @@
                 event.preventDefault();
                 var roleName = $("#roleName").val();
                 var roleDescription = $("#roleDescription").val();
-
                 $.ajax({
                         type: 'POST',
                         url: 'index.php?action=backlog',
@@ -74,7 +72,8 @@
                             projectIdToModifyRole: projectId,
                             roleName: roleName,
                             roleDescription: roleDescription,
-                            roleId:roleId
+                            roleId:roleId,
+                            modify:modify
                         },
                         success: function(response) {
                                 var htmlToWrite= '';
@@ -115,6 +114,10 @@
 
                 });
         });
+
+        $("#addOrModifyRoleToProjectModal").on("hidden.bs.modal", function(event) {
+            modify=false;
+            })
 
 
     })
