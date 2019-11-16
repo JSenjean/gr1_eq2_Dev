@@ -10,7 +10,8 @@
 
         $projectId = $_GET["projectId"];
         
-
+        $defaultDateFormat = 'Y-m-d';
+        $desiredDateFormat = 'd M Y';
 
         $isMaster = is_master($userId, $projectId);
         $isMember = is_member($userId, $projectId);

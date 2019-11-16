@@ -57,27 +57,27 @@
 
         <div id="addfailed">
                 <div class="collapse show" id="failed">
-                    <?php foreach ($testsFailed as $p) { 
-                        $testId = $p['id'];
+                    <?php foreach ($testsFailed as $t) { 
+                        $testId = $t['id'];
                     ?>
                         <div class="card border-danger mt-1" style="border: 1.5px solid;">
                             <div class="card-body" data-toggle="collapse" href="#collapse<?php echo $testId; ?>">
                                 <div class="d-flex justify-content-between">
-                                    <h5 class="card-title"> <?php echo $p['name']; ?> </h5>
-                                    <span><p class="text-secondary" style="display: inline;">Échoué&nbsp&nbsp</p> Dernière exécution le <?php echo date_format(date_create_from_format('Y-m-d', $p['last_run']), 'd M Y'); ?></span>
+                                    <h5 class="card-title"> <?php echo $t['name']; ?> </h5>
+                                    <span><p class="text-secondary" style="display: inline;">Échoué&nbsp&nbsp</p> Dernière exécution le <?php echo date_format(date_create_from_format($defaultDateFormat, $t['last_run']), $desiredDateFormat); ?></span>
                                     <div>
                                         <a href="index.php?action=passTest&testId=<?php echo $testId ?>" class="btn">
-                                            <i class="fas fa-check" style="color:#20CF2D" alt="Pass"></i>
+                                            <em class="fas fa-check" style="color:#20CF2D" alt="Pass"></em>
                                         </a>
                                         <a href="index.php?action=failTest&testId=<?php echo $testId ?>" class="btn">
-                                            <i class="fas fa-times" style="color:#C12F2F" alt="Fail"></i>
+                                            <em class="fas fa-times" style="color:#C12F2F" alt="Fail"></em>
                                         </a>
                                     </div>
                                 </div>
                             </div>
                             <div class="collapse" id="collapse<?php echo $testId; ?>">
                                 <div class="card-body">
-                                    <?php echo $p['description']; ?>
+                                    <?php echo $t['description']; ?>
                                 </div>
                             </div>
                         </div>
@@ -87,27 +87,27 @@
 
             <div id="adddeprecated">
                 <div class="collapse show" id="deprecated">
-                    <?php foreach ($testsDeprecated as $p) { 
-                        $testId = $p['id'];
+                    <?php foreach ($testsDeprecated as $t) { 
+                        $testId = $t['id'];
                     ?>
                         <div class="card border-warning mt-1" style="border: 1.5px solid;">
                             <div class="card-body" data-toggle="collapse" href="#collapse<?php echo $testId; ?>">
                                 <div class="d-flex justify-content-between">
-                                    <h5 class="card-title"> <?php echo $p['name']; ?> </h5>
-                                    <span><p class="text-secondary" style="display: inline;">Déprécié&nbsp&nbsp</p> Dernière exécution le <?php echo date_format(date_create_from_format('Y-m-d', $p['last_run']), 'd M Y'); ?></span>
+                                    <h5 class="card-title"> <?php echo $t['name']; ?> </h5>
+                                    <span><p class="text-secondary" style="display: inline;">Déprécié&nbsp&nbsp</p> Dernière exécution le <?php echo date_format(date_create_from_format($defaultDateFormat, $t['last_run']), $desiredDateFormat); ?></span>
                                     <div>
                                         <a href="index.php?action=passTest&testId=<?php echo $testId ?>" class="btn">
-                                            <i class="fas fa-check" style="color:#20CF2D" alt="Pass"></i>
+                                            <em class="fas fa-check" style="color:#20CF2D" alt="Pass"></em>
                                         </a>
                                         <a href="index.php?action=failTest&testId=<?php echo $testId ?>" class="btn">
-                                            <i class="fas fa-times" style="color:#C12F2F" alt="Fail"></i>
+                                            <em class="fas fa-times" style="color:#C12F2F" alt="Fail"></em>
                                         </a>
                                     </div>
                                 </div>
                             </div>
                             <div class="collapse" id="collapse<?php echo $testId; ?>">
                                 <div class="card-body">
-                                    <?php echo $p['description']; ?>
+                                    <?php echo $t['description']; ?>
                                 </div>
                             </div>
                         </div>
@@ -117,27 +117,27 @@
 
             <div id="addneverrun">
                 <div class="collapse show" id="neverrun">
-                    <?php foreach ($testsNeverRun as $p) { 
-                        $testId = $p['id'];
+                    <?php foreach ($testsNeverRun as $t) { 
+                        $testId = $t['id'];
                     ?>
                         <div class="card border-secondary mt-1" style="border: 1.5px solid;">
                             <div class="card-body" data-toggle="collapse" href="#collapse<?php echo $testId; ?>">
                                 <div class="d-flex justify-content-between">
-                                    <h5 class="card-title"> <?php echo $p['name']; ?> </h5>
+                                    <h5 class="card-title"> <?php echo $t['name']; ?> </h5>
                                     Jamais lancé
                                     <div>
                                         <a href="index.php?action=passTest&testId=<?php echo $testId ?>" class="btn">
-                                            <i class="fas fa-check" style="color:#20CF2D" alt="Pass"></i>
+                                            <em class="fas fa-check" style="color:#20CF2D" alt="Pass"></em>
                                         </a>
                                         <a href="index.php?action=failTest&testId=<?php echo $testId ?>" class="btn">
-                                            <i class="fas fa-times" style="color:#C12F2F" alt="Fail"></i>
+                                            <em class="fas fa-times" style="color:#C12F2F" alt="Fail"></em>
                                         </a>
                                     </div>
                                 </div>
                             </div>
                             <div class="collapse" id="collapse<?php echo $testId; ?>">
                                 <div class="card-body">
-                                    <?php echo $p['description']; ?>
+                                    <?php echo $t['description']; ?>
                                 </div>
                             </div>
                         </div>
@@ -147,27 +147,27 @@
 
             <div id="addpassed">
                 <div class="collapse show" id="passed">
-                    <?php foreach ($testsPassed as $p) { 
-                        $testId = $p['id'];
+                    <?php foreach ($testsPassed as $t) { 
+                        $testId = $t['id'];
                     ?>
                         <div class="card border-success mt-1" style="border: 1.5px solid;">
                             <div class="card-body" data-toggle="collapse" href="#collapse<?php echo $testId; ?>">
                                 <div class="d-flex justify-content-between">
-                                    <h5 class="card-title"> <?php echo $p['name']; ?> </h5>
-                                    <span><p class="text-secondary" style="display: inline;">Passé&nbsp&nbsp</p> Dernière exécution le <?php echo date_format(date_create_from_format('Y-m-d', $p['last_run']), 'd M Y'); ?></span>
+                                    <h5 class="card-title"> <?php echo $t['name']; ?> </h5>
+                                    <span><p class="text-secondary" style="display: inline;">Passé&nbsp&nbsp</p> Dernière exécution le <?php echo date_format(date_create_from_format($defaultDateFormat, $t['last_run']), $desiredDateFormat); ?></span>
                                     <div>
                                         <a href="index.php?action=passTest&testId=<?php echo $testId ?>" class="btn">
-                                            <i class="fas fa-check" style="color:#20CF2D" alt="Pass"></i>
+                                            <em class="fas fa-check" style="color:#20CF2D" alt="Pass"></em>
                                         </a>
                                         <a href="index.php?action=failTest&testId=<?php echo $testId ?>" class="btn">
-                                            <i class="fas fa-times" style="color:#C12F2F" alt="Fail"></i>
+                                            <em class="fas fa-times" style="color:#C12F2F" alt="Fail"></em>
                                         </a>
                                     </div>
                                 </div>
                             </div>
                             <div class="collapse" id="collapse<?php echo $testId; ?>">
                                 <div class="card-body">
-                                    <?php echo $p['description']; ?>
+                                    <?php echo $t['description']; ?>
                                 </div>
                             </div>
                         </div>

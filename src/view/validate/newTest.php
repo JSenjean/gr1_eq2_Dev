@@ -3,7 +3,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="addTestModal">Ajouter un test</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="closeCross">
                     <span aria-hidden="true">×</span>
                 </button>
             </div>
@@ -60,9 +60,7 @@ $('#postNewTest').on('submit', function(event) {
             state: $("#testState").val()
         },
         success: function(response) {
-            console.log("MDDRRR");
             $('#closeCross').click();
-            console.log("SARAS MAUDITE");
         }
     })
 })
