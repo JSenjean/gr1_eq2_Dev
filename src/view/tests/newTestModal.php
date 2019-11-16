@@ -39,31 +39,66 @@
 
 <script>
 
-$(document).ready(function() {
+var projectId=<?php echo $projectId ?>;
 
-// Script to make sure options appear in the right order in the state selector
-$('#testState').on('changed.bs.select', function(event, clickedIndex) {
-    alert(clickedIndex);
-});
-
-
-$('#postNewTest').on('submit', function(event) {
-    event.preventDefault(); // Prevent page from reloading
-
+function refreshDiv(state) {
     $.ajax({
         type: "POST",
         url: 'index.php?action=tests',
         data: {
-            manageTest: true,
-            name: $("#testName").val(),
-            description: $("#testDescription").val(),
-            state: $("#testState").val()
+            projectId: projectId,
+            divToRefresh: state
         },
-        success: function(response) {
-            $('#closeCross').click();
-        }
+        success:
+            function(response){
+                var div = '#add' + state
+                $(div).html(response);
+            }
+    });
+}
+
+function refreshProgressBar() {
+    $.ajax({
+        type: "POST",
+        url: 'index.php?action=tests',
+        data: {
+            projectId: projectId,
+            refreshProgressBar: true
+        },
+        success:
+            function(response){
+                $('#progressBar').html(response);
+            }
+    });
+}
+
+$(document).ready(function() {
+
+    // Script to make sure options appear in the right order in the state selector
+    $('#testState').on('changed.bs.select', function(event, clickedIndex) {
+        alert(clickedIndex);
+    });
+
+    $('#postNewTest').on('submit', function(event) {
+        event.preventDefault(); // Prevent page from reloading
+
+        $.ajax({
+            type: "POST",
+            url: 'index.php?action=tests',
+            data: {
+                projectId: projectId,
+                manageTest: 'add',
+                name: $("#testName").val(),
+                description: $("#testDescription").val(),
+                state: $("#testState").val()
+            },
+            success: function(response) {
+                $('#closeCross').click();
+                refreshDiv(response);
+                refreshProgressBar()
+            }
+        })
     })
-})
 })
 
 </script>

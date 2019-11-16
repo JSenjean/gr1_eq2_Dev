@@ -76,6 +76,7 @@ function count_proportion($projectId) {
     $nbFailed = 0;
     $nbDeprecated = 0;
     $nbNeverRun = 0;
+    $nbTotalTests = 0;
 
     foreach ($stmt as $s){
         switch ($s['state']) {
@@ -95,8 +96,9 @@ function count_proportion($projectId) {
                 echo "Error, Test n°" . $s['id'] . " named " . $s['name'] . " has an unknown state";
                 return -1;
         }
+        ++$nbTotalTests;
     }
-    $nbTotalTests = $nbPassed + $nbFailed + $nbDeprecated + $nbNeverRun;
+    
     return array($nbTotalTests, $nbPassed, $nbFailed, $nbDeprecated, $nbNeverRun);
 }
 
@@ -110,12 +112,46 @@ function compute_proportion($projectId) {
     $nbDeprecated = $proportion[3];
     $nbNeverRun = $proportion[4];
 
-    $percPassed = (int)(($nbPassed*100)/$nbTotalTests);
-    $percFailed = (int)(($nbFailed*100)/$nbTotalTests);
-    $percDeprecated = (int)(($nbDeprecated*100)/$nbTotalTests);
-    $percNeverRun = (int)(($nbNeverRun*100)/$nbTotalTests);
+    if ($nbTotalTests != 0) {
 
-    return array($percPassed, $percFailed, $percDeprecated, $percNeverRun);
+        $percPassed = (int)(($nbPassed*100)/$nbTotalTests);
+        $percFailed = (int)(($nbFailed*100)/$nbTotalTests);
+        $percDeprecated = (int)(($nbDeprecated*100)/$nbTotalTests);
+        $percNeverRun = (int)(($nbNeverRun*100)/$nbTotalTests);
+
+        if (($percPassed + $percFailed + $percDeprecated + $percNeverRun) < 100){
+            ++$percPassed;
+        }
+    
+        return array($percPassed, $percFailed, $percDeprecated, $percNeverRun);
+
+    } else {
+        return -1;
+    }
+}
+
+function add_new_test($projectId, $name, $description, $state) {
+    date_default_timezone_set('Europe/Paris');
+    $currentDate = date('Y-m-d', time());
+    try {
+        $bdd = dbConnect();
+        $stmt = $bdd->prepare(
+            "INSERT INTO
+            test(project_id, name, description, last_run, state)
+            VALUES(:project_id, :name, :description, :last_run, :state)"
+        );
+        $stmt->execute(array(
+            ':project_id' => $projectId,
+            ':name' => $name,
+            ':description' => $description,
+            ':last_run' => $currentDate,
+            ':state' => $state
+        ));
+        return $state;
+    } catch (PDOException $e) {
+        echo "<br>" . $e->getMessage();
+        return -1;
+    }
 }
 
 ?>
