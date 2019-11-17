@@ -13,8 +13,8 @@
 
   <div id="accordion">
     <?php
-    if (isset($_SESSION['role']) && ($_SESSION['role'] == 'admin')) {
-        echo
+    if (isset($_SESSION['role']) && ($_SESSION['role'] == 'admin')){
+      echo 
         '<div class="card border-secondary">
           <div class="card-header text-white bg-secondary" id="heading00" data-toggle="collapse" data-target="#collapse00" aria-expanded="false" aria-controls="collapse00">
             <a class="text-light" href="#" data-toggle="collapse" aria-expanded="true">
@@ -24,16 +24,15 @@
           <div id="collapse00" class="collapse" aria-labelledby="heading00" data-parent="#accordion">
             <div class="card-body row">
             <div class="col-sm">
-
             <form method="POST" action="index.php?action=faq">
               <div class="form-group">
                 <label for="select1">Sélectionner une catégorie</label>
                 <select class="form-control" id="select2" name="category">';
-        $categories = getCategories();
-        foreach ($categories as $category):
+                  $categories = getCategories();
+                  foreach ($categories as $category):
                     echo '<option>'.$category['category'].'</option>';
-        endforeach;
-        echo '</select>
+                  endforeach;
+                echo '</select>
               </div>
               <div class="form-group">
                 <label for="exampleFormControlInput1">Question</label>
@@ -61,11 +60,11 @@
                 <label for="exampleFormControlInput1">Supprimer une catégorie</label>
                 <div class="input-group">
                   <select class="form-control" id="select1" name="category">';
-        $categories = getCategories();
-        foreach ($categories as $category):
+                    $categories = getCategories();
+                    foreach ($categories as $category):
                       echo '<option>'.$category['category'].'</option>';
-        endforeach;
-        echo '</select>
+                    endforeach;
+                  echo '</select>
                   <span class="input-group-append">
                     <button type="button" class="btn btn-danger float-right" data-toggle="modal" data-target="#confirmDelCatModal">Supprimer</button>
                   </span>
@@ -103,9 +102,8 @@
       <div class="col-md-auto">
         <div class="list-group" id="list-tab" role="tablist">
           <?php
-            if (isset($search)) {
-                echo '<a class="list-group-item list-group-item-action" id="list-searchresults-list" data-toggle="list" href="#searchresults" role="tab" aria-controls="searchresults">Recherche</a>';
-            }
+            if (isset($search))
+              echo '<a class="list-group-item list-group-item-action" id="list-searchresults-list" data-toggle="list" href="#searchresults" role="tab" aria-controls="searchresults">Recherche</a>';
             $categories = getCategories();
             foreach ($categories as $category):
               $ctg = $category['category'];
@@ -118,12 +116,13 @@
       <div class="col-lg">
         <div class="tab-content" id="nav-tabContent">
           <?php
-            if (isset($search)) {
-                echo '<div class="tab-pane fade show" id="searchresults" role="tabpanel" aria-labelledby="list-searchresults-list">';
-                foreach ($search as $value):
+            if (isset($search)){
+              echo '<div class="tab-pane fade show" id="searchresults" role="tabpanel" aria-labelledby="list-searchresults-list">';
+              foreach ($search as $value): 
                 $id = $value['id'];
                 $q = $value['question'];
-                $a = $value['answaer']; ?>
+                $a = $value['answaer'];
+              ?>
                 <div class="card">
                   <div class="card-header" id="heading<?php echo $id?>">
                     <a class="text-dark" href="#" data-toggle="collapse" data-target="#collapseSearch<?php echo $id?>" aria-expanded="false" aria-controls="collapseSearch<?php echo $id?>">
@@ -132,17 +131,17 @@
                   </div>
                   <div id="collapseSearch<?php echo $id?>" class="collapse" aria-labelledby="headingSearch<?php echo $id?>" data-parent="#accordion">
                     <div class="card-body">
-                      <?php echonl2br($a); ?>
+                      <?php echo(nl2br($a)); ?>
                     </div>
                     <?php
                       $QA_ID = $id;
-                if (isset($_SESSION['role']) && ($_SESSION['role'] == 'admin')) {
-                    echo
+                      if (isset($_SESSION['role']) && ($_SESSION['role'] == 'admin')){
+                        echo 
                           '<div class="card-footer bg-transparent">
                             <button type="button" class="btn btn-link p-0" data-toggle="modal" data-target="#editInfoModalSearch'.$id.'">Modifier</button>
                             <button type="button" class="btn btn-link p-0 pl-2 text-danger" data-toggle="modal" data-target="#confirmDelModalSearch'.$id.'">Supprimer</button>
                           </div>';
-                    echo
+                       echo 
                           '<div class="modal fade" id="editInfoModalSearch'.$id.'" tabindex="-1" role="dialog" aria-hidden="true">
                             <div class="modal-dialog modal-lg" role="document">
                               <div class="modal-content">
@@ -158,14 +157,13 @@
                                     <div class="form-group">
                                       <label for="select1">Catégorie</label>
                                       <select class="form-control" id="select2" name="category">';
-                    $categories = getCategories();
-                    echo '<option selected>'.$value['category'].'</option>';
-                    foreach ($categories as $category):
-                            if ($category['category'] != $value['category']) {
-                                echo '<option>'.$category['category'].'</option>';
-                            }
-                    endforeach;
-                    echo '</select>
+                                        $categories = getCategories();
+                                        echo '<option selected>'.$value['category'].'</option>';
+                                        foreach ($categories as $category):
+                                          if ($category['category'] != $value['category'])
+                                            echo '<option>'.$category['category'].'</option>';
+                                        endforeach;
+                                      echo '</select>
                                     </div>
                                       
                                       
@@ -186,7 +184,7 @@
                             </div>
                           </div>';
                                       
-                    echo
+                        echo 
                           '<div class="modal fade" id="confirmDelModalSearch'.$id.'" tabindex="-1" role="dialog" aria-hidden="true">
                             <div class="modal-dialog" role="document">
                               <div class="modal-content">
@@ -206,21 +204,21 @@
                               </div>
                             </div>
                           </div>';
-                } ?>
+                      }
+                    ?>
                 </div>
             </div>
             <br>
-            <?php
+            <?php 
               endforeach;
-                echo '</div>';
+              echo '</div>';
             }
-
             $categories = getCategories();
             foreach ($categories as $category):
               $faq = getQA($category['category']);
               $ctg = $category['category'];
               echo '<div class="tab-pane fade show" id="'.$ctg.'" role="tabpanel" aria-labelledby="list-'.$ctg.'-list">';
-              foreach ($faq as $value):
+              foreach ($faq as $value): 
                 $id = $value['id'];
                 $q = $value['question'];
                 $a = $value['answer'];
@@ -237,13 +235,13 @@
                     </div>
                     <?php
                       $QA_ID = $id;
-                    if (isset($_SESSION['role']) && ($_SESSION['role'] == 'admin')) {
-                        echo
+                      if (isset($_SESSION['role']) && ($_SESSION['role'] == 'admin')){
+                        echo 
                           '<div class="card-footer bg-transparent">
                             <button type="button" class="btn btn-link p-0" data-toggle="modal" data-target="#editInfoModal'.$id.'">Modifier</button>
                             <button type="button" class="btn btn-link p-0 pl-2 text-danger" data-toggle="modal" data-target="#confirmDelModal'.$id.'">Supprimer</button>
                           </div>';
-                        echo
+                       echo 
                           '<div class="modal fade" id="editInfoModal'.$id.'" tabindex="-1" role="dialog" aria-hidden="true">
                             <div class="modal-dialog modal-lg" role="document">
                               <div class="modal-content">
@@ -259,15 +257,14 @@
                                     <div class="form-group">
                                       <label for="select1">Catégorie</label>
                                       <select class="form-control" id="select2" name="category">';
-                        $categories = getCategories();
-                        echo '<option selected>'.$value['category'].'</option>';
-                        foreach ($categories as $category):
+                                        $categories = getCategories();
+                                        echo '<option selected>'.$value['category'].'</option>';
+                                        foreach ($categories as $category):
                                           $ctg = $category['category'];
-                        if ($category['category'] != $value['category']) {
-                            echo '<option>'.$category['category'].'</option>';
-                        }
-                        endforeach;
-                        echo '</select>
+                                          if ($category['category'] != $value['category'])
+                                            echo '<option>'.$category['category'].'</option>';
+                                        endforeach;
+                                      echo '</select>
                                     </div>
                                       
                                       
@@ -288,7 +285,7 @@
                             </div>
                           </div>';
                                       
-                        echo
+                        echo 
                           '<div class="modal fade" id="confirmDelModal'.$id.'" tabindex="-1" role="dialog" aria-hidden="true">
                             <div class="modal-dialog" role="document">
                               <div class="modal-content">
@@ -308,12 +305,12 @@
                               </div>
                             </div>
                           </div>';
-                    }
+                      }
                     ?>
               </div>
             </div>
             <br>
-            <?php
+            <?php 
               endforeach;
               echo '</div>';
               endforeach;
