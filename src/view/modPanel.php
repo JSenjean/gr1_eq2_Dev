@@ -18,11 +18,11 @@
       <table class="table table-hover table-responsive-lg border" id="user_table">
       <thead class="thead-light">
         <tr>
-          <th class="text-left">Identifiant</th>
-          <th class="text-left">Prénom</th>
-          <th class="text-left">Nom</th>
-          <th class="text-left">Adresse email</th>
-          <th class="text-left">Date d'inscription</th>
+          <th class="text-left" scope="row">Identifiant</th>
+          <th class="text-left" scope="row">Prénom</th>
+          <th class="text-left" scope="row">Nom</th>
+          <th class="text-left" scope="row">Adresse email</th>
+          <th class="text-left" scope="row">Date d'inscription</th>
           <th>Action</th>
         </tr>
       </thead>
@@ -72,11 +72,11 @@
       <table class="table table-hover table-responsive-lg border" id="admin_table">
       <thead class="thead-light">
         <tr>
-          <th class="text-left">Identifiant</th>
-          <th class="text-left">Prénom</th>
-          <th class="text-left">Nom</th>
-          <th class="text-left">Adresse email</th>
-          <th class="text-left">Date d'inscription</th>
+          <th class="text-left" scope="row">Identifiant</th>
+          <th class="text-left" scope="row">Prénom</th>
+          <th class="text-left" scope="row">Nom</th>
+          <th class="text-left" scope="row">Adresse email</th>
+          <th class="text-left" scope="row">Date d'inscription</th>
         </tr>
       </thead>
       <tbody>

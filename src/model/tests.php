@@ -260,10 +260,12 @@ function check_deprecated($projectId) {
         $bdd = dbConnect();
         $stmt = $bdd->prepare(
             "SELECT * FROM test
-            WHERE state=:state"
+            WHERE state=:state
+            AND project_id=:project_id"
         );
         $stmt->execute(array(
-            'state' => 'passed'
+            'state' => 'passed',
+            'project_id' => $projectId
         ));
     } catch (PDOException $e) {
         echo "<br>" . $e->getMessage();
