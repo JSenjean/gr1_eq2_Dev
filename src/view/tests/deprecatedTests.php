@@ -48,9 +48,6 @@
 <script>
 
     $(document).ready(function() {
-
-        var testId = null;
-        var testState = null;
         
         $("[data-type='passThisDeprecatedTest']").on('click', function(event) {
             event.preventDefault(); // Prevent page from reloading
