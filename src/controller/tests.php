@@ -6,15 +6,30 @@
     $userId = $_SESSION["id"];
 
     if (isset($_POST['manageTest'])) {
-        if($_POST['manageTest'] == 'add') {
+        $command = $_POST['manageTest'];
+        if($command == 'add') {
             echo add_new_test(
                 $_POST["projectId"],
                 $_POST["name"],
                 $_POST["description"],
                 $_POST["state"]
             );
+        } else if($command == 'passAll'){
+            echo pass_all_tests($_POST["projectId"]);
+        } else if($command == 'edit'){
+            echo edit_test(
+                $_POST["id"],
+                $_POST["name"],
+                $_POST["description"],
+                $_POST["state"]
+            );
+        } else if ($command == 'delete'){
+            echo delete_test($_POST["id"], $_POST["state"]);
+        } else if ($command == 'pass'){
+            echo change_state($_POST["id"], $_POST["state"], 'passed');
+        } else if ($command == 'fail'){
+            echo change_state($_POST["id"], $_POST["state"], 'failed');
         }
-    
     } else if (isset($_POST['divToRefresh'])) {
         switch ($_POST['divToRefresh']){
             case 'failed':
@@ -34,7 +49,7 @@
                 include_once("view/tests/passedTests.php");
                 break;
             default:
-                echo ("Erreur, impossible de rafraîchir la div " . $_POST['divToRefresh']);
+                echo "Erreur, impossible de rafraîchir la div " . $_POST['divToRefresh'];
                 break;
         }
     } else if(isset($_POST['refreshProgressBar'])) {
@@ -82,6 +97,7 @@
 
         include_once("view/projectNav.php");
         
+        // Main divs
         include_once("view/tests/header.php");
         include_once("view/tests/progressBar.php"); 
         include_once("view/tests/commandPanel.php"); 
@@ -91,7 +107,11 @@
         include_once("view/tests/passedTests.php"); 
         include_once("view/tests/footer.php"); 
 
+        // Modals
         include_once("view/tests/newTestModal.php");
+        include_once("view/tests/passAllTestsModal.php");
+        include_once("view/tests/editTestModal.php");
+        include_once("view/tests/deleteTestModal.php");
 
     }
 

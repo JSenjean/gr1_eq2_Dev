@@ -25,11 +25,11 @@
 
             <div class="col-sm">
                 <h4 class="text-dark card-link">Gestion</h4>
-                <a role="button" class="btn btn-primary mb-4 mr-2 confirmNewTestModalLink" data-target='#NewTestModal' href='index.php?action=newTest' data-toggle="modal">
+                <a role="button" class="btn btn-primary mb-4 mr-2 confirmNewTestModalLink" data-target='#NewTestModal' href='#' data-toggle="modal">
                     Ajouter un nouveau test
                 </a>
                 <br>
-                <a role="button" class="btn btn-success mb-4 mr-2 confirmPassAll" data-target='#PassAll' href='index.php?action=passAllTests' data-toggle="modal">
+                <a role="button" class="btn btn-success mb-4 mr-2 confirmPassAll" data-target='#PassAll' href='#' data-toggle="modal">
                     Marquer tous les tests comme passés
                 </a>
             </div>

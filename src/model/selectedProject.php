@@ -84,7 +84,11 @@ function editProject ($id) {
     $visibility = isset($_POST['visibility']);
     try{
         $bdd = dbConnect();
-        $stmt = $bdd->prepare("UPDATE project SET name=:name, description=:description, visibility=:visibility WHERE id=:id");
+        $stmt = $bdd->prepare(
+            "UPDATE project 
+            SET name=:name, description=:description, visibility=:visibility 
+            WHERE id=:id"
+        );
         $stmt->execute(array(
             'id' => $id,
             'name' => $name,
@@ -197,8 +201,10 @@ function deleteInvitationOrRequest($project_id, $user_id) {
     try {
         $bdd = dbConnect();
         $stmt = $bdd->prepare(
-            "DELETE FROM project_invitation WHERE project_id=:project_id AND user_id=:user_id
-        ");
+            "DELETE FROM project_invitation 
+            WHERE project_id=:project_id 
+            AND user_id=:user_id"
+        );
         $stmt->execute(array(
             'project_id' => $project_id,
             'user_id' => $user_id

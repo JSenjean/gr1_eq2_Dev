@@ -25,11 +25,10 @@
                             <option value="failed">Échoué</option>
                         </select>
                     </div>
-                
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
                 <button type="submit" class="btn btn-primary" id="confirmNewTest">Valider</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
             </div>
             </form>
         </div>
@@ -40,37 +39,6 @@
 <script>
 
 var projectId=<?php echo $projectId ?>;
-
-function refreshDiv(state) {
-    $.ajax({
-        type: "POST",
-        url: 'index.php?action=tests',
-        data: {
-            projectId: projectId,
-            divToRefresh: state
-        },
-        success:
-            function(response){
-                var div = '#add' + state
-                $(div).html(response);
-            }
-    });
-}
-
-function refreshProgressBar() {
-    $.ajax({
-        type: "POST",
-        url: 'index.php?action=tests',
-        data: {
-            projectId: projectId,
-            refreshProgressBar: true
-        },
-        success:
-            function(response){
-                $('#progressBar').html(response);
-            }
-    });
-}
 
 $(document).ready(function() {
 
