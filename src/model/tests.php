@@ -119,14 +119,17 @@ function compute_proportion($projectId) {
         $percDeprecated = (int)(($nbDeprecated*100)/$nbTotalTests);
         $percNeverRun = (int)(($nbNeverRun*100)/$nbTotalTests);
 
-        if (($percPassed + $percFailed + $percDeprecated + $percNeverRun) < 100){
+        // Avoid blank in progress bar and fill it with positivity
+        $sum = $percPassed + $percFailed + $percDeprecated + $percNeverRun;
+        while ($sum < 100){
             ++$percPassed;
+            $sum = $percPassed + $percFailed + $percDeprecated + $percNeverRun;
         }
     
         return array($percPassed, $percFailed, $percDeprecated, $percNeverRun);
 
     } else {
-        return -1;
+        return array(0, 0, 0, 0);
     }
 }
 

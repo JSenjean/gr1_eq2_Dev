@@ -109,8 +109,13 @@
                 <div class="card mt-4">
                     <div class="card-body">
                         <h5 class="card-title">Tests</h5>
-                        <p>[Barre de progression]</p>
-                        <a href="#" class="btn btn-primary">Détails</a>
+                            <div class="progress mb-3">
+                                <div class="progress-bar bg-danger" role="progressbar" style="width: <?php echo $percFailed ?>%" aria-valuenow="<?php echo $percFailed ?>" aria-valuemin="0" aria-valuemax="100"><?php echo $percFailed ?>%</div>
+                                <div class="progress-bar bg-warning" role="progressbar" style="width: <?php echo $percDeprecated ?>%" aria-valuenow="<?php echo $percDeprecated ?>" aria-valuemin="0" aria-valuemax="100"><?php echo $percDeprecated ?>%</div>
+                                <div class="progress-bar bg-secondary" role="progressbar" style="width: <?php echo $percNeverRun ?>%" aria-valuenow="<?php echo $percNeverRun ?>" aria-valuemin="0" aria-valuemax="100"><?php echo $percNeverRun ?>%</div>
+                                <div class="progress-bar bg-success" role="progressbar" style="width: <?php echo $percPassed ?>%" aria-valuenow="<?php echo $percPassed ?>" aria-valuemin="0" aria-valuemax="100"><?php echo $percPassed ?>%</div>
+                            </div>
+                        <a href="index.php?action=tests&projectId=<?php echo $projectId ?>" class="btn btn-primary">Détails</a>
                     </div>
                 </div>
 

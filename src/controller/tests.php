@@ -55,17 +55,24 @@
         }
     } else if(isset($_POST['refreshProgressBar'])) { // Refresh the test progress bar
         $proportion = compute_proportion($_POST["projectId"]);
-        $percPassed = $proportion[0];
-        $percFailed = $proportion[1];
-        $percDeprecated = $proportion[2];
-        $percNeverRun = $proportion[3];
+        if ($proportion != -1){
+            $percPassed = $proportion[0];
+            $percFailed = $proportion[1];
+            $percDeprecated = $proportion[2];
+            $percNeverRun = $proportion[3];
+        } else {
+            $percPassed = 0;
+            $percFailed = 0;
+            $percDeprecated = 0;
+            $percNeverRun = 0;
+        }
         include_once("view/tests/progressBar.php");
 
     } else {
 
-        include_once("view/projectNav.php");
-
         $projectId = $_GET["projectId"];
+
+        include_once("view/projectNav.php");
 
         $nbNewDeprecatedTests = check_deprecated ($projectId);
         if ($nbNewDeprecatedTests > 0) {
@@ -81,18 +88,10 @@
         $testsNeverRun = get_all_never_run_tests($projectId);
 
         $proportion = compute_proportion($projectId);
-
-        if ($proportion != -1){
-            $percPassed = $proportion[0];
-            $percFailed = $proportion[1];
-            $percDeprecated = $proportion[2];
-            $percNeverRun = $proportion[3];
-        } else {
-            $percPassed = 0;
-            $percFailed = 0;
-            $percDeprecated = 0;
-            $percNeverRun = 0;
-        }
+        $percPassed = $proportion[0];
+        $percFailed = $proportion[1];
+        $percDeprecated = $proportion[2];
+        $percNeverRun = $proportion[3];
 
         if (!$isMaster && !$isMember) {
             header('Location: index.php?action=projects');
