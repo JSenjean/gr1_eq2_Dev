@@ -12,10 +12,10 @@
                         <h5 class="card-title"> <?php echo $name; ?> </h5>
                         Jamais lancé
                         <div>
-                            <a href="#" class="btn" data-id='<?php echo $id; ?>' data-state='<?php echo $state; ?>' id="passThisTest">
+                            <a href="#" class="btn" data-id='<?php echo $id; ?>' data-state='<?php echo $state; ?>' id="passThisNeverRunTest<?php echo $id; ?>" data-type="passThisNeverRunTest">
                                 <em class="fas fa-check" style="color:#20CF2D" alt="Pass"></em>
                             </a>
-                            <a href="#" class="btn" data-id='<?php echo $id; ?>' data-state='<?php echo $state; ?>' id="failThisTest">
+                            <a href="#" class="btn" data-id='<?php echo $id; ?>' data-state='<?php echo $state; ?>' id="failThisNeverRunTest<?php echo $id; ?>" data-type="failThisNeverRunTest">
                                 <em class="fas fa-times" style="color:#C12F2F" alt="Fail"></em>
                             </a>
                         </div>
@@ -49,21 +49,17 @@
 
     $(document).ready(function() {
 
-        var testId = null;
-        var testState = null;
-
-        $('#passThisTest').on('click', function(event) {
+        $("[data-type='passThisNeverRunTest']").on('click', function(event) {
             event.preventDefault(); // Prevent page from reloading
-
-            testId = $('#passThisTest').attr('data-id');
-            testState = $('#passThisTest').attr('data-state');
+            
+            var testId = $(this).data('id');
+            var testState = $(this).data('state');
 
             $.ajax({
                 type: "POST",
                 url: 'index.php?action=tests',
                 data: {
                     id: testId,
-                    state: testState,
                     manageTest: 'pass'
                 },
                 success: function(response) {
@@ -74,18 +70,17 @@
             })
         })
 
-        $('#failThisTest').on('click', function(event) {
+        $("[data-type='failThisNeverRunTest']").on('click', function(event) {
             event.preventDefault(); // Prevent page from reloading
-
-            testId = $('#failThisTest').attr('data-id');
-            testState = $('#failThisTest').attr('data-state');
+            
+            var testId = $(this).data('id');
+            var testState = $(this).data('state');
 
             $.ajax({
                 type: "POST",
                 url: 'index.php?action=tests',
                 data: {
                     id: testId,
-                    state: testState,
                     manageTest: 'fail'
                 },
                 success: function(response) {

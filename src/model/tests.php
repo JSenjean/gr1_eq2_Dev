@@ -214,7 +214,7 @@ function delete_test($id, $state) {
     }
 }
 
-function change_state($id, $old_state, $new_state) {
+function change_state($id, $state) {
     try{
         $bdd = dbConnect();
         $stmt = $bdd->prepare(
@@ -224,9 +224,9 @@ function change_state($id, $old_state, $new_state) {
         );
         $stmt->execute(array(
             'id' => $id,
-            'state' => $new_state
+            'state' => $state
         ));
-        return $old_state;
+        return $stmt;
     } catch (PDOException $e) {
         echo "<br>" . $e->getMessage();
         return -1;

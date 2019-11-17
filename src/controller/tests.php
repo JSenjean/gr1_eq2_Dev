@@ -26,9 +26,9 @@
         } else if ($command == 'delete'){
             echo delete_test($_POST["id"], $_POST["state"]);
         } else if ($command == 'pass'){
-            echo change_state($_POST["id"], $_POST["state"], 'passed');
+            echo change_state($_POST["id"], 'passed');
         } else if ($command == 'fail'){
-            echo change_state($_POST["id"], $_POST["state"], 'failed');
+            echo change_state($_POST["id"], 'failed');
         }
     } else if (isset($_POST['divToRefresh'])) {
         switch ($_POST['divToRefresh']){
