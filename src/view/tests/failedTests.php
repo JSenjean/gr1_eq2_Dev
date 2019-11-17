@@ -15,6 +15,9 @@
                             <a href="#" class="btn" data-id='<?php echo $id; ?>' data-state='<?php echo $state; ?>' id="passThisFailedTest<?php echo $id; ?>" data-type="passThisFailedTest">
                                 <em class="fas fa-check" style="color:#20CF2D" alt="Pass"></em>
                             </a>
+                            <a href="#" class="btn" data-id='<?php echo $id; ?>' data-state='<?php echo $state; ?>' id="failThisFailedTest<?php echo $id; ?>" data-type="failThisFailedTest">
+                                <em class="fas fa-times" style="color:#C12F2F" alt="Fail"></em>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -62,6 +65,29 @@
                 success: function(response) {
                     refreshDiv(testState);
                     refreshDiv('passed');
+                    refreshProgressBar();
+                }
+            })
+        })
+
+    })
+
+    $(document).ready(function() { // Use only to refresh execution of test
+
+        $("[data-type='failThisFailedTest']").click(function(event) {
+            event.preventDefault(); // Prevent page from reloading
+        
+            var testId = $(this).data('id');
+        
+            $.ajax({
+                type: "POST",
+                url: 'index.php?action=tests',
+                data: {
+                    id: testId,
+                    manageTest: 'fail'
+                },
+                success: function(response) {
+                    refreshDiv('failed');
                     refreshProgressBar();
                 }
             })

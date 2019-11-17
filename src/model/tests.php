@@ -119,10 +119,14 @@ function compute_proportion($projectId) {
         $percDeprecated = (int)(($nbDeprecated*100)/$nbTotalTests);
         $percNeverRun = (int)(($nbNeverRun*100)/$nbTotalTests);
 
-        // Avoid blank in progress bar and fill it with positivity
+        // Avoid blank in progress bar
         $sum = $percPassed + $percFailed + $percDeprecated + $percNeverRun;
         while ($sum < 100){
-            ++$percPassed;
+            if ($percPassed > 0) { ++$percPassed; } 
+            else if ($percNeverRun > 0) { ++$percNeverRun; }  
+            else if ($percDeprecated > 0) { ++$percDeprecated; }  
+            else if ($percFailed > 0) { ++$percFailed; }  
+            else {break;}
             $sum = $percPassed + $percFailed + $percDeprecated + $percNeverRun;
         }
     
@@ -218,15 +222,18 @@ function delete_test($id, $state) {
 }
 
 function change_state($id, $state) {
+    date_default_timezone_set('Europe/Paris');
+    $currentDate = date('Y-m-d', time());
     try {
         $bdd = dbConnect();
         $stmt = $bdd->prepare(
             "UPDATE test
-            set state=:state
+            set state=:state, last_run=:last_run
             WHERE id=:id"
         );
         $stmt->execute(array(
             'id' => $id,
+            'last_run' => $currentDate,
             'state' => $state
         ));
         return $stmt;

@@ -11,7 +11,7 @@
                 Souhaitez-vous supprimer ce test ? Cette action est irréversible.         
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-danger" id="confirmDeleteTest">Valider</button>
+                <button type="button" class="btn btn-danger" id="confirmDeleteTest">Confirmer</button>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
             </div>
             </form>

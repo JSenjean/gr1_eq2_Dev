@@ -12,6 +12,9 @@
                         <h5 class="card-title"> <?php echo $name; ?> </h5>
                         <span><p class="text-secondary" style="display: inline;">Passé&nbsp&nbsp</p> Dernière exécution le <?php echo date_format(date_create_from_format('Y-m-d', $t['last_run']), 'd M Y'); ?></span>
                         <div>
+                            <a href="#" class="btn" data-id='<?php echo $id; ?>' data-state='<?php echo $state; ?>' id="passThisPassedTest<?php echo $id; ?>" data-type="passThisPassedTest">
+                                <em class="fas fa-check" style="color:#20CF2D" alt="Pass"></em>
+                            </a>
                             <a href="#" class="btn" data-id='<?php echo $id; ?>' data-state='<?php echo $state; ?>' id="failThisPassedTest<?php echo $id; ?>" data-type="failThisPassedTest">
                                 <em class="fas fa-times" style="color:#C12F2F" alt="Fail"></em>
                             </a>
@@ -62,6 +65,29 @@
                 success: function(response) {
                     refreshDiv(testState);
                     refreshDiv('failed');
+                    refreshProgressBar();
+                }
+            })
+        })
+
+    })
+
+    $(document).ready(function() { // Use only to refresh execution of test
+        
+        $("[data-type='passThisPassedTest']").on('click', function(event) {
+            event.preventDefault(); // Prevent page from reloading
+            
+            var testId = $(this).data('id');
+        
+            $.ajax({
+                type: "POST",
+                url: 'index.php?action=tests',
+                data: {
+                    id: testId,
+                    manageTest: 'pass'
+                },
+                success: function(response) {
+                    refreshDiv('passed');
                     refreshProgressBar();
                 }
             })
