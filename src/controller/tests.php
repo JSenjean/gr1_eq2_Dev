@@ -30,7 +30,8 @@
         } else if ($command == 'fail'){
             echo change_state($_POST["id"], 'failed');
         }
-    } else if (isset($_POST['divToRefresh'])) {
+
+    } else if (isset($_POST['divToRefresh'])) { // Refresh one of the divs containing the tests
         switch ($_POST['divToRefresh']){
             case 'failed':
                 $testsFailed = get_all_failed_tests($_POST["projectId"]);
@@ -52,16 +53,24 @@
                 echo "Erreur, impossible de rafraîchir la div " . $_POST['divToRefresh'];
                 break;
         }
-    } else if(isset($_POST['refreshProgressBar'])) {
+    } else if(isset($_POST['refreshProgressBar'])) { // Refresh the test progress bar
         $proportion = compute_proportion($_POST["projectId"]);
         $percPassed = $proportion[0];
         $percFailed = $proportion[1];
         $percDeprecated = $proportion[2];
         $percNeverRun = $proportion[3];
         include_once("view/tests/progressBar.php");
+
     } else {
 
+        include_once("view/projectNav.php");
+
         $projectId = $_GET["projectId"];
+
+        $nbNewDeprecatedTests = check_deprecated ($projectId);
+        if ($nbNewDeprecatedTests > 0) {
+            include_once("view/errors/newDeprecated.php");
+        }
 
         $isMaster = is_master($userId, $projectId);
         $isMember = is_member($userId, $projectId);
@@ -94,8 +103,6 @@
         } else {
             include_once("view/modHeader.php");
         }
-
-        include_once("view/projectNav.php");
         
         // Main divs
         include_once("view/tests/header.php");

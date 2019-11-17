@@ -215,7 +215,7 @@ function delete_test($id, $state) {
 }
 
 function change_state($id, $state) {
-    try{
+    try {
         $bdd = dbConnect();
         $stmt = $bdd->prepare(
             "UPDATE test
@@ -231,6 +231,50 @@ function change_state($id, $state) {
         echo "<br>" . $e->getMessage();
         return -1;
     }
+}
+
+/*
+    This function check all passed tests in the database
+    If they are too old, they will be marked as deprecated
+    In the future this function will evolve to check commits
+    instead of time
+*/
+function check_deprecated($projectId) {
+    
+    date_default_timezone_set('Europe/Paris');
+    $treshold = strtotime("-2 week"); // Arbitrary and temporary value
+    
+    $nbNewDeprecatedTests = 0;
+
+    try {
+        $bdd = dbConnect();
+        $stmt = $bdd->prepare(
+            "SELECT * FROM test
+            WHERE state=:state"
+        );
+        $stmt->execute(array(
+            'state' => 'passed'
+        ));
+    } catch (PDOException $e) {
+        echo "<br>" . $e->getMessage();
+        return -1;
+    }
+    foreach($stmt as $s){
+        $last_run = strtotime($s['last_run']);
+        if ($last_run < $treshold){ // If last_run date is older than threshold date
+            ++$nbNewDeprecatedTests;
+            $stmt2 = $bdd->prepare(
+                "UPDATE test
+                set state=:state
+                WHERE id=:id"
+            );
+            $stmt2->execute(array(
+                'id' => $s['id'],
+                'state' => 'deprecated'
+            ));
+        }
+    }
+    return $nbNewDeprecatedTests;
 }
 
 ?>
