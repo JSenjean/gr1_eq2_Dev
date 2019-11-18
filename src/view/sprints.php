@@ -58,35 +58,35 @@
         <button class="btn bg-primary">Ajouter User Story</button>
       </div>
       <div class="col-xl-1">
-        <button class="btn bg-primary">Créer une Task</button>
+        <button class="btn bg-primary createOrModifyTaskModal" type="button" data-target='#createOrModifyTaskModal' data-toggle="modal" id="<?php echo $projectId; ?>">Créer une tâche</button>
       </div>
     </div>
 </br>
     <div class="container-fluid table-sprint" id="table-sprint">
       <div class="row">
         <div class="col col-sm text-center US">
-          <p class="firstCol">User Story</p>
+          <h5 class="firstCol">User Story</h5>
           <div class="card">
             <div class="card-header">US1</div>
             <div class="card-body">Description</div>
           </div>
         </div> 
         <div class="col col-sm text-center Todo">
-          <p class="firstCol">Todo</p>
+          <h5 class="firstCol">Todo</h5>
           <div class="card">
             <div class="card-header">Task1</div>
             <div class="card-body">Description</div>
           </div>
         </div>
         <div class="col col-sm text-center Doing">
-          <p class="firstCol">Doing</p>
+          <h5 class="firstCol">Doing</h5>
           <div class="card">
             <div class="card-header">Task2</div>
             <div class="card-body">Description</div>
           </div>
         </div>
         <div class="col col-sm text-center Done">
-          <p class="firstCol">Done</p>
+          <h5 class="firstCol">Done</h5>
           <div class="card">
             <div class="card-header">Task2</div>
             <div class="card-body">Description</div>
