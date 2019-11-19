@@ -1,0 +1,10 @@
+<?xml version="1.0" ?>
+<dataset>
+    <table name="guestbook">
+        <column>id</column>
+        <column>content</column>
+        <column>user</column>
+        <column>created</column>
+
+    </table>
+</dataset>
