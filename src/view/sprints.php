@@ -54,7 +54,7 @@
     <!-- tasks View -->
     <div class="row">
       <div class="col-xl-2">
-        <button class="btn bg-primary">Ajouter User Story</button>
+        <button class="btn bg-primary linkUSToSprint" data-target='#linkUSToSprint' data-toggle='modal'>Ajouter User Story</button>
       </div>
       <div class="col-xl-1">
         <button class="btn bg-primary createOrModifyTaskModal" type="button" data-target='#createOrModifyTaskModal' data-toggle="modal" id="createTask" data-sprintid="" data-projectid="<?php echo $projectId; ?>">Créer une tâche</button>
@@ -118,27 +118,27 @@
           //console.log(item);
           var where
           htmlToWrite += "<a data-target='#createOrModifyTaskModal' data-toggle='modal'"
-          htmlToWrite += "data-memberid=" + item['member_id'] + " data-name=" + item['name'] + "data-description=" + item['description'] + " data-dod=" + item['dod'] + " data-time=" + item['time'] + "data-sprintid=" + item['sprint_id']+ "data-pred=" + item['predecessor']+">"
-          htmlToWrite += "<div class='card mt-2 task' data-taskid=" + item["id"] + " style='cursor:pointer'>"
+          htmlToWrite += " data-memberid='" + item['member_id'] + "' data-name='" + item['name'] + "' data-description='" + item['description'] + "' data-dod='" + item['dod'] + "' data-time='" + item['time'] + "' data-sprintid='" + item['sprint_id']+ "' data-pred='" + item['predecessor']+"'>"
+          htmlToWrite += "<div class='card mt-2 task' data-taskid='" + item["id"] + "' style='cursor:pointer'>"
           htmlToWrite += "<div class='card-header'>" + item['name'] + "</div>";
           htmlToWrite += "<div class='card-body'>" + item['description'] + "</div>";
-          htmlToWrite += "<span>"
+          htmlToWrite += "<div class='row'>"
       
 
 
           if (item["state"] === "todo") {
             where=".Todo"
-            htmlToWrite += "<a class=' float-right'><em class='fas fa-arrow-alt-circle-right' style='color:green ; cursor:pointer' data-toggle='tooltip' data-placement='top' title='Accéder au projet'></em>" 
+            htmlToWrite += "<a class='col-lg-12 float-right'><em class='fas fa-arrow-alt-circle-right' style='color:green ; cursor:pointer' data-toggle='tooltip' data-placement='top' title='Accéder au projet'></em></a>" 
           } else if (item["state"] === "onGoing") {
             where=".Doing"
-            htmlToWrite += "<a class=' float-left'><em class='fas fa-arrow-alt-circle-left' style='color:green ; cursor:pointer' data-toggle='tooltip' data-placement='top' title='Accéder au projet'></em>"
-            htmlToWrite += "<a class=' float-right'><em class='fas fa-arrow-alt-circle-right' style='color:green ; cursor:pointer' data-toggle='tooltip' data-placement='top' title='Accéder au projet'></em>" 
+            htmlToWrite += "<a class='col-lg-6 float-left'><em class='fas fa-arrow-alt-circle-left' style='color:green ; cursor:pointer' data-toggle='tooltip' data-placement='top' title='Accéder au projet'></em></a>"
+            htmlToWrite += "<a class='col-lg-6 float-right'><em class='fas fa-arrow-alt-circle-right' style='color:green ; cursor:pointer' data-toggle='tooltip' data-placement='top' title='Accéder au projet'></em></a>" 
           } else if (item["state"] === "done") {
             where=".Done"
-            htmlToWrite += "<a class=' float-left'><em class='fas fa-arrow-alt-circle-left' style='color:green ; cursor:pointer' data-toggle='tooltip' data-placement='top' title='Accéder au projet'></em>" 
+            htmlToWrite += "<a class='col-lg-12 float-left'><em class='fas fa-arrow-alt-circle-left' style='color:green ; cursor:pointer' data-toggle='tooltip' data-placement='top' title='Accéder au projet'></em></a>" 
           }
           $(where).append(htmlToWrite);
-          htmlToWrite += "</span>"                             
+          htmlToWrite += "</div>"                             
           htmlToWrite += "</div> "
           htmlToWrite += "</a>"
           htmlToWrite = "";
