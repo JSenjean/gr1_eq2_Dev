@@ -58,7 +58,6 @@ function create_new_sprint($name, $start, $end, $projectId)
 function delete_sprint_by_id($sprintId)
 {
   try {
-    var_dump($sprintId);
     $bdd = dbConnect();
     $stmt = $bdd->prepare(
       "DELETE FROM sprint
@@ -125,6 +124,21 @@ function get_all_task_inside_sprint($sprintId) {
           "SELECT task.*
               FROM task  
               WHERE task.sprint_id=:sprintId"
+      );
+      $stmt->execute(array('sprintId' => $sprintId));
+      return $stmt;
+  } catch (PDOException $e) {
+      echo "<br>" . $e->getMessage();
+  }
+}
+
+function get_all_us_inside_sprint($sprintId) {
+  try {
+      $bdd = dbConnect();
+      $stmt = $bdd->prepare(
+          "SELECT us.*
+              FROM inside_sprint_us=isu,user_story=us  
+              WHERE isu.sprint_id=:sprintId and us.id=isu.user_story_id"
       );
       $stmt->execute(array('sprintId' => $sprintId));
       return $stmt;

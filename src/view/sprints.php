@@ -98,19 +98,26 @@
     console.log(sprintId);
     $("#createTask").attr('data-sprintid', sprintId);
 
+
+    $('.Todo').find('*').not('.firstCol').remove();
+    $('.Doing').find('*').not('.firstCol').remove();
+    $('.done').find('*').not('.firstCol').remove();
+
+
     $.ajax({
       type: 'POST',
       url: 'index.php?action=sprints',
       data: {
-        getUS: true,
+        getTask: true,
         sprintId: sprintId
       },
       success: function(response) {
         var tasks = JSON.parse(response);
         var htmlToWrite = "";
         tasks.forEach(function(item) {
-          console.log(item);
+          //console.log(item);
           htmlToWrite += "<div class='card mt-2 task' data-taskid=" + item["id"] + " style='cursor:pointer'"
+          //ajouter projectid et sprintid 
           htmlToWrite += "data-memberid=" + item['member_id'] + " data-name=" + item['name'] + "data-description=" + item['description'] + " data-dod=" + item['dod'] + " data-time=" + item['time'] + ">";
           htmlToWrite += "<div class='card-header'>" + item['name'] + "</div>";
           htmlToWrite += "<div class='card-body'>" + item['description'] + "</div>";
@@ -132,27 +139,20 @@
       type: 'POST',
       url: 'index.php?action=sprints',
       data: {
-        getTask: true,
+        getUS: true,
         sprintId: sprintId
       },
       success: function(response) {
         var tasks = JSON.parse(response);
         var htmlToWrite = "";
         tasks.forEach(function(item) {
-          console.log(item);
-          htmlToWrite += "<div class='card mt-2 task' data-taskid=" + item["id"] + " style='cursor:pointer'"
-          htmlToWrite += "data-memberid=" + item['member_id'] + " data-name=" + item['name'] + "data-description=" + item['description'] + " data-dod=" + item['dod'] + " data-time=" + item['time'] + ">";
-          htmlToWrite += "<div class='card-header'>" + item['name'] + "</div>";
-          htmlToWrite += "<div class='card-body'>" + item['description'] + "</div>";
-          htmlToWrite += "</div> "
+         
+          htmlToWrite += "<div class='card mt-1'>"
+          htmlToWrite += "<div class='card-header'>"+item["name"]+"</div>";
+          htmlToWrite += "<div class='card-body'>"+ (item['description']!= undefined ? item['description'] : '') +"</div>";
+          htmlToWrite += "</div>";
+          $(".US").append(htmlToWrite);
 
-          if (item["state"] === "todo") {
-            $(".Todo").append(htmlToWrite);
-          } else if (item["state"] === "onGoing") {
-            $(".Doing").append(htmlToWrite);
-          } else if (item["state"] === "done") {
-            $(".Done").append(htmlToWrite);
-          }
           htmlToWrite = "";
         });
       }

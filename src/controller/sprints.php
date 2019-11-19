@@ -10,6 +10,11 @@ if (isset($_POST['delete']) && isset($_POST['sprintToDeleteId'])) {
 {
     echo json_encode(get_all_task_inside_sprint($_POST['sprintId'])->fetchAll());
 
+}
+elseif (isset($_POST['getUS']))
+{
+    echo json_encode(get_all_us_inside_sprint($_POST['sprintId'])->fetchAll());
+
 } else {
     if (isset($_POST['sprintName']) && isset($_POST['startDate']) && isset($_POST['endDate'])) {
         create_new_sprint($_POST['sprintName'], $_POST['startDate'], $_POST['endDate'], $_POST['projectID']);
