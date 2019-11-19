@@ -4,7 +4,7 @@
     <div class="row">
       <?php foreach ($sprints as $value) : $startD = $value['start'];
         $endD = $value['end']; ?>
-        <div class="col sprintToDelete">
+        <div class="col sprint" data-sprintid="<?php echo $value['id'] ?>">
           <div class="card mt-4 sprintCard <?php $currentProjectBg = add_sprint_background($startD, $endD);
                                               echo $currentProjectBg ?>" style="width: 15rem;">
             <div class="card-header">
@@ -51,46 +51,37 @@
 
 </br>
 </br>
-  <div class="container" id="taskInsideSprint">
+  <div class="container" id="taskInsideSprint" hidden>
     <!-- tasks View -->
-    <div class="row">
+    <div class="row" >
       <div class="col-xl-2">
         <button class="btn bg-primary">Ajouter User Story</button>
       </div>
       <div class="col-xl-1">
-        <button class="btn bg-primary createOrModifyTaskModal" type="button" data-target='#createOrModifyTaskModal' data-toggle="modal" id="<?php echo $projectId; ?>">Créer une tâche</button>
+        <button class="btn bg-primary createOrModifyTaskModal" type="button" data-target='#createOrModifyTaskModal' data-toggle="modal" id="createTask" data-sprintid="" data-projectid="<?php echo $projectId; ?>">Créer une tâche</button>
       </div>
     </div>
 </br>
-    <div class="container-fluid table-sprint" id="table-sprint">
+    <div class="container-fluid table-sprint" id="table-sprint" >
       <div class="row">
         <div class="col col-sm text-center US">
           <h5 class="firstCol">User Story</h5>
-          <div class="card">
+          <div class="card mt-1">
             <div class="card-header">US1</div>
             <div class="card-body">Description</div>
           </div>
         </div> 
         <div class="col col-sm text-center Todo">
           <h5 class="firstCol">Todo</h5>
-          <div class="card">
-            <div class="card-header">Task1</div>
-            <div class="card-body">Description</div>
-          </div>
+
         </div>
         <div class="col col-sm text-center Doing">
           <h5 class="firstCol">Doing</h5>
-          <div class="card">
-            <div class="card-header">Task2</div>
-            <div class="card-body">Description</div>
-          </div>
+
         </div>
         <div class="col col-sm text-center Done">
           <h5 class="firstCol">Done</h5>
-          <div class="card">
-            <div class="card-header">Task2</div>
-            <div class="card-body">Description</div>
-          </div>
+
         </div>
       </div>
     </div>
@@ -99,11 +90,59 @@
 </div>
 <link rel="stylesheet" href="sprints.css">
 <script>
-  $(".sprintToDelete").click(function() {
+  $(".sprint").click(function() {
     $(".sprintCard").css("border", "0px");
     $(this).children($(".sprintCard")).css("border", "3px solid blue");
-    $("#taskInsideSprint").html($(this).html());
+    $("#taskInsideSprint").removeAttr('hidden');
+
+    var sprintId = $(this).data('sprintid');
+    console.log(sprintId);
+    $("#createTask").attr('data-sprintid',sprintId);
+
+
+    $.ajax({
+          type: 'POST',
+          url: 'index.php?action=sprints',
+          data: {
+            getTask: true,
+            sprintId: sprintId 
+          },
+          success: function(response) {
+            var tasks =JSON.parse(response);
+            var htmlToWrite="";
+            tasks.forEach(function(item){
+              console.log(item);
+              htmlToWrite+="<div class='card mt-2 task' data-taskid="+item["id"]+" style='cursor:pointer'"
+              htmlToWrite+="data-memberid="+item['member_id']+" data-name="+item['name']+"data-description="+item['description']+" data-dod="+item['dod']+" data-time="+item['time']+">";
+              htmlToWrite+="<div class='card-header'>"+item['name']+"</div>";
+              htmlToWrite+="<div class='card-body'>"+item['description']+"</div>";
+              htmlToWrite+="</div> "
+
+              if(item["state"]==="todo")
+              {
+                $(".Todo").append(htmlToWrite);
+              }
+              else if(item["state"]==="onGoing")
+              {
+                $(".Doing").append(htmlToWrite);
+              }
+              else if(item["state"]==="done")
+              {
+                $(".Done").append(htmlToWrite);
+              }
+              htmlToWrite="";
+            });
+          }
+        })
+        
+
+
   });
+
+  $(document).on("click", ".task", function() {
+    $("#createOrModifyTaskModal").modal('show');
+
+  })
   
   $(document).ready(function() {
     $(".deleteSprint").click(function(event) {
@@ -127,5 +166,12 @@
         })
       }
     })
+
+
+
   });
+
+
+
+
 </script>

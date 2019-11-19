@@ -117,3 +117,18 @@ function create_new_task($name, $description, $dod, $predecessor, $time, $sprint
   }
   return 1;
 }
+
+function get_all_task_inside_sprint($sprintId) {
+  try {
+      $bdd = dbConnect();
+      $stmt = $bdd->prepare(
+          "SELECT task.*
+              FROM task  
+              WHERE task.sprint_id=:sprintId"
+      );
+      $stmt->execute(array('sprintId' => $sprintId));
+      return $stmt;
+  } catch (PDOException $e) {
+      echo "<br>" . $e->getMessage();
+  }
+}

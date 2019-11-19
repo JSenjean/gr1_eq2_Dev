@@ -37,7 +37,6 @@ if (isset($_POST["projectIdToModifyRole"])) {
         if (intval($roleId)=="0") {
             $roleId=null;
         }
-
         $done=($_POST["done"]=="true") ? 1 : 0;
         $iCan=$_POST["iCan"];
         $soThat=$_POST["soThat"];
