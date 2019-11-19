@@ -125,17 +125,18 @@
           htmlToWrite += "<div class='row'>"
       
 
-
+          var taskId=item['id'];
+          console.log(taskId);
           if (item["state"] === "todo") {
             where=".Todo"
-            htmlToWrite += "<a class='col-lg-12 float-right'><em class='fas fa-arrow-alt-circle-right' style='color:green ; cursor:pointer' data-toggle='tooltip' data-placement='top' title='Accéder au projet'></em></a>" 
+            htmlToWrite += "<a class='col-lg-12 float-right'><em class='fas fa-arrow-alt-circle-right' style='color:green ; cursor:pointer' title='passer la tache en Doing'></em></a>" 
           } else if (item["state"] === "onGoing") {
             where=".Doing"
-            htmlToWrite += "<a class='col-lg-6 float-left'><em class='fas fa-arrow-alt-circle-left' style='color:green ; cursor:pointer' data-toggle='tooltip' data-placement='top' title='Accéder au projet'></em></a>"
-            htmlToWrite += "<a class='col-lg-6 float-right'><em class='fas fa-arrow-alt-circle-right' style='color:green ; cursor:pointer' data-toggle='tooltip' data-placement='top' title='Accéder au projet'></em></a>" 
+            htmlToWrite += "<a class='col-lg-6 float-left'><em class='fas fa-arrow-alt-circle-left' style='color:green ; cursor:pointer' title='passer la tache en Todo'></em></a>"
+            htmlToWrite += "<a class='col-lg-6 float-right'><em class='fas fa-arrow-alt-circle-right' style='color:green ; cursor:pointer' title='passer la tache en Done'></em></a>" 
           } else if (item["state"] === "done") {
             where=".Done"
-            htmlToWrite += "<a class='col-lg-12 float-left'><em class='fas fa-arrow-alt-circle-left' style='color:green ; cursor:pointer' data-toggle='tooltip' data-placement='top' title='Accéder au projet'></em></a>" 
+            htmlToWrite += "<a class='col-lg-12 float-left'><em class='fas fa-arrow-alt-circle-left' style='color:green ; cursor:pointer' title='Accéder au projet'></em></a>" 
           }
           $(where).append(htmlToWrite);
           htmlToWrite += "</div>"                             
