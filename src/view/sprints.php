@@ -116,25 +116,36 @@
         var htmlToWrite = "";
         tasks.forEach(function(item) {
           //console.log(item);
-          htmlToWrite += "<div class='card mt-2 task' data-taskid=" + item["id"] + " style='cursor:pointer'"
-          //ajouter projectid et sprintid 
-          htmlToWrite += "data-memberid=" + item['member_id'] + " data-name=" + item['name'] + "data-description=" + item['description'] + " data-dod=" + item['dod'] + " data-time=" + item['time'] + ">";
+          var where
+          htmlToWrite += "<a data-target='#createOrModifyTaskModal' data-toggle='modal'"
+          htmlToWrite += "data-memberid=" + item['member_id'] + " data-name=" + item['name'] + "data-description=" + item['description'] + " data-dod=" + item['dod'] + " data-time=" + item['time'] + "data-sprintid=" + item['sprint_id']+ "data-pred=" + item['predecessor']+">"
+          htmlToWrite += "<div class='card mt-2 task' data-taskid=" + item["id"] + " style='cursor:pointer'>"
           htmlToWrite += "<div class='card-header'>" + item['name'] + "</div>";
           htmlToWrite += "<div class='card-body'>" + item['description'] + "</div>";
-          htmlToWrite += "</div> "
+          htmlToWrite += "<span>"
+      
+
 
           if (item["state"] === "todo") {
-            $(".Todo").append(htmlToWrite);
+            where=".Todo"
+            htmlToWrite += "<a class=' float-right'><em class='fas fa-arrow-alt-circle-right' style='color:green ; cursor:pointer' data-toggle='tooltip' data-placement='top' title='Accéder au projet'></em>" 
           } else if (item["state"] === "onGoing") {
-            $(".Doing").append(htmlToWrite);
+            where=".Doing"
+            htmlToWrite += "<a class=' float-left'><em class='fas fa-arrow-alt-circle-left' style='color:green ; cursor:pointer' data-toggle='tooltip' data-placement='top' title='Accéder au projet'></em>"
+            htmlToWrite += "<a class=' float-right'><em class='fas fa-arrow-alt-circle-right' style='color:green ; cursor:pointer' data-toggle='tooltip' data-placement='top' title='Accéder au projet'></em>" 
           } else if (item["state"] === "done") {
-            $(".Done").append(htmlToWrite);
+            where=".Done"
+            htmlToWrite += "<a class=' float-left'><em class='fas fa-arrow-alt-circle-left' style='color:green ; cursor:pointer' data-toggle='tooltip' data-placement='top' title='Accéder au projet'></em>" 
           }
+          $(where).append(htmlToWrite);
+          htmlToWrite += "</span>"                             
+          htmlToWrite += "</div> "
+          htmlToWrite += "</a>"
           htmlToWrite = "";
         });
       }
     })
-
+    //US
     $.ajax({
       type: 'POST',
       url: 'index.php?action=sprints',
@@ -162,10 +173,6 @@
 
   });
 
-  $(document).on("click", ".task", function() {
-    $("#createOrModifyTaskModal").modal('show');
-
-  })
 
   $(document).ready(function() {
     $(".deleteSprint").click(function(event) {
