@@ -23,6 +23,7 @@ function add_sprint_background($startDate, $endDate)
   $curDate = new DateTime("now");
   $sDate = new DateTime($startDate);
   $eDate = new DateTime($endDate);
+  $curDate->settime(0,0);
 
   if ($eDate < $curDate) {
     return "bg-success";
@@ -77,9 +78,8 @@ function get_all_project_members_and_master($id) {
   try {
       $bdd = dbConnect();
       $stmt = $bdd->prepare(
-          "SELECT user.username, user.id FROM user
-              INNER JOIN project_member ON user.id = project_member.user_id
-              WHERE project_member.project_id=:projectId;"
+          "SELECT pm.id,u.username FROM project_member=pm, user=u 
+              WHERE pm.user_id=u.id and pm.project_id=:projectId"
       );
       $stmt->execute(array('projectId' => $id));
       return $stmt;
