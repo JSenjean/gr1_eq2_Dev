@@ -5,16 +5,16 @@ include_once("model/sprints.php");
 
 if (isset($_POST['delete']) && isset($_POST['sprintToDeleteId'])) {
     echo delete_sprint_by_id($_POST['sprintToDeleteId']);
-
-}elseif (isset($_POST['getTask']))
-{
+} elseif (isset($_POST['newTaskName'])) {
+    $memberId = $_POST["taskMember"];
+    if ($memberId == 0) {
+        $memberId = null;
+    }
+    echo create_new_task($_POST['newTaskName'], $_POST['taskDescription'], $_POST['taskDod'], $_POST['taskPredecessor'], $_POST['taskTime'], $_POST['sprintId'], $memberId);
+} elseif (isset($_POST['getTask'])) {
     echo json_encode(get_all_task_inside_sprint($_POST['sprintId'])->fetchAll());
-
-}
-elseif (isset($_POST['getUS']))
-{
+} elseif (isset($_POST['getUS'])) {
     echo json_encode(get_all_us_inside_sprint($_POST['sprintId'])->fetchAll());
-
 } else {
     if (isset($_POST['sprintName']) && isset($_POST['startDate']) && isset($_POST['endDate'])) {
         create_new_sprint($_POST['sprintName'], $_POST['startDate'], $_POST['endDate'], $_POST['projectID']);
