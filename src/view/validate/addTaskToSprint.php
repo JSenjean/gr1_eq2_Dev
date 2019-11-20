@@ -88,7 +88,6 @@
                 taskPredecessor = button.data('pred');
                 taskId = button.data('id');
                 taskState = button.data('state');
-                console.log(taskState);
                 modify = true;
             } else {
                 projectId = button.data('projectid');
@@ -111,7 +110,7 @@
 
         $("#addNewTask").on('submit', function(event) {
             event.preventDefault();
-            
+
 
             taskName = $("#taskName").val();
             taskDescription = $("#taskDescription").val();
@@ -167,7 +166,7 @@
                     }
                     htmlToWrite += "</div>"
                     htmlToWrite += "</div>"
-                    console.log(whereModify);
+                    
                     if (modify) {
                         whereModify.append(htmlToWrite);
                     } else {
