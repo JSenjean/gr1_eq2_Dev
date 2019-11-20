@@ -23,34 +23,43 @@ class BacklogTest extends TestCase
 
         create_new_project(1, "projetTestBacklog", "une description", 1);
     }
-    public function clear_Database()
-    {   //clean user
-        $bdd=dbConnect();
-        $req = $bdd->prepare("DELETE FROM user");
-        $req->execute();
-        $req = $bdd->prepare("ALTER TABLE user AUTO_INCREMENT = 1");
-        $req->execute();
-
-        //clean project
-        $req = $bdd->prepare("DELETE FROM project");
-        $req->execute();
-        $req = $bdd->prepare("ALTER TABLE project AUTO_INCREMENT = 1");
-        $req->execute();
-
-        //clean project_member
-        $req = $bdd->prepare("ALTER TABLE project_member AUTO_INCREMENT = 1");
-        $req->execute();
-
-    }
+    
 
 
     
     public function test_add_inside_project_role()
     {
+        clear_Database();
         $this->prepare_user_and_project();
-        $this->clear_Database();
+        
+        add_inside_project_role(1,"name","description");
+
         $bdd=dbConnect();
 
+        $stmt = $bdd->prepare(
+            "SELECT *
+                FROM inside_project_role
+                WHERE project_id=1"
+        );
+        $stmt->execute();
+        $this->assertEquals(1,$stmt->rowCount());
+
+        $roleInserted = $stmt->fetchAll();
+        $this->assertEquals(8,sizeof($roleInserted[0]));
+        $this->assertEquals(1,$roleInserted[0][0]);
+        $this->assertEquals(1,$roleInserted[0][1]);
+        $this->assertEquals("name",$roleInserted[0][2]);
+        $this->assertEquals("description",$roleInserted[0][3]);
+
+
+
+        //$this->clear_Database();
+
         //create_new_project();
+    }
+
+    public function test_get_all_inside_project_role()
+    {
+        
     }
 }
