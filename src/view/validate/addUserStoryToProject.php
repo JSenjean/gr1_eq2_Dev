@@ -189,7 +189,7 @@
                         htmlToWrite += '<div class="col-lg-4 usTop" id="US' + response + '">'
                     htmlToWrite += '<div class="userstory">'
                     htmlToWrite += '<div class="userstory-front">'
-                    htmlToWrite += '<img src="http://placehold.it/110x110/9c27b0/fff?text=' + usName + '" class="img-fluid" />'
+                    htmlToWrite += '<img src="http://placehold.it/110x110/85D9E8/000?text=' + usName + '" class="img-fluid" />'
                     htmlToWrite += '<p>effort: ' + difficulty + ' / Priorité: ' + workValue + ' </p>'
                     htmlToWrite += '<p>' + rolename + '</p>'
                     htmlToWrite += '</div>'
