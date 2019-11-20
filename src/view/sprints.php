@@ -119,7 +119,7 @@
           //console.log(item);
           var where;
           htmlToWrite += "<div class='card mt-2 task' data-taskid='" + item["id"] + "'  >"
-          htmlToWrite+= "<button class='btn btn-primary-outline pull-right removeTask ' data-taskid='" + item["id"] + "' type='button'><em class='fas fa-times' style='color:red' title='Modifier US'></em>"
+          htmlToWrite+= "<button class='btn btn-primary-outline pull-right removeTask col-lg-1' data-taskid='" + item["id"] + "' type='button'><em class='fas fa-times' style='color:red' title='supprimer Tache'></em> </button>"
           htmlToWrite += "<a data-target='#createOrModifyTaskModal' data-toggle='modal' class='modalLink' style='cursor:pointer'"
           htmlToWrite += " data-memberid='" + item['member_id'] + "' data-name='" + item['name'] + "' data-description='" + item['description'] + "' data-dod='" + item['dod'] + "' data-time='" + item['time'] + "' data-sprintid='" + item['sprint_id'] + "' data-pred='" + item['predecessor'] + "'>" 
           htmlToWrite += "<div class='card-header'>" + item['name'] + "</div>";
