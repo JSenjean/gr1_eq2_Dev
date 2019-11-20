@@ -146,3 +146,31 @@ function get_all_us_inside_sprint($sprintId) {
       echo "<br>" . $e->getMessage();
   }
 }
+function switch_task_state($taskId,$state) {
+  try {
+      $bdd = dbConnect();
+      $stmt = $bdd->prepare(
+        "UPDATE task
+        SET state=:state
+        WHERE id=:taskId"
+      );
+      $stmt->execute(array('state' => $state,
+                            'taskId' => $taskId));
+      return 1;
+  } catch (PDOException $e) {
+      echo "<br>" . $e->getMessage();
+  }
+}
+function remove_task($taskId) {
+  try {
+      $bdd = dbConnect();
+      $stmt = $bdd->prepare(
+        "DELETE FROM task
+          WHERE id=:taskId"
+      );
+      $stmt->execute(array('taskId' => $taskId));
+      return 1;
+  } catch (PDOException $e) {
+      echo "<br>" . $e->getMessage();
+  }
+}

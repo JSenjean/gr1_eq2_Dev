@@ -15,7 +15,12 @@ if (isset($_POST['delete']) && isset($_POST['sprintToDeleteId'])) {
     echo json_encode(get_all_task_inside_sprint($_POST['sprintId'])->fetchAll());
 } elseif (isset($_POST['getUS'])) {
     echo json_encode(get_all_us_inside_sprint($_POST['sprintId'])->fetchAll());
-} else {
+} elseif (isset($_POST['switchState']))
+{
+    echo switch_task_state($_POST['taskToSwitch'],$_POST['switchState']);
+}elseif(isset($_POST['removeTaskId'])){
+    echo remove_task($_POST["removeTaskId"]);
+}else {
     if (isset($_POST['sprintName']) && isset($_POST['startDate']) && isset($_POST['endDate'])) {
         create_new_sprint($_POST['sprintName'], $_POST['startDate'], $_POST['endDate'], $_POST['projectID']);
         $projectId = $_POST['projectID'];

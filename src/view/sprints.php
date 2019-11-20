@@ -44,48 +44,48 @@
     </div>
   </div>
   <div class="col ">
-      <button class="btn btn-primary-outline bg-primary col-sm-12 createOrModifySprintModal" type="button" style="border: none;" data-target='#createOrModifySprintModal' data-toggle="modal" id="<?php echo $projectId; ?>">
-        <em class='fas fa-plus fa-3x' style="color:white" title="CreateSprint"></em>
+    <button class="btn btn-primary-outline bg-primary col-sm-12 createOrModifySprintModal" type="button" style="border: none;" data-target='#createOrModifySprintModal' data-toggle="modal" id="<?php echo $projectId; ?>">
+      <em class='fas fa-plus fa-3x' style="color:white" title="CreateSprint"></em>
   </div>
+</div>
+</br>
+</br>
+<div class="container" id="taskInsideSprint" hidden>
+  <!-- tasks View -->
+  <div class="row">
+    <div class="col-xl-2">
+      <button class="btn bg-primary linkUSToSprint" data-target='#linkUSToSprint' data-toggle='modal'>Ajouter User Story</button>
+    </div>
+    <div class="col-xl-1">
+      <button class="btn bg-primary createOrModifyTaskModal" type="button" data-target='#createOrModifyTaskModal' data-toggle="modal" id="createTask" data-sprintid="" data-projectid="<?php echo $projectId; ?>">Créer une tâche</button>
+    </div>
   </div>
   </br>
-  </br>
-  <div class="container" id="taskInsideSprint" hidden>
-    <!-- tasks View -->
+  <div class="container-fluid table-sprint" id="table-sprint">
     <div class="row">
-      <div class="col-xl-2">
-        <button class="btn bg-primary linkUSToSprint" data-target='#linkUSToSprint' data-toggle='modal'>Ajouter User Story</button>
+      <div class="col col-sm text-center US">
+        <h5 class="firstCol">User Story</h5>
+        <div class="card mt-1">
+          <div class="card-header">US1</div>
+          <div class="card-body">Description</div>
+        </div>
       </div>
-      <div class="col-xl-1">
-        <button class="btn bg-primary createOrModifyTaskModal" type="button" data-target='#createOrModifyTaskModal' data-toggle="modal" id="createTask" data-sprintid="" data-projectid="<?php echo $projectId; ?>">Créer une tâche</button>
+      <div class="col col-sm text-center Todo">
+        <h5 class="firstCol">Todo</h5>
+
       </div>
-    </div>
-    </br>
-    <div class="container-fluid table-sprint" id="table-sprint">
-      <div class="row">
-        <div class="col col-sm text-center US">
-          <h5 class="firstCol">User Story</h5>
-          <div class="card mt-1">
-            <div class="card-header">US1</div>
-            <div class="card-body">Description</div>
-          </div>
-        </div>
-        <div class="col col-sm text-center Todo">
-          <h5 class="firstCol">Todo</h5>
+      <div class="col col-sm text-center Doing">
+        <h5 class="firstCol">Doing</h5>
 
-        </div>
-        <div class="col col-sm text-center Doing">
-          <h5 class="firstCol">Doing</h5>
+      </div>
+      <div class="col col-sm text-center Done">
+        <h5 class="firstCol">Done</h5>
 
-        </div>
-        <div class="col col-sm text-center Done">
-          <h5 class="firstCol">Done</h5>
-
-        </div>
       </div>
     </div>
-
   </div>
+
+</div>
 
 <link rel="stylesheet" href="sprints.css">
 <script>
@@ -95,7 +95,7 @@
     $("#taskInsideSprint").removeAttr('hidden');
 
     var sprintId = $(this).data('sprintid');
-    console.log(sprintId);
+    //console.log(sprintId);
     $("#createTask").attr('data-sprintid', sprintId);
 
 
@@ -114,34 +114,39 @@
       success: function(response) {
         var tasks = JSON.parse(response);
         var htmlToWrite = "";
+        var taskId
         tasks.forEach(function(item) {
           //console.log(item);
-          var where
-          htmlToWrite += "<a data-target='#createOrModifyTaskModal' data-toggle='modal'"
-          htmlToWrite += " data-memberid='" + item['member_id'] + "' data-name='" + item['name'] + "' data-description='" + item['description'] + "' data-dod='" + item['dod'] + "' data-time='" + item['time'] + "' data-sprintid='" + item['sprint_id']+ "' data-pred='" + item['predecessor']+"'>"
-          htmlToWrite += "<div class='card mt-2 task' data-taskid='" + item["id"] + "' style='cursor:pointer'>"
+          var where;
+          htmlToWrite += "<div class='card mt-2 task' data-taskid='" + item["id"] + "'  >"
+          htmlToWrite+= "<button class='btn btn-primary-outline pull-right removeTask ' data-taskid='" + item["id"] + "' type='button'><em class='fas fa-times' style='color:red' title='Modifier US'></em>"
+          htmlToWrite += "<a data-target='#createOrModifyTaskModal' data-toggle='modal' class='modalLink' style='cursor:pointer'"
+          htmlToWrite += " data-memberid='" + item['member_id'] + "' data-name='" + item['name'] + "' data-description='" + item['description'] + "' data-dod='" + item['dod'] + "' data-time='" + item['time'] + "' data-sprintid='" + item['sprint_id'] + "' data-pred='" + item['predecessor'] + "'>" 
           htmlToWrite += "<div class='card-header'>" + item['name'] + "</div>";
-          htmlToWrite += "<div class='card-body'>" + item['description'] + "</div>";
-          htmlToWrite += "<div class='row'>"
-      
-
-          var taskId=item['id'];
-          console.log(taskId);
-          if (item["state"] === "todo") {
-            where=".Todo"
-            htmlToWrite += "<a class='col-lg-12 float-right' data-target='onGoing'><em class='fas fa-arrow-alt-circle-right' style='color:green ; cursor:pointer' title='passer la tache en Doing'></em></a>" 
-          } else if (item["state"] === "onGoing") {
-            where=".Doing"
-            htmlToWrite += "<a class='col-lg-6 float-left switchArrow data-target='todo'><em class='fas fa-arrow-alt-circle-left' style='color:green ; cursor:pointer' title='passer la tache en Todo'></em></a>"
-            htmlToWrite += "<a class='col-lg-6 float-right switchArrow' data-target='done'><em class='fas fa-arrow-alt-circle-right' style='color:green ; cursor:pointer' title='passer la tache en Done'></em></a>" 
-          } else if (item["state"] === "done") {
-            where=".Done"
-            htmlToWrite += "<a class='col-lg-12 float-left' data-target='onGoing'><em class='fas fa-arrow-alt-circle-left' style='color:green ; cursor:pointer' title='Accéder au projet'></em></a>" 
-          }
-          $(where).append(htmlToWrite);
-          htmlToWrite += "</div>"                             
-          htmlToWrite += "</div> "
           htmlToWrite += "</a>"
+          htmlToWrite += "<div class='card-body'>" + item['description'] + "</div>";
+          htmlToWrite += "<div class='row switchDiv'>"
+
+
+          taskId = item['id'];
+          // console.log(taskId);
+          if (item["state"] === "todo") {
+            where = ".Todo"
+            htmlToWrite += "<a class='col-lg-12 float-right switchArrow' data-target='onGoing' data-taskid='"+item['id']+"'><em class='fas fa-arrow-alt-circle-right' style='color:green ; cursor:pointer' title='passer la tache en Doing' ></em></a>"
+          } else if (item["state"] === "onGoing") {
+            where = ".Doing"
+            htmlToWrite += "<a class='col-lg-6 float-left switchArrow' data-target='todo' data-taskid='"+item['id']+"'><em class='fas fa-arrow-alt-circle-left' style='color:green ; cursor:pointer' title='passer la tache en Todo' ></em></a>"
+            htmlToWrite += "<a class='col-lg-6 float-right switchArrow' data-target='done' data-taskid='"+item['id']+"'><em class='fas fa-arrow-alt-circle-right' style='color:green ; cursor:pointer' title='passer la tache en Done' ></em></a>"
+          } else if (item["state"] === "done") {
+            where = ".Done"
+            htmlToWrite += "<a class='col-lg-12 float-left switchArrow' data-target='onGoing' data-taskid='"+item['id']+"'><em class='fas fa-arrow-alt-circle-left' style='color:green ; cursor:pointer' title='Accéder au projet' ></em></a>"
+          }
+
+          htmlToWrite += "</div>"
+          htmlToWrite += "</div> "
+
+          console.log(htmlToWrite)
+          $(where).append(htmlToWrite);
           htmlToWrite = "";
         });
       }
@@ -158,10 +163,10 @@
         var tasks = JSON.parse(response);
         var htmlToWrite = "";
         tasks.forEach(function(item) {
-         
+
           htmlToWrite += "<div class='card mt-1'>"
-          htmlToWrite += "<div class='card-header'>"+item["name"]+"</div>";
-          htmlToWrite += "<div class='card-body'>"+ (item['description']!= undefined ? item['description'] : '') +"</div>";
+          htmlToWrite += "<div class='card-header'>" + item["name"] + "</div>";
+          htmlToWrite += "<div class='card-body'>" + (item['description'] != undefined ? item['description'] : '') + "</div>";
           htmlToWrite += "</div>";
           $(".US").append(htmlToWrite);
 
@@ -198,14 +203,75 @@
       }
     })
 
-    $(".switchArrow").click(function(event) {
-      console.log($(this).html());
+    $(document).on("click", ".switchArrow", function(event) {
+        //event.stopImmediatePropagation();
+        
+        var trigger= $(this);
+        
+        var taskId= trigger.data("taskid");
+        var col;
+        var target = trigger.data("target");
+        var htmlArrow = "";
+
+        if (target == "onGoing") {
+          col = ".Doing";
+          htmlArrow += "<a class='col-lg-6 float-left switchArrow' data-target='todo' data-taskid='"+taskId+"'><em class='fas fa-arrow-alt-circle-left' style='color:green ; cursor:pointer' title='passer la tache en Todo' ></em></a>"
+          htmlArrow += "<a class='col-lg-6 float-right switchArrow' data-target='done' data-taskid='"+taskId+"'><em class='fas fa-arrow-alt-circle-right' style='color:green ; cursor:pointer' title='passer la tache en Done' ></em></a>"
+        } else if (target == "todo") {
+          col = ".Todo";
+          htmlArrow += "<a class='col-lg-12 float-right switchArrow' data-target='onGoing' data-taskid='"+taskId+"'><em class='fas fa-arrow-alt-circle-right' style='color:green ; cursor:pointer' title='passer la tache en Doing' ></em></a>"
+        } else if (target == "done") {
+          col = ".Done";
+          htmlArrow += "<a class='col-lg-12 float-left switchArrow' data-target='onGoing' data-taskid='"+taskId+"'><em class='fas fa-arrow-alt-circle-left' style='color:green ; cursor:pointer' title='Accéder au projet' ></em></a>"
+        }
+        
+        
+        
+        $.ajax({
+          type: 'POST',
+          url: 'index.php?action=sprints',
+          data: {
+            switchState: target,
+            taskToSwitch: taskId
+          },
+          success: function(response) {
+            var switchDiv = trigger.closest(".switchDiv")
+            switchDiv.empty();
+            //console.log(htmlToWrite)
+            switchDiv.append(htmlArrow);
+            var taskHtml = switchDiv.closest(".task").html();
+            switchDiv.closest(".task").remove();
+            var htmlToWrite = "<div class='card mt-2 task' data-taskid='" + taskId + "'  >"
+            htmlToWrite += taskHtml
+            htmlToWrite += "</div>"
+            $(col).append(htmlToWrite);
+
+          }
+        })
+      
 
 
-  })
-    
+    })
 
-  
+
+    $(document).on("click", ".removeTask", function(event) {
+      event.stopPropagation();
+      var trigger= $(this);
+      var taskId = trigger.data("taskid");
+
+      console.log("test");
+      $.ajax({
+          type: 'POST',
+          url: 'index.php?action=sprints',
+          data: {
+            removeTaskId: taskId,
+          },
+          success: function(response) {
+            trigger.closest(".task").remove()
+          }
+        })
+
+    })
 
   });
 </script>
