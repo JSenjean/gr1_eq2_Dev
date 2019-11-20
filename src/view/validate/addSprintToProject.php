@@ -10,20 +10,20 @@
             <div class="modal-body">
                 <form method="POST" data-toggle="validator" action="index.php?action=addSprint" id="CreateNewSprint">
                     <div class="form-group">
-                        <label for="sprintName" id="sprintName"> Nom du sprint : </label>
-                        <input type="text" id="sprintName" maxlength="50 " name="sprintName" required>
+                        <label for="sprintName"> Nom du sprint : </label>
+                        <input type="text" classe="sprintName" id="sprintName" maxlength="50 " name="sprintName" required>
                     </div>
                     <div class="container">
                         <div class="row">
                             <div class='row'>
                                 <div class="col">
                                     <p>Date de début :</p>
-                                    <input type="date" class="form-control" id="startDate" name="startDate" value="<?php $curDate = date("Y-m-d");
+                                    <input type="date" class="form-control startDate" id="startDate" name="startDate" value="<?php $curDate = date("Y-m-d");
                                                                                                                     echo $curDate; ?>" required />
                                 </div>
                                 <div class="col">
                                     <p>Date de Fin :</p>
-                                    <input type="date" class="form-control" id="endDate" name="endDate" value="<?php echo $curDate; ?>" required />
+                                    <input type="date" class="form-control endDate" id="endDate" name="endDate" value="<?php echo $curDate; ?>" required />
                                 </div>
                                 <div>
                                     <input type="hidden" id="projectID" name="projectID" value="<?php echo $projectId ?>" required />
@@ -41,29 +41,34 @@
     </div>
 </div>
 <script>
-    /*
     $(document).ready(function() {
-        $(".validate").click(function() {
-            var projectId = $(".projectID").attr('value');
-            var dateStart = $(".startDate").attr('value');
-            var dateEnd = $(".endDate").attr('value');
-            var sprintN = $(".sprintName");
+        var projectId = null;
+        var sprintId = null;
+        var name = null;
+        var modify = false;
+        var start = null;
+        var end = null;
 
-                $.ajax({
-                    type: 'POST',
-                    url: 'index.php?action=addSprint',
-                    data: {
-                        sprintName : sprintN,
-                        startDate: dateStart, 
-                        endDate: dateEnd,
-                        projectId: projectId
-                    },
-                    success: function(response) {
-                        if (response == 1) {
-                            alert("oui");
-                        }
-                    },
-                });
+        $("#createOrModifySprintModal").on("shown.bs.modal", function(event) {
+            var button = $(event.relatedTarget);
+            projectId = button.data('projectid');
+            
+            if (typeof button.data('name') != 'undefined') {
+                sprintId = button.data('sprintid');
+                name = button.data('name');
+                start = button.data('start');
+                end = button.data('end');
+                modify = true;
+            } else {
+                start = button.data('date');
+                end = button.data('date');
+                var name = "";
+                modify = false;
+            }
+
+            $("#sprintName").val(name);
+            $("#startDate").val(start);
+            $("#endDate").val(end);
         });
-    });*/
+    });
 </script>

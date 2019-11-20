@@ -64,18 +64,20 @@
     $(document).ready(function() {
         var projectId = null;
         var sprintId = null;
-        var taskName = null;
-        var taskDescription = null;
-        var taskDod = null;
-        var taskPredecessor = null;
-        var taskMember = null;
-        var taskTime = null;
+        var taskId = null;
+        var taskName = "";
+        var taskDescription = "";
+        var taskDod = "";
+        var taskPredecessor = "";
+        var taskMember = 0;
+        var taskTime = 0.5;
+        var taskState = null;
         var modify = false;
+        var button = null;
 
         $("#createOrModifyTaskModal").on("shown.bs.modal", function(event) {
-            var button = $(event.relatedTarget);
+            button = $(event.relatedTarget);
             sprintId = button.data('sprintid');
-            console.log(sprintId);
 
             if (typeof button.data('memberid') != 'undefined') {
                 taskMember = button.data('memberid');
@@ -84,21 +86,32 @@
                 taskDod = button.data('dod');
                 taskTime = button.data('time');
                 taskPredecessor = button.data('pred');
+                taskId = button.data('id');
+                taskState = button.data('state');
+                console.log(taskState);
                 modify = true;
-
-                $("#taskName").val(taskName);
-                $("#taskDescription").val(taskDescription);
-                $("#taskDod").val(taskDod);
-                $("#taskPredecessor").val(taskPredecessor);
-                $('#taskMember').val(taskMember);
-                $('#taskTimeValue').val(taskTime);
             } else {
                 projectId = button.data('projectid');
+                taskName = "";
+                taskDescription = "";
+                taskDod = "";
+                taskPredecessor = "";
+                taskMember = 0;
+                taskTime = 0.5;
+                taskState = "todo";
+                modify = false;
             }
+            $("#taskName").val(taskName);
+            $("#taskDescription").val(taskDescription);
+            $("#taskDod").val(taskDod);
+            $("#taskPredecessor").val(taskPredecessor);
+            $('#taskMember').val(taskMember);
+            $('#taskTimeValue').val(taskTime);
         });
 
         $("#addNewTask").on('submit', function(event) {
             event.preventDefault();
+            
 
             taskName = $("#taskName").val();
             taskDescription = $("#taskDescription").val();
@@ -111,18 +124,55 @@
                 type: 'POST',
                 url: 'index.php?action=sprints',
                 data: {
-                    modify: modify,
+                    modifyTask: modify,
                     newTaskName: taskName,
                     taskDescription: taskDescription,
                     taskDod: taskDod,
                     taskPredecessor: taskPredecessor,
                     taskMember: taskMember,
                     taskTime: taskTime,
+                    taskId: taskId,
                     sprintId: sprintId,
                     projectId: projectId
                 },
                 success: function(response) {
                     $('#closeCrossTask').click();
+                    var htmlToWrite = "";
+                    var where = "";
+                    var whereModify = null;
+                    if (!modify) {
+                        htmlToWrite += "<div class='card mt-2 task' data-taskid='" + response + "'  >"
+                    } else {
+                        whereModify = button.closest('.task');
+                        whereModify.empty();
+                    }
+                    htmlToWrite += "<a class='btn btn-primary-outline pull-right removeTask' data-taskid='" + response + "' type='button'><em class='fas fa-times' style='color:red' title='supprimer Tache'></em> </a>"
+                    htmlToWrite += "<a data-target='#createOrModifyTaskModal' data-toggle='modal' class='modalLink' style='cursor:pointer'"
+                    htmlToWrite += " data-memberid='" + taskMember + "' data-name='" + taskName + "' data-description='" + taskDescription + "' data-dod='" + taskDod + "' data-time='" + taskTime + "' data-sprintid='" + sprintId + "' data-pred='" + taskPredecessor + "' data-id='"+ response + "' data-state='" + taskState + "' >"
+                    htmlToWrite += "<div class='card-header'>" + taskName + "</div>";
+                    htmlToWrite += "</a>"
+                    htmlToWrite += "<div class='card-body'>" + taskDescription + "</div>";
+                    htmlToWrite += "<div class='row switchDiv'>"
+
+                    if (taskState === "onGoing") {
+                        where = ".Doing";
+                        htmlToWrite += "<a class='col-lg-6 float-left switchArrow' data-target='todo' data-taskid='"+ response +"'><em class='fas fa-arrow-alt-circle-left' style='color:green ; cursor:pointer' title='passer la tache en Todo' ></em></a>"
+                        htmlToWrite += "<a class='col-lg-6 float-right switchArrow' data-target='done' data-taskid='"+ response +"'><em class='fas fa-arrow-alt-circle-right' style='color:green ; cursor:pointer' title='passer la tache en Done' ></em></a>"
+                    } else if (taskState === "todo") {
+                        where = ".Todo";
+                        htmlToWrite += "<a class='col-lg-12 float-right switchArrow' data-target='onGoing' data-taskid='"+ response +"'><em class='fas fa-arrow-alt-circle-right' style='color:green ; cursor:pointer' title='passer la tache en Doing' ></em></a>"
+                    } else if (taskState === "done") {
+                        where = ".Done";
+                        htmlToWrite += "<a class='col-lg-12 float-left switchArrow' data-target='onGoing' data-taskid='"+ response +"'><em class='fas fa-arrow-alt-circle-left' style='color:green ; cursor:pointer' title='Accéder au projet' ></em></a>"
+                    }
+                    htmlToWrite += "</div>"
+                    htmlToWrite += "</div>"
+                    console.log(whereModify);
+                    if (modify) {
+                        whereModify.append(htmlToWrite);
+                    } else {
+                        $(where).append(htmlToWrite);
+                    }
                 },
             });
         });

@@ -10,14 +10,14 @@
             <div class="card-header">
               <div class="row">
                 <div class="col-lg-2">
-                  <button class="btn btn-primary-outline float-left" type="button" style="background-color: transparent; border: none;">
+                  <button class="btn btn-primary-outline float-left createOrModifySprintModal" data-target='#createOrModifySprintModal' data-toggle="modal" data-projectid="<?php echo $projectId; ?>" data-sprintid="<?php $sprintId = $value['id']; echo $sprintId; ?>" data-name="<?php $name = $value['name'];echo $name; ?>" data-start="<?php echo $startD ?>" data-end="<?php echo $endD ?>" type="button" style="background-color: transparent; border: none;">
                     <em class='fas fa-pen fa-xs' style="color:blue" title="Modifier Sprint"></em>
                 </div>
                 <div class="col">
-                  <?php echo $value['name']; ?>
+                  <?php echo $name; ?>
                 </div>
                 <div class="col-lg-2">
-                  <button class="btn btn-primary-outline float-right deleteSprint" data-sprintid="<?php echo $value['id'] ?>" type="button" style="background-color: transparent; border: none;">
+                  <button class="btn btn-primary-outline float-right deleteSprint" data-sprintid="<?php echo $sprintId ?>" type="button" style="background-color: transparent; border: none;">
                     <em class='fas fa-times fa-xs' title="Modifier Sprint"></em>
                 </div>
               </div>
@@ -44,7 +44,7 @@
     </div>
   </div>
   <div class="col ">
-    <button class="btn btn-primary-outline bg-primary col-sm-12 createOrModifySprintModal" type="button" style="border: none;" data-target='#createOrModifySprintModal' data-toggle="modal" id="<?php echo $projectId; ?>">
+    <button class="btn btn-primary-outline bg-primary col-sm-12 createOrModifySprintModal" type="button" style="border: none;" data-target='#createOrModifySprintModal' data-toggle="modal" data-projectid="<?php echo $projectId; ?>" data-date="<?php echo date("Y-m-d")?>" >
       <em class='fas fa-plus fa-3x' style="color:white" title="CreateSprint"></em>
   </div>
 </div>
@@ -95,7 +95,7 @@
     $("#taskInsideSprint").removeAttr('hidden');
 
     var sprintId = $(this).data('sprintid');
-    //console.log(sprintId);
+
     $("#createTask").attr('data-sprintid', sprintId);
 
 
@@ -116,12 +116,12 @@
         var htmlToWrite = "";
         var taskId
         tasks.forEach(function(item) {
-          //console.log(item);
+
           var where;
           htmlToWrite += "<div class='card mt-2 task' data-taskid='" + item["id"] + "'  >"
-          htmlToWrite+= "<a class='btn btn-primary-outline pull-right removeTask' data-taskid='" + item["id"] + "' type='button'><em class='fas fa-times' style='color:red' title='supprimer Tache'></em> </a>"
+          htmlToWrite += "<a class='btn btn-primary-outline pull-right removeTask' data-taskid='" + item["id"] + "' type='button'><em class='fas fa-times' style='color:red' title='supprimer Tache'></em> </a>"
           htmlToWrite += "<a data-target='#createOrModifyTaskModal' data-toggle='modal' class='modalLink' style='cursor:pointer'"
-          htmlToWrite += " data-memberid='" + item['member_id'] + "' data-name='" + item['name'] + "' data-description='" + item['description'] + "' data-dod='" + item['dod'] + "' data-time='" + item['time'] + "' data-sprintid='" + item['sprint_id'] + "' data-pred='" + item['predecessor'] + "'>" 
+          htmlToWrite += " data-memberid='" + item['member_id'] + "' data-name='" + item['name'] + "' data-description='" + item['description'] + "' data-dod='" + item['dod'] + "' data-time='" + item['time'] + "' data-sprintid='" + item['sprint_id'] + "' data-pred='" + item['predecessor'] + "' data-id='"+ item['id'] + "' data-state='"+ item['state'] + "' >"
           htmlToWrite += "<div class='card-header'>" + item['name'] + "</div>";
           htmlToWrite += "</a>"
           htmlToWrite += "<div class='card-body'>" + item['description'] + "</div>";
@@ -129,7 +129,6 @@
 
 
           taskId = item['id'];
-          // console.log(taskId);
           if (item["state"] === "todo") {
             where = ".Todo"
             htmlToWrite += "<a class='col-lg-12 float-right switchArrow' data-target='onGoing' data-taskid='"+item['id']+"'><em class='fas fa-arrow-alt-circle-right' style='color:green ; cursor:pointer' title='passer la tache en Doing' ></em></a>"
@@ -145,7 +144,6 @@
           htmlToWrite += "</div>"
           htmlToWrite += "</div> "
 
-          console.log(htmlToWrite)
           $(where).append(htmlToWrite);
           htmlToWrite = "";
         });
@@ -205,14 +203,13 @@
 
     $(document).on("click", ".switchArrow", function(event) {
         //event.stopImmediatePropagation();
-        
+
         var trigger= $(this);
         
         var taskId= trigger.data("taskid");
         var col;
         var target = trigger.data("target");
         var htmlArrow = "";
-
         if (target == "onGoing") {
           col = ".Doing";
           htmlArrow += "<a class='col-lg-6 float-left switchArrow' data-target='todo' data-taskid='"+taskId+"'><em class='fas fa-arrow-alt-circle-left' style='color:green ; cursor:pointer' title='passer la tache en Todo' ></em></a>"
@@ -224,9 +221,9 @@
           col = ".Done";
           htmlArrow += "<a class='col-lg-12 float-left switchArrow' data-target='onGoing' data-taskid='"+taskId+"'><em class='fas fa-arrow-alt-circle-left' style='color:green ; cursor:pointer' title='Accéder au projet' ></em></a>"
         }
-        
-        
-        
+
+
+
         $.ajax({
           type: 'POST',
           url: 'index.php?action=sprints',
@@ -235,11 +232,13 @@
             taskToSwitch: taskId
           },
           success: function(response) {
+
             var switchDiv = trigger.closest(".switchDiv")
             switchDiv.empty();
-            //console.log(htmlToWrite)
             switchDiv.append(htmlArrow);
-            var taskHtml = switchDiv.closest(".task").html();
+            var task = switchDiv.closest(".task");
+            task.children(".modalLink").attr("data-state",target);
+            var taskHtml = task.html();
             switchDiv.closest(".task").remove();
             var htmlToWrite = "<div class='card mt-2 task' data-taskid='" + taskId + "'  >"
             htmlToWrite += taskHtml
@@ -248,7 +247,7 @@
 
           }
         })
-      
+
 
 
     })
@@ -259,7 +258,6 @@
       var trigger= $(this);
       var taskId = trigger.data("taskid");
 
-      console.log("test");
       $.ajax({
           type: 'POST',
           url: 'index.php?action=sprints',
