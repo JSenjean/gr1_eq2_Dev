@@ -28,7 +28,6 @@ if (isset($_POST['cancelRequestOrInvitation'])) {
         include_once "view/index.php";
         return;
     } else {
-        echo("ENTERING GLOBAL CONDITION");
         if ($_GET["action"] == "deleteAccount") {
             if ($_SESSION['role'] == 'user') {
                 include_once "view/memberHeader.php";
