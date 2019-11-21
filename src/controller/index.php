@@ -28,6 +28,10 @@ if (isset($_GET['action'])) {
         include_once "controller/modPanel.php";
     } elseif ($_GET['action'] == 'newProject') {
         include_once "controller/projects.php";
+    } elseif ($_GET["action"] == "deleteAccount") {
+        include_once "controller/profile.php";
+    } elseif ($_GET["action"] == "deleteAccountConfirmed") {
+        include_once "controller/profile.php";    
     } elseif ($_GET['action'] == 'faq') {
         include_once "controller/faq.php";
     } elseif ($_GET['action'] == 'editQA') {

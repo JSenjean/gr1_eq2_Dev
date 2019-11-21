@@ -27,25 +27,27 @@
         </tr>
       </thead>
       <tbody>
-        <?php foreach ($users as $user):?>
+        <?php foreach ($users as $user):
+          $username = $user['username'];
+        ?>
         <tr>
-          <td class="text-left"><?php echo $user['username']?></td>
+          <td class="text-left"><?php echo $username?></td>
           <td class="text-left"><?php echo $user['first_name']?></td>
           <td class="text-left"><?php echo $user['last_name']?></td>
           <td class="text-left"><?php echo $user['email']?></td>
           <td class="text-left"><?php echo date('d/m/Y', strtotime($user['reg_date']))?></td>
           <td class="btn-link">
             <div class="dropdown">
-              <button class="btn btn-link dropdown-toggle p-0" type="button" id="dropdownMenuButton" data-toggle="dropdown" role="button" aria-controls="collapseExample" aria-expanded="false">Action </button>
+              <button class="btn btn-link dropdown-toggle p-0" type="button" id="dropdownMenuButton<?php echo $username ?>" data-toggle="dropdown" role="button" aria-controls="collapseExample" aria-expanded="false">Action </button>
               <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <a class="dropdown-item" href="index.php?action=modPanel&editUser=changerole&role=admin&user=<?php echo $user['username'] ?>">Statut : Administrateur</a>
+                <a class="dropdown-item" href="index.php?action=modPanel&editUser=changerole&role=admin&user=<?php echo $username ?>">Statut : Administrateur</a>
                 <div class="dropdown-divider"></div>
-                <button class="btn btn-link text-danger dropdown-item" data-toggle="modal" data-target="#confirmDelUser<?php echo $user['username'] ?>">Supprimer l'utilisateur</button>
+                <button class="btn btn-link text-danger dropdown-item" data-toggle="modal" data-target="#confirmDelUser<?php echo $username ?>">Supprimer l'utilisateur</button>
               </div>
             </div>
           </td>
         </tr>
-        <div class="modal fade" id="confirmDelUser<?php echo $user['username'] ?>" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal fade" id="confirmDelUser<?php echo $username ?>" tabindex="-1" role="dialog" aria-hidden="true">
           <div class="modal-dialog" role="document">
             <div class="modal-content">
               <div class="modal-header">

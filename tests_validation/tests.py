@@ -10,6 +10,9 @@ import test_uS6
 import test_uS7
 import test_uS8
 import test_uS9
+import test_uS27
+import test_uS28
+import test_uS29
 
 import unittest
 import pytest
@@ -39,6 +42,9 @@ def main(out = sys.stderr, verbosity = 3):
     suite.addTest(unittest.makeSuite(test_uS7.TestUS7))
     suite.addTest(unittest.makeSuite(test_uS8.TestUS8))
     suite.addTest(unittest.makeSuite(test_uS9.TestUS9))
+    suite.addTest(unittest.makeSuite(test_uS27.TestUS27))
+    suite.addTest(unittest.makeSuite(test_uS28.TestUS28))
+    suite.addTest(unittest.makeSuite(test_uS29.TestUS29))
     unittest.TextTestRunner(out, verbosity = verbosity).run(suite)
 
 if __name__ == '__main__': 
