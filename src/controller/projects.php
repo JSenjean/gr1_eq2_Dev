@@ -30,7 +30,7 @@ if (isset($_POST['askForInvitation'])) {
     if (isset($_SESSION['projectToLeave'])) {
         if (leave_a_project($id, ($_SESSION['projectToLeave'])) == 1) {
             unset($_SESSION['projectToLeave']);
-            include_once "view/successes/deletedProject.php";
+            include_once "view/successes/projectLeft.php";
         } else {
             unset($_SESSION['projectToLeave']);
             include_once "view/errors/deletedProject.php";

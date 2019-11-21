@@ -14,7 +14,7 @@ from selenium.webdriver.common.keys import Keys
 from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.support import expected_conditions as EC
 
-class TestUS2(unittest.TestCase):
+class TestUS3(unittest.TestCase):
 
   def wait_for_element_visible_by_id_selector(self, id, timeout=20):
     WebDriverWait(self.driver, timeout).until(EC.visibility_of(self.driver.find_element(By.ID, id)))
@@ -26,8 +26,8 @@ class TestUS2(unittest.TestCase):
       wait.until(lambda driver: self.driver.execute_script('return document.readyState') == 'complete')
     except Exception as e:
        pass
-
-  def test_uS2(self):
+  
+  def test_uS3(self):
 
     result = True
 
@@ -37,23 +37,26 @@ class TestUS2(unittest.TestCase):
     with open('url.txt', 'r') as file:
       url = file.read().replace('\n', '')
 
-    self.driver.get(url)
-    self.driver.set_window_size(974, 1040)
-    self.driver.find_element(By.CSS_SELECTOR, ".btn-outline-primary").click()
-    self.driver.implicitly_wait(2)
-    self.driver.find_element(By.ID, "InputLogin2").click()
-    self.driver.find_element(By.ID, "InputLogin2").send_keys("jdupont")
-    self.driver.find_element(By.ID, "InputPassword3").send_keys("jdupont1234")
-    self.waitAjax(self.driver)
-    self.driver.find_element(By.CSS_SELECTOR, ".btn:nth-child(3)").click()
     try:
-      error = self.driver.find_element(By.ID, "wrongCredentials")
-      if error.is_displayed():
-        result = result and False
-      print("An error message was encountered during test#2")
-    except NoSuchElementException as exception:
-      pass
-    
+      self.driver.get(url)
+      self.driver.set_window_size(1868, 784)
+      self.driver.find_element(By.CSS_SELECTOR, ".btn-outline-primary").click()
+      self.driver.implicitly_wait(2)
+      self.driver.find_element(By.ID, "InputLogin2").click()
+      self.driver.find_element(By.ID, "InputLogin2").send_keys("jdupont")
+      self.driver.find_element(By.ID, "InputPassword3").click()
+      self.driver.find_element(By.ID, "InputPassword3").send_keys("jdupont1234")
+      self.waitAjax(self.driver)
+      self.driver.find_element(By.CSS_SELECTOR, ".btn:nth-child(3)").click()
+      self.driver.find_element(By.LINK_TEXT, "FAQ").click()
+      self.driver.find_element(By.ID, "dropdownMenuButton").click()
+      self.driver.find_element(By.LINK_TEXT, "Déconnexion").click()
+    except Exception as e:
+      print("Test#3 failed")
+      print(e)
+      result = False
+
+    self.driver.close()
     self.driver.quit()
 
     self.assertEqual(result, True)  

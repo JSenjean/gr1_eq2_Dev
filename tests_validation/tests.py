@@ -1,5 +1,15 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 import test_uS1
 import test_uS2
+import test_uS3
+import test_uS4
+import test_uS5
+import test_uS6
+import test_uS7
+import test_uS8
+import test_uS9
 
 import unittest
 import pytest
@@ -22,6 +32,13 @@ def main(out = sys.stderr, verbosity = 3):
     suite = unittest.TestSuite()
     suite.addTest(unittest.makeSuite(test_uS1.TestUS1))
     suite.addTest(unittest.makeSuite(test_uS2.TestUS2))
+    suite.addTest(unittest.makeSuite(test_uS3.TestUS3))
+    suite.addTest(unittest.makeSuite(test_uS4.TestUS4))
+    suite.addTest(unittest.makeSuite(test_uS5.TestUS5))
+    suite.addTest(unittest.makeSuite(test_uS6.TestUS6))
+    suite.addTest(unittest.makeSuite(test_uS7.TestUS7))
+    suite.addTest(unittest.makeSuite(test_uS8.TestUS8))
+    suite.addTest(unittest.makeSuite(test_uS9.TestUS9))
     unittest.TextTestRunner(out, verbosity = verbosity).run(suite)
 
 if __name__ == '__main__': 

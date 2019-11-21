@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 import unittest
 import pytest
 import time
@@ -61,9 +64,10 @@ class TestUS1(unittest.TestCase):
       error = self.driver.find_element(By.ID, "wrongPassword")
       if error.is_displayed():
         result = result and False
+      print("An error message was detected during test#1")
     except NoSuchElementException as exception:
       pass
-
+    
     self.driver.quit()
 
     self.assertEqual(result, True)  

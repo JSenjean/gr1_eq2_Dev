@@ -83,13 +83,14 @@
 
                     <div class="list-group" id="projectSearchList">
                         <?php foreach ($otherProjects as $u) {
+                            $name = $u['name'];
                             if ($u['visibility'] == 1) { ?>
                                 <div class="list-group-item flex-column align-items-start" id="oneProject">
                                     <div class="media">
 
-                                        <div class="media-body">
+                                        <div class="media-body" id="<?php echo $name; ?>">
                                             <div class="d-flex justify-content-between">
-                                                <h5 class="mt-0" id="projectName"><?php echo $u['name']; ?></h5>
+                                                <h5 class="mt-0" id="projectName<?php echo $name; ?>"><?php echo $name; ?></h5>
                                                 <h6 class="test-muted">
                                                     <span class="font-weight-bold">Chef du projet : </span>
                                                     <?php echo $u['username']; ?>
@@ -99,7 +100,7 @@
                                             <div class="d-flex justify-content-between" id="test">
                                                 <h6 class="text-muted">
                                                     <span class="font-weight-bold" id="buttonJoinSpan">
-                                                        <button role="button" class="btn btn-success mb-4 mr-2 askForInvitationButton" data-target='#JoinProject' href='' data-toggle="modal" id="<?php echo $u[0]; ?>">
+                                                        <button type="button" role="button" class="btn btn-success mb-4 mr-2 askForInvitationButton" data-target='#JoinProject' href='' data-toggle="modal" id="<?php echo $u[0]; ?>">
                                                             Demander à rejoindre
                                                         </button>
                                                     </span>

@@ -107,9 +107,10 @@ function acceptRequest ($project_id, $user_id, $role) {
         $stmt = $bdd->prepare(
             "INSERT INTO project_member(role, project_id, user_id) 
             SELECT :role, :project_id, :user_id
+                FROM dual
                 WHERE NOT EXISTS(
                     SELECT * FROM project_member
-                    WHERE user_id=:user_id
+                    WHERE user_id=:user_id AND project_id=:project_id
             );
             DELETE FROM project_invitation 
             WHERE user_id=:user_id AND project_id=:project_id
