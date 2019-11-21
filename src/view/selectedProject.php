@@ -191,14 +191,14 @@
         <form method="POST" data-toggle="validator" action="index.php?action=editSelectedProject&projectId=<?php echo $projectId ?>">
           <div class="form-group">
             <label for="InputName">Nom</label>
-            <imnput type="textfield" class="form-control" id="InputName" name="name" value="<?php echo $name?>" required>
+            <input type="textfield" class="form-control" id="InputName" name="name" value="<?php echo $name?>" required>
           </div>
           <div class="form-group">
             <label for="InputDescription">Description</label>
             <textarea type="textarea" class="form-control" id="InputName" name="description" required><?php echo $description?></textarea>
           </div>
           <div class="form-group ml-4">
-            <imnput class="form-check-input" type="checkbox" id="InputVisiblity" <?php if ($visibility == 1) { echo ' checked ';  } ?> name="visibility" value="<?php echo $visibility ?>">
+            <input class="form-check-input" type="checkbox" id="InputVisiblity" <?php if ($visibility == 1) { echo ' checked ';  } ?> name="visibility" value="<?php echo $visibility ?>">
             <label for="InputVisibility" name="visibility">Public ?</label>
           </div>
           <button type="submit" class="btn btn-primary" name="submit">Modifier</button>
