@@ -1,4 +1,15 @@
-# Effectuer les tests de validation
+# Installer les prérequis
+
+- Installer Python 2.7 ou 3.5+
+- Installer les dépendances du script :
+```bash
+pip install pytest
+pip install selenium
+```
+- Télécharger __chromedriver__ : https://chromedriver.chromium.org/downloads
+- Ajouter __chromedriver__ au path : https://zwbetz.com/download-chromedriver-binary-and-add-to-your-path-for-automated-functional-testing/
+
+# Lancer les tests de validation
 
 - Définir une url où le site est hébergé dans le fichier url.txt
 - Lancer le script de test avec la commande suivante :
