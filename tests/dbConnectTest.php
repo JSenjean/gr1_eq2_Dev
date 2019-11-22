@@ -17,6 +17,12 @@
         $req = $bdd->prepare("ALTER TABLE user AUTO_INCREMENT = 1");
         $req->execute();
 
+        //clean inside_project_role
+        $req = $bdd->prepare("DELETE FROM inside_project_role");
+        $req->execute();
+        $req = $bdd->prepare("ALTER TABLE inside_project_role AUTO_INCREMENT = 1");
+        $req->execute();
+
         //clean project
         $req = $bdd->prepare("DELETE FROM project");
         $req->execute();
@@ -30,13 +36,9 @@
         $req = $bdd->prepare("ALTER TABLE project_member AUTO_INCREMENT = 1");
         $req->execute();
 
-        //clean inside_project_role
-        $req = $bdd->prepare("DELETE FROM inside_project_role");
-        $req->execute();
-        $req = $bdd->prepare("ALTER TABLE inside_project_role AUTO_INCREMENT = 1");
-        $req->execute();
+        
 
-	//clean user_story
+	    //clean user_story
         $req = $bdd->prepare("DELETE FROM user_story");
         $req->execute();
         $req = $bdd->prepare("ALTER TABLE user_story AUTO_INCREMENT = 1");
