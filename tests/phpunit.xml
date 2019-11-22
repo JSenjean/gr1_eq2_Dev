@@ -13,5 +13,8 @@
     <testsuite name="selectedProject">
       <file>tests/selectedProject</file>
     </testsuite>
+    <testsuite name="projects">
+      <file>tests/projects</file>
+    </testsuite>
   </testsuites>
 </phpunit>
