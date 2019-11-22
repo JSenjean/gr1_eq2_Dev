@@ -1,6 +1,7 @@
 # Tests unitaires
 
 On suppose se trouver dans un environnement UNIX pour l'utilisation des scripts suivants.
+Exécuter les scripts suivants depuis la racine du projet :
 
 ## Installer les dépendances
 Lancer le script
@@ -9,7 +10,7 @@ Lancer le script
 ```
 
 ## Lancer les tests
-Depuis la racine, lancer le script
+Lancer le script
 ```bash
 ./runTests.sh
 ```
