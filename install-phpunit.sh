@@ -12,6 +12,4 @@ php composer.phar require limedeck/phpunit-detailed-printer:3.2 --dev
 
 
 mkdir composer
-mv ./composer.json composer/composer.json
-mv ./composer.lock composer/composer.lock
-mv ./composer.phar composer/composer.phar
+mv ./composer.json ./composer.lock ./composer.phar composer/

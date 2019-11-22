@@ -3,18 +3,17 @@
 /**
  * Return all the informations of the current user
  */
-function getUserProfile()
+function getUserProfile($userName)
 {
     try {
         $bdd = dbConnect();
-        $username = $_SESSION['username'];
         $stmt = $bdd->prepare(
             "SELECT * 
                 FROM user 
                 WHERE username=:username"
         );
         $stmt->execute(array(
-            'username' => $username
+            'username' => $userName
         ));
         return $result = $stmt->fetch(PDO::FETCH_ASSOC);
          
@@ -27,7 +26,7 @@ function getUserProfile()
 /**
  * Return the user's number of project
  */
-function getUserNbParticipation()
+function getUserNbParticipation($userId)
 {
     try {
         $bdd = dbConnect();
@@ -37,7 +36,7 @@ function getUserNbParticipation()
                 WHERE user_id=:id"
         );
         $stmt->execute(array(
-            'id' => $_SESSION['id']
+            'id' => $userId
         ));
         return $result = $stmt->fetch(PDO::FETCH_NUM);
     } catch (PDOException $e) {
@@ -48,7 +47,7 @@ function getUserNbParticipation()
 /**
  *  Function that return either the user's invitations if isRequest's value is 0 or the user's requests if isRequest is 1
  */
-function getUserInvitationsOrRequest($isRequest)
+function getUserInvitationsOrRequest($isRequest, $userId)
 {
     try {
         $bdd = dbConnect();
@@ -59,7 +58,7 @@ function getUserInvitationsOrRequest($isRequest)
                 ORDER BY p.name"
         );
         $stmt->execute(array(
-            'id' => $_SESSION['id'],
+            'id' => $userId,
             'req' => $isRequest
         ));
         return $stmt;
@@ -68,7 +67,7 @@ function getUserInvitationsOrRequest($isRequest)
     }
 }
 
-function CancelRequest($projectIdToCancel)
+function CancelRequest($projectIdToCancel, $userId)
 {
     try {
         $bdd = dbConnect();
@@ -78,7 +77,7 @@ function CancelRequest($projectIdToCancel)
                 WHERE user_id=:user_id AND project_id=:project_id"
         );
         $stmt->execute(array(
-            'user_id' => $_SESSION['id'],
+            'user_id' => $userId,
             'project_id' => $projectIdToCancel
         ));
         return 1;
@@ -89,11 +88,11 @@ function CancelRequest($projectIdToCancel)
     return 1;
 }
 
-function AcceptInvitaion($projectIdToJoin)
+function AcceptInvitaion($projectIdToJoin, $userId)
 {
     try {
         $bdd = dbConnect();
-        CancelRequest($projectIdToJoin);
+        CancelRequest($projectIdToJoin, $userId);
         $stmt = $bdd->prepare(
             "INSERT INTO 
                 project_member(user_id,project_id,role) 
@@ -101,7 +100,7 @@ function AcceptInvitaion($projectIdToJoin)
         );
         $stmt->execute(array(
             ':project_id' => $projectIdToJoin,
-            ':user_id' => $_SESSION['id'],
+            ':user_id' => $userId,
             ':role' => "member"
         ));
         return 1;
@@ -115,7 +114,7 @@ function AcceptInvitaion($projectIdToJoin)
 /**
  * Delete the account of the current user
  */
-function deleteAccount()
+function deleteAccount($userName)
 {
     try {
         $bdd = dbConnect();
@@ -125,7 +124,7 @@ function deleteAccount()
                 WHERE username=:username"
         );
         $stmt->execute(array(
-            'username' => $_SESSION['username']
+            'username' => $userName
         ));
     } catch (PDOException $e) {
         echo  "<br>" . $e->getMessage();

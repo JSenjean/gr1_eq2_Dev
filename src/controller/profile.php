@@ -1,11 +1,13 @@
 <?php
 
 require_once "model/profile.php";
+$user_id = $_SESSION['id'];
+$username = $_SESSION['username'];
 
 if (isset($_POST['cancelRequestOrInvitation'])) {
-    echo CancelRequest($_POST["projectId"]);
+    echo CancelRequest($_POST["projectId"], $user_id);
 } elseif (isset($_POST['acceptInvitation'])) {
-    echo AcceptInvitaion($_POST["projectId"]);
+    echo AcceptInvitaion($_POST["projectId"], $user_id);
 } elseif (!checkConnection()) {
     include_once "view/errors/notLogged.php";
     include_once "view/index.php";
@@ -36,7 +38,7 @@ if (isset($_POST['cancelRequestOrInvitation'])) {
             }
             include_once "view/confirmDeleteUser.php";
         } elseif ($_GET["action"] == "deleteAccountConfirmed") {
-            deleteAccount();
+            deleteAccount($username);
             include_once "controller/logout.php";
         } else {
             $id = $_SESSION['id'];
@@ -45,10 +47,10 @@ if (isset($_POST['cancelRequestOrInvitation'])) {
             } else {
                 include_once "view/modHeader.php";
             }
-            $infoUser = getUserProfile();
-            $userNumberOfProject = getUserNbParticipation();
-            $userInvitations = getUserInvitationsOrRequest(0);
-            $userRequests = getUserInvitationsOrRequest(1);
+            $infoUser = getUserProfile($username);
+            $userNumberOfProject = getUserNbParticipation($user_id);
+            $userInvitations = getUserInvitationsOrRequest(0, $user_id);
+            $userRequests = getUserInvitationsOrRequest(1, $user_id);
             include_once "view/profile.php";
         }
     }
