@@ -15,12 +15,12 @@ function signup()
         $email = trim(strip_tags($_POST['email']));
         $email2 = trim(strip_tags($_POST['email2']));
 
-        if (!empty($_POST['username']) and !empty($_POST['email'])
-            and !empty($_POST['email2'])
-            and !empty($_POST['password'])
-            and !empty($_POST['password2']
-            and !empty($_POST['firstname']
-            and !empty($_POST['lastname'])))) {
+        if (!empty($_POST['username']) && !empty($_POST['email'])
+            && !empty($_POST['email2'])
+            && !empty($_POST['password'])
+            && !empty($_POST['password2']
+            && !empty($_POST['firstname']
+            && !empty($_POST['lastname'])))) {
             if (strlen($username) <= 50 && strlen($firstName) <= 50 && strlen($lastName) <= 75) {
                 if ($email == $email2 && filter_var($email, FILTER_VALIDATE_EMAIL)) {
                     $bdd = dbConnect();

@@ -10,6 +10,6 @@ php -r "unlink('composer-setup.php');"
 
 php composer.phar require limedeck/phpunit-detailed-printer:3.2 --dev
 
-
+mkdir logTests
 mkdir composer
 mv ./composer.json ./composer.lock ./composer.phar composer/

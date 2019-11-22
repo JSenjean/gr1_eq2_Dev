@@ -15,7 +15,7 @@ function getUserProfile($userName)
         $stmt->execute(array(
             'username' => $userName
         ));
-        return $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
          
     } catch (PDOException $e) {
         echo  "<br>" . $e->getMessage();
@@ -38,7 +38,7 @@ function getUserNbParticipation($userId)
         $stmt->execute(array(
             'id' => $userId
         ));
-        return $result = $stmt->fetch(PDO::FETCH_NUM);
+        return $stmt->fetch(PDO::FETCH_NUM);
     } catch (PDOException $e) {
         echo  "<br>" . $e->getMessage();
     }
