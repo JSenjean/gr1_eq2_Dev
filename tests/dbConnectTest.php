@@ -7,7 +7,10 @@
     }
 
     function clear_Database()
-    {   //clean user
+    {   
+	
+
+	//clean user
         $bdd=dbConnect();
         $req = $bdd->prepare("DELETE FROM user");
         $req->execute();
@@ -20,6 +23,7 @@
         $req = $bdd->prepare("ALTER TABLE project AUTO_INCREMENT = 1");
         $req->execute();
 
+	
         //clean project_member
         $req = $bdd->prepare("DELETE FROM project_member");
         $req->execute();
@@ -31,4 +35,12 @@
         $req->execute();
         $req = $bdd->prepare("ALTER TABLE inside_project_role AUTO_INCREMENT = 1");
         $req->execute();
+
+	//clean user_story
+        $req = $bdd->prepare("DELETE FROM user_story");
+        $req->execute();
+        $req = $bdd->prepare("ALTER TABLE user_story AUTO_INCREMENT = 1");
+        $req->execute();
+
+
     }
