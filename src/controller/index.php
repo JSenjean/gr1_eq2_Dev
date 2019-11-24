@@ -79,6 +79,8 @@ if (isset($_GET['action'])) {
         include_once "controller/sprints.php";
     } elseif ($_GET['action'] == 'tests') {
         include_once "controller/tests.php";
+    } elseif ($_GET['action'] == 'release') {
+        include_once "controller/release.php";
     }
 } else {
     if (!isset($_SESSION['username'])) {
