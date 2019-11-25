@@ -65,12 +65,6 @@
     <div class="row">
       <div class="col col-sm text-center US">
         <h5 class="firstCol">User Story</h5>
-<!--
-        <div class="card mt-1">
-          <div class="card-header">US1</div>
-          <div class="card-body">Description</div>
-        </div>
--->
       </div>
       <div class="col col-sm text-center Todo">
         <h5 class="firstCol">Todo</h5>

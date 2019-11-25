@@ -168,7 +168,7 @@
                     htmlToWrite += "</div>"
                     
                     if (modify) {
-                        whereModify.append(htmlToWrite);
+                        $(whereModify).append(htmlToWrite);
                     } else {
                         $(where).append(htmlToWrite);
                     }

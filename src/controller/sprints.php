@@ -19,13 +19,16 @@ if (isset($_POST['delete']) && isset($_POST['sprintToDeleteId'])) {
 } elseif (isset($_POST['getTask'])) {
     echo json_encode(get_all_task_inside_sprint($_POST['sprintId'])->fetchAll());
 } elseif (isset($_POST['getUS'])) {
-    $us = json_encode(get_all_us_inside_sprint($_POST['sprintId'])->fetchAll());
-    echo $us;
+    echo json_encode(get_all_us_inside_sprint($_POST['sprintId'])->fetchAll());
+} elseif (isset($_POST['getAllUS'])) {
+    echo json_encode(get_all_us_inside_project($_POST['projectId'])->fetchAll());
+} elseif (isset($_POST['linkedUS']))  {
+    echo json_encode(get_all_us_inside_sprint($_POST['sprintId'])->fetchAll());
 } elseif (isset($_POST['switchState'])) {
     echo switch_task_state($_POST['taskToSwitch'],$_POST['switchState']);
-}elseif(isset($_POST['removeTaskId'])){
+} elseif(isset($_POST['removeTaskId'])){
     echo remove_task($_POST["removeTaskId"]);
-}else {
+} else {
     if (isset($_POST['sprintName']) && isset($_POST['startDate']) && isset($_POST['endDate'])) {
         create_new_sprint($_POST['sprintName'], $_POST['startDate'], $_POST['endDate'], $_POST['projectID']);
         $projectId = $_POST['projectID'];

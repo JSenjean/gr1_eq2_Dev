@@ -170,6 +170,22 @@ function get_all_us_inside_sprint($sprintId) {
       echo "<br>" . $e->getMessage();
   }
 }
+
+function get_all_us_inside_project($projectId) {
+  try {
+    $bdd = dbConnect();
+    $stmt = $bdd->prepare(
+        "SELECT *
+            FROM user_story
+            WHERE project_id=:projectId"
+    );
+    $stmt->execute(array('projectId' => $projectId));
+    return $stmt;
+  } catch (PDOException $e) {
+    echo "<br>" . $e->getMessage();
+  }
+}
+
 function switch_task_state($taskId,$state) {
   try {
       $bdd = dbConnect();
@@ -185,6 +201,7 @@ function switch_task_state($taskId,$state) {
       echo "<br>" . $e->getMessage();
   }
 }
+
 function remove_task($taskId) {
   try {
       $bdd = dbConnect();
