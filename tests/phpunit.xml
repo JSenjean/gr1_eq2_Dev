@@ -10,8 +10,8 @@
     <testsuite name="selectedProject">
       <file>tests/selectedProject</file>
     </testsuite>
-    <testsuite name="selectedProject">
-      <file>tests/selectedProject</file>
+    <testsuite name="profile">
+      <file>tests/profile</file>
     </testsuite>
     <testsuite name="projects">
       <file>tests/projects</file>

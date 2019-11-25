@@ -54,7 +54,7 @@
   <!-- tasks View -->
   <div class="row">
     <div class="col-xl-2">
-      <button class="btn bg-primary linkUSToSprint" data-target='#linkUSToSprint' data-toggle='modal'>Ajouter User Story</button>
+      <button class="btn bg-primary linkUSToSprintModal" data-target='#linkUSToSprintModal' data-toggle='modal' id="linkUS" data-sprintid="" data-projectid="<?php echo $projectId; ?>">Ajouter User Story</button>
     </div>
     <div class="col-xl-1">
       <button class="btn bg-primary createOrModifyTaskModal" type="button" data-target='#createOrModifyTaskModal' data-toggle="modal" id="createTask" data-sprintid="" data-projectid="<?php echo $projectId; ?>">Créer une tâche</button>
@@ -65,10 +65,12 @@
     <div class="row">
       <div class="col col-sm text-center US">
         <h5 class="firstCol">User Story</h5>
+<!--
         <div class="card mt-1">
           <div class="card-header">US1</div>
           <div class="card-body">Description</div>
         </div>
+-->
       </div>
       <div class="col col-sm text-center Todo">
         <h5 class="firstCol">Todo</h5>
@@ -97,11 +99,13 @@
     var sprintId = $(this).data('sprintid');
 
     $("#createTask").attr('data-sprintid', sprintId);
+    $("#linkUS").attr('data-sprintid', sprintId);
 
 
     $('.Todo').find('*').not('.firstCol').remove();
     $('.Doing').find('*').not('.firstCol').remove();
     $('.done').find('*').not('.firstCol').remove();
+    $('.US').find('*').not('.firstCol').remove();
 
 
     $.ajax({
@@ -158,9 +162,10 @@
         sprintId: sprintId
       },
       success: function(response) {
-        var tasks = JSON.parse(response);
+        var us = JSON.parse(response);
         var htmlToWrite = "";
-        tasks.forEach(function(item) {
+        
+        us.forEach(function(item) {
 
           htmlToWrite += "<div class='card mt-1'>"
           htmlToWrite += "<div class='card-header'>" + item["name"] + "</div>";
