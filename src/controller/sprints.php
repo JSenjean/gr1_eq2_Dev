@@ -19,7 +19,8 @@ if (isset($_POST['delete']) && isset($_POST['sprintToDeleteId'])) {
 } elseif (isset($_POST['getTask'])) {
     echo json_encode(get_all_task_inside_sprint($_POST['sprintId'])->fetchAll());
 } elseif (isset($_POST['getUS'])) {
-    echo json_encode(get_all_us_inside_sprint($_POST['sprintId'])->fetchAll());
+    $us = json_encode(get_all_us_inside_sprint($_POST['sprintId'])->fetchAll());
+    echo $us;
 } elseif (isset($_POST['switchState'])) {
     echo switch_task_state($_POST['taskToSwitch'],$_POST['switchState']);
 }elseif(isset($_POST['removeTaskId'])){
@@ -41,6 +42,7 @@ if (isset($_POST['delete']) && isset($_POST['sprintToDeleteId'])) {
         include_once("view/modHeader.php");
     }
     include_once("view/sprints.php");
+    include_once("view/validate/linkUSToSprint.php");
     include_once("view/validate/addSprintToProject.php");
     include_once("view/validate/addTaskToSprint.php");
 }
