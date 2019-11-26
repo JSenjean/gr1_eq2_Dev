@@ -3,15 +3,14 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="linkUSToSprintLabel">Ajouter une User Story</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="closeCross">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="closeCrossLinkUS">
                     <span aria-hidden="true">×</span>
                 </button>
             </div>
             <div class="modal-body">
                 <form method="POST" data-toggle="validator LinkUsToSprint" action="index.php?action=sprint" id="LinkUsToSprint">
                     <div class="form-group">
-                        <!--<label for="UsName"> Choisir les User Story à ajouter : </label>-->
-                        <select class="selectpicker multSelect" id="multSelect" name="multSelect" multiple data-live-search="true">
+                        <select class="selectpicker multSelect" data-style="pb-4" id="multSelect" name="multSelect" multiple data-live-search="true">
                         </select>
                     </div>
             </div>
@@ -24,9 +23,17 @@
     </div>
 </div>
 <script>
+    function removeElement(array, elem) {
+        var index = array.indexOf(elem);
+        if (index > -1) {
+            array.splice(index, 1);
+        }
+    }
     $(document).ready(function() {
         var projectId = null;
         var sprintId = null;
+        var SelectChildren = null;
+        var allSelected = null;
 
         $("#linkUSToSprintModal").on("shown.bs.modal", function(event) {
             var button = $(event.relatedTarget);
@@ -41,6 +48,13 @@
                     projectId: projectId
                 },
                 success: function(response) {
+                    SelectChildren = $(".multSelect").parent().children("select").children();
+                    if (SelectChildren.length != 0) {
+                        for (let i = 0; i < SelectChildren.length; i++) {
+                            $(SelectChildren[i]).remove();
+                        }
+                        $('.multSelect').selectpicker('refresh');
+                    }
                     var us = JSON.parse(response);
                     var htmlToWrite = "";
                     var where = ".multSelect";
@@ -48,7 +62,7 @@
                         htmlToWrite += "<option style='display: none;' value='" + item['id'] + "' >" + item['name'] + "</option>";
                     });
                     $(where).append(htmlToWrite);
-                    
+
                     SelectChildren = $(".multSelect").parent().children("select").children();
                     for (let i = 0; i < SelectChildren.length; i++) {
                         $(SelectChildren[i]).show();
@@ -68,9 +82,11 @@
                 },
                 success: function(response) {
                     var us = JSON.parse(response);
+                    allSelected = [];
                     us.forEach(function(item) {
-                        $('.multSelect').val(item['id']);
+                        allSelected.push(item['id']);
                     });
+                    $('.multSelect').val(allSelected);
                     $('.multSelect').selectpicker('refresh');
                 }
             })
@@ -80,18 +96,30 @@
             event.preventDefault();
             event.stopImmediatePropagation();
 
-            let USToLink = $('#multSelect').val();
-            console.log(USToLink);
+            var USToLink = $('#multSelect').val();
+            var USToUnlink = new Array();
+            for (let i = 0; i < allSelected.length; i++) {
+                $curren_us_id = USToLink.find(us_id => us_id === allSelected[i]);
+                if ($curren_us_id != undefined) {
+                    removeElement(USToLink, $curren_us_id);
+                } else {
+                    USToUnlink.push(allSelected[i]);
+                }
+            }
 
             $.ajax({
                 type: 'POST',
                 url: 'index.php?action=sprints',
                 data: {
-                    USToLink: true,
+                    linkUsToSprint: true,
+                    USToLink: USToLink,
+                    USToUnlink: USToUnlink,
                     sprintId: sprintId
                 },
-                success: function(response) {
-                }
+                 success: function(response) {
+                    $('#closeCrossLinkUS').click();
+                    $('.sprint[data-sprintid="'+ sprintId +'"]').click();
+                 }
             })
         });
     });

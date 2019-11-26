@@ -23,7 +23,7 @@ function add_sprint_background($startDate, $endDate)
   $curDate = new DateTime("now");
   $sDate = new DateTime($startDate);
   $eDate = new DateTime($endDate);
-  $curDate->settime(0,0);
+  $curDate->settime(0, 0);
 
   if ($eDate < $curDate) {
     return "bg-success";
@@ -74,23 +74,25 @@ function delete_sprint_by_id($sprintId)
   return 1;
 }
 
-function get_all_project_members_and_master($id) {
+function get_all_project_members_and_master($id)
+{
   try {
-      $bdd = dbConnect();
-      $stmt = $bdd->prepare(
-          "SELECT pm.id,u.username FROM project_member=pm, user=u
+    $bdd = dbConnect();
+    $stmt = $bdd->prepare(
+      "SELECT pm.id,u.username FROM project_member=pm, user=u
               WHERE pm.user_id=u.id and pm.project_id=:projectId"
-      );
-      $stmt->execute(array('projectId' => $id));
-      return $stmt;
+    );
+    $stmt->execute(array('projectId' => $id));
+    return $stmt;
   } catch (PDOException $e) {
-      echo "<br>" . $e->getMessage();
+    echo "<br>" . $e->getMessage();
   }
 }
 
 /* Task inside Sprint
  */
-function create_new_task($name, $description, $dod, $predecessor, $time, $sprintId, $memberId) {
+function create_new_task($name, $description, $dod, $predecessor, $time, $sprintId, $memberId)
+{
   try {
     $bdd = dbConnect();
     $stmt = $bdd->prepare(
@@ -117,7 +119,8 @@ function create_new_task($name, $description, $dod, $predecessor, $time, $sprint
   return 1;
 }
 
-function update_task($id, $name, $description, $dod, $predecessor, $time, $memberId) {
+function update_task($id, $name, $description, $dod, $predecessor, $time, $memberId)
+{
   try {
     $bdd = dbConnect();
     $stmt = $bdd->prepare(
@@ -141,41 +144,44 @@ function update_task($id, $name, $description, $dod, $predecessor, $time, $membe
   return -1;
 }
 
-function get_all_task_inside_sprint($sprintId) {
-  try {
-      $bdd = dbConnect();
-      $stmt = $bdd->prepare(
-          "SELECT task.*
-              FROM task
-              WHERE task.sprint_id=:sprintId"
-      );
-      $stmt->execute(array('sprintId' => $sprintId));
-      return $stmt;
-  } catch (PDOException $e) {
-      echo "<br>" . $e->getMessage();
-  }
-}
-
-function get_all_us_inside_sprint($sprintId) {
-  try {
-      $bdd = dbConnect();
-      $stmt = $bdd->prepare(
-          "SELECT us.*
-              FROM inside_sprint_us=isu,user_story=us
-              WHERE isu.sprint_id=:sprintId and us.id=isu.user_story_id"
-      );
-      $stmt->execute(array('sprintId' => $sprintId));
-      return $stmt;
-  } catch (PDOException $e) {
-      echo "<br>" . $e->getMessage();
-  }
-}
-
-function get_all_us_inside_project($projectId) {
+function get_all_task_inside_sprint($sprintId)
+{
   try {
     $bdd = dbConnect();
     $stmt = $bdd->prepare(
-        "SELECT *
+      "SELECT task.*
+              FROM task
+              WHERE task.sprint_id=:sprintId"
+    );
+    $stmt->execute(array('sprintId' => $sprintId));
+    return $stmt;
+  } catch (PDOException $e) {
+    echo "<br>" . $e->getMessage();
+  }
+}
+
+function get_all_us_inside_sprint($sprintId)
+{
+  try {
+    $bdd = dbConnect();
+    $stmt = $bdd->prepare(
+      "SELECT us.*
+              FROM inside_sprint_us=isu,user_story=us
+              WHERE isu.sprint_id=:sprintId and us.id=isu.user_story_id"
+    );
+    $stmt->execute(array('sprintId' => $sprintId));
+    return $stmt;
+  } catch (PDOException $e) {
+    echo "<br>" . $e->getMessage();
+  }
+}
+
+function get_all_us_inside_project($projectId)
+{
+  try {
+    $bdd = dbConnect();
+    $stmt = $bdd->prepare(
+      "SELECT *
             FROM user_story
             WHERE project_id=:projectId"
     );
@@ -186,32 +192,105 @@ function get_all_us_inside_project($projectId) {
   }
 }
 
-function switch_task_state($taskId,$state) {
+function switch_task_state($taskId, $state)
+{
   try {
-      $bdd = dbConnect();
-      $stmt = $bdd->prepare(
-        "UPDATE task
+    $bdd = dbConnect();
+    $stmt = $bdd->prepare(
+      "UPDATE task
         SET state=:state
         WHERE id=:taskId"
-      );
-      $stmt->execute(array('state' => $state,
-                            'taskId' => $taskId));
-      return 1;
+    );
+    $stmt->execute(array(
+      'state' => $state,
+      'taskId' => $taskId
+    ));
+    return 1;
   } catch (PDOException $e) {
-      echo "<br>" . $e->getMessage();
+    echo "<br>" . $e->getMessage();
   }
 }
 
-function remove_task($taskId) {
+function remove_task($taskId)
+{
   try {
-      $bdd = dbConnect();
-      $stmt = $bdd->prepare(
-        "DELETE FROM task
+    $bdd = dbConnect();
+    $stmt = $bdd->prepare(
+      "DELETE FROM task
           WHERE id=:taskId"
-      );
-      $stmt->execute(array('taskId' => $taskId));
-      return 1;
+    );
+    $stmt->execute(array('taskId' => $taskId));
+    return 1;
   } catch (PDOException $e) {
-      echo "<br>" . $e->getMessage();
+    echo "<br>" . $e->getMessage();
+  }
+}
+
+function link_us_to_sprint($sprintId, $allUSToLink)
+{
+  try {
+    $bdd = dbConnect();
+    $stmt = $bdd->prepare(
+      "INSERT INTO inside_sprint_us(sprint_id, user_story_id)
+            VALUES(:sprint_id, :us_id)"
+    );
+    foreach ($allUSToLink as $us_id) {
+      $stmt->execute(array(
+        'sprint_id' => $sprintId,
+        'us_id'     => $us_id
+      ));
+    }
+    return 1;
+  } catch (PDOException $e) {
+    echo "<br>" . $e->getMessage();
+  }
+  return 1;
+}
+
+function unlink_us_from_sprint($sprintId, $allUSToUnlink)
+{
+  try {
+    $bdd = dbConnect();
+    $stmt = $bdd->prepare(
+      "DELETE FROM inside_sprint_us
+          WHERE sprint_id=:sprint_id and user_story_id=:us_id"
+    );
+    foreach ($allUSToUnlink as $us_id) {
+      $stmt->execute(array(
+        'sprint_id' => $sprintId,
+        'us_id'     => $us_id
+      ));
+    }
+    return 1;
+  } catch (PDOException $e) {
+    echo "<br>" . $e->getMessage();
+  }
+  return 1;
+}
+
+function count_nb_task_by_state_in_sprint($sprintId)
+{
+  try {
+    $state = array('todo', 'onGoing', 'done');
+    $result = array(0, 0, 0);
+    $bdd = dbConnect();
+    $stmt = $bdd->prepare(
+      "SELECT COUNT(*) 
+            FROM task 
+            WHERE sprint_id=:sprintId and state=:state"
+    );
+
+    for ($i = 0; $i < 3; $i++) {
+      $stmt->execute(array(
+        'sprintId' => $sprintId,
+        'state'    => $state[$i]
+      ));
+      $nb = $stmt->fetch(PDO::FETCH_NUM);
+      $result[$i] = $nb[0];
+    }
+
+    return $result;
+  } catch (PDOException $e) {
+    echo  "<br>" . $e->getMessage();
   }
 }

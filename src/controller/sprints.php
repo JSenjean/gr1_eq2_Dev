@@ -12,8 +12,7 @@ if (isset($_POST['delete']) && isset($_POST['sprintToDeleteId'])) {
     }
     if ($_POST['modifyTask'] == "true") {
         echo update_task($_POST['taskId'], $_POST['newTaskName'], $_POST['taskDescription'], $_POST['taskDod'], $_POST['taskPredecessor'], $_POST['taskTime'], $memberId);
-    }
-    else {
+    } else {
         echo create_new_task($_POST['newTaskName'], $_POST['taskDescription'], $_POST['taskDod'], $_POST['taskPredecessor'], $_POST['taskTime'], $_POST['sprintId'], $memberId);
     }
 } elseif (isset($_POST['getTask'])) {
@@ -22,11 +21,21 @@ if (isset($_POST['delete']) && isset($_POST['sprintToDeleteId'])) {
     echo json_encode(get_all_us_inside_sprint($_POST['sprintId'])->fetchAll());
 } elseif (isset($_POST['getAllUS'])) {
     echo json_encode(get_all_us_inside_project($_POST['projectId'])->fetchAll());
-} elseif (isset($_POST['linkedUS']))  {
+} elseif (isset($_POST['linkedUS'])) {
     echo json_encode(get_all_us_inside_sprint($_POST['sprintId'])->fetchAll());
+} elseif (isset($_POST['linkUsToSprint'])) {
+    $usToUnlink = $_POST['USToUnlink'];
+    $usToLink = $_POST['USToLink'];
+    $sprintId = $_POST['sprintId'];
+    if (count($usToUnlink) != 0) {
+        unlink_us_from_sprint($sprintId, $usToUnlink);
+    }
+    if (count($usToLink) != 0) {
+        link_us_to_sprint($sprintId, $usToLink);
+    }
 } elseif (isset($_POST['switchState'])) {
-    echo switch_task_state($_POST['taskToSwitch'],$_POST['switchState']);
-} elseif(isset($_POST['removeTaskId'])){
+    echo switch_task_state($_POST['taskToSwitch'], $_POST['switchState']);
+} elseif (isset($_POST['removeTaskId'])) {
     echo remove_task($_POST["removeTaskId"]);
 } else {
     if (isset($_POST['sprintName']) && isset($_POST['startDate']) && isset($_POST['endDate'])) {
@@ -38,6 +47,14 @@ if (isset($_POST['delete']) && isset($_POST['sprintToDeleteId'])) {
     include_once("view/projectNav.php");
     $UserID = $_SESSION["id"];
     $sprints = get_all_sprints($projectId)->fetchAll();
+    $counter = 0;
+    foreach ($sprints as $item) {
+        $currentTaskState = count_nb_task_by_state_in_sprint($item['id']);
+        $sprints[$counter] += array(""."todo"."" => "".$currentTaskState[0]."");
+        $sprints[$counter] += array(""."onGoing"."" => "".$currentTaskState[1]."");
+        $sprints[$counter] += array(""."done"."" => "".$currentTaskState[2]."");
+        $counter++;
+    }
     $projectMembers = get_all_project_members_and_master($projectId)->fetchAll();
     if ($_SESSION['role'] == 'user') {
         include_once("view/memberHeader.php");
