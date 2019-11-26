@@ -18,15 +18,7 @@ if ($_SESSION['role'] == 'user') {
      include_once "view/modHeader.php" ;
 }
 
-
-     $c = curl_init();
-     curl_setopt($c, CURLOPT_RETURNTRANSFER, 1);
-     curl_setopt($c, CURLOPT_HTTPHEADER, array('Accept: application/json', 'Content-Type: application/json'));
-     curl_setopt($c, CURLOPT_URL, 'https://api.github.com/users/google/repos');
-     $content = curl_exec($c);
-     curl_close($c);
-     $api = json_decode($content);
-     print($api->open_issues_count);
+$gitUrl=get_git_url($projectId)->fetch()["release_git"];
 
 
 include_once "view/projectNav.php";
