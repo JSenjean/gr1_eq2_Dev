@@ -125,7 +125,7 @@ function get_all_US_by_project_id($project_id)
           "SELECT us.*
                 FROM user_story=us
                 WHERE us.project_id=:projectID
-                ORDER BY us.done DESC, us.id ASC"
+                ORDER BY us.done ASC, us.id ASC"
         );
 
         $stmt->execute(array(':projectID' => $project_id));
