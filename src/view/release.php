@@ -1,15 +1,18 @@
+
 <div calss="row">
 
 
     <label for="urlGit">URL github</label>
     <input type="text" class="form-control" id="urlGit" value="<?php echo $gitUrl ?>">
-    <button data-target='#addOrModifyUSToProjectModal' data-toggle="modal" class="btn btn-primary-outline" type="button" id="btn_get_repos">get all commits</button>
+    <button class="btn btn-primary-outline" type="button" id="btn_get_repos">get all commits</button>
+    <button class="btn btn-primary-outline" type="button" id="btn_get_releases">get all releases</button>
 
 
 </div>
 
 <div class="row pt-5">
     <div class="col-sm col-lg-4 accordion" id="repo_list">
+        <h1 id="title_repo_list"> les commits </h1> 
         <?php foreach ($commits as $commit) : ?>
             <div class='card' id='card<?php echo $commit["sha"] ?>'>
                 <div class='card-header text-center' id='heading<?php echo $commit["sha"] ?>'>
@@ -29,12 +32,22 @@
             </div>
         <?php endforeach ?>
     </div>
+    <div class="col-sm col-lg-8 accordion" id="release_list">
+    <h1 id="title_release_list"> les releases </h1> 
+    </div>
 </div>
+
+<script src="https://cdn.jsdelivr.net/npm/showdown@1.9.0/dist/showdown.min.js" ></script>
 
 
 <script>
-    $("#btn_get_repos").click(function() {
-        var allCommits = new Array();
+    $(document).ready(function() {
+    var lastCommitDate = <?php echo ($lastCommit!=null) ? "'" . $lastCommit ."'"  : "null"  ?>;
+
+    //console.log(lastCommitDate);
+
+    function checkUrl(urlToCheck)
+    {
         var pattern = new RegExp('^(https?:\\/\\/)?' + // protocol
             '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|' + // domain name
             '((\\d{1,3}\\.){3}\\d{1,3}))' + // OR ip (v4) address
@@ -42,8 +55,16 @@
             '(\\?[;&a-z\\d%_.~+=-]*)?' + // query string
             '(\\#[-a-z\\d_]*)?$', 'i'); // fragment locator
 
+        return pattern.test(urlToCheck);
+    }
+
+    $("#btn_get_repos").click(function() {
+        var allCommits = new Array();
+        
+
         var urlGit = $("#urlGit").val();
-        if (!pattern.test(urlGit)) {
+
+        if (!checkUrl(urlGit)) {
             alert("ce n'est pas une url valide");
         } else {
 
@@ -55,14 +76,33 @@
         }
     });
 
-    function getLastCommit(iteration, name, repo, allCommits) {
+    $("#btn_get_releases").click(function() {
+        var allCommits = new Array();
+        
 
+        var urlGit = $("#urlGit").val();
+
+        if (!checkUrl(urlGit)) {
+            alert("ce n'est pas une url valide");
+        } else {
+
+            var urlPart = urlGit.split("/");
+
+            name = urlPart[3];
+            repo = urlPart[4];
+            getLastRelease(name, repo);
+        }
+    });
+
+    function getLastCommit(iteration, name, repo, allCommits) {
+        since= (lastCommitDate!=null) ? "since=" + lastCommitDate :""
+        console.log("https://api.github.com/repos/" + name + "/" + repo + "/commits?per_page=100&" + since + "&page=" + iteration);
         $.ajax({
             type: "GET",
             /*headers: {
                 'Authorization': `token 288f795f97ebc8b6c5a487a4cec5e89f3f2eaef6`,
             },*/
-            url: "https://api.github.com/repos/" + name + "/" + repo + "/commits?per_page=100&since=2019-11-24T08:00:00&page=" + iteration,
+            url: "https://api.github.com/repos/" + name + "/" + repo + "/commits?per_page=100&" + since + "&page=" + iteration,
             dataType: "json",
             success: function(result) {
                 allCommits[iteration] = result;
@@ -72,27 +112,45 @@
                 } else {
                     displayCommit(allCommits);
                     saveCommit(allCommits);
-
-
                 }
 
             }
         });
     }
 
+    function getLastRelease(name, repo) {
+    var allRelease;
+    var htmlToWriteRealease ="";
+    $.ajax({
+        type: "GET",
+        /*headers: {
+            'Authorization': `token 288f795f97ebc8b6c5a487a4cec5e89f3f2eaef6`,
+        },*/
+        url: "https://api.github.com/repos/" + name + "/" + repo + "/releases",
+        dataType: "json",
+        success: function(result) {
+            var converter = new showdown.Converter({tables: true});
+            
+            result.forEach(oneRelease => {
+                htmlToWriteRealease += "<div>"
+                htmlToWriteRealease += converter.makeHtml(oneRelease.body)
+                htmlToWriteRealease += "</div>"
+                $("#release_list").append(htmlToWriteRealease);
+
+            });
+            }
+        });
+    }
+
+    
+
     function displayCommit(allCommits) {
         var htmlToWrite = "";
         var compteur = 0;
         var nbResult = 0;
-        $("#repo_list").html("");
         var dateStr;
         var date;
-        const options = {
-            weekday: "long",
-            year: "numeric",
-            month: "long",
-            day: "numeric"
-        }
+        console.log(JSON.stringify(new Date()).split(".")[0]);
         allCommits.forEach(oneResult => {
             nbResult++;
             oneResult.forEach(oneCommit => {
@@ -104,7 +162,7 @@
                 htmlToWrite += oneCommit.commit.author.name
                 htmlToWrite += "</button>"
                 htmlToWrite += "<h6 class='mb-0 text-center'>"
-                htmlToWrite += date.toLocaleString('fr-FR', options);
+                htmlToWrite += date.toLocaleString();
                 htmlToWrite += "</h6>"
                 htmlToWrite += "</div>"
                 htmlToWrite += "<div id='collapse" + oneCommit.sha + "' class='collapse' aria-labelledby='heading" + oneCommit.sha + "' data-parent='#accordionRole'>"
@@ -114,7 +172,7 @@
                 htmlToWrite += "</div>"
                 htmlToWrite += "</div>"
                 htmlToWrite += "</div>"
-                $("#repo_list").append(htmlToWrite);
+                $(htmlToWrite).insertAfter("#title_repo_list");
                 htmlToWrite = "";
                 compteur++;
             });
@@ -133,9 +191,10 @@
 
             },
             success: function(result) {
-                console.log(result);
+                //console.log(result);
             }
         });
 
     }
+});
 </script>

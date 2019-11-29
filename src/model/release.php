@@ -29,7 +29,8 @@ function save_all_commit($projectID, $allCommits)
         foreach ($allCommits as $cell) {
             if (is_array($cell)) {
                 foreach ($cell as $oneCommit) {
-                    $stmt->execute(array(
+                    $stmt->execute(
+                        array(
                     ':projectID' => $projectID,
                     ':sha' => $oneCommit->sha,
                     ':committerName' => $oneCommit->commit->author->name,
@@ -37,11 +38,28 @@ function save_all_commit($projectID, $allCommits)
                     ':commitUrl' => $oneCommit->html_url,
                     ':commitDate' => date('Y-m-d H:i:s', strtotime(($oneCommit->commit->author->date))),
 
-                ));
-                    
+                )
+                    );
                 }
             }
         }
+        if (count($allCommits[1])>0) {
+            deprecate_all_test($projectID);
+        }
+        return 1;
+    } catch (PDOException $e) {
+        echo  "<br>" . $e->getMessage();
+        return -1;
+    }
+}
+function deprecate_all_test($projectID)
+{
+    try {
+        $bdd = dbConnect();
+        $stmt = $bdd->prepare(
+            "UPDATE test SET state='deprecated' WHERE project_id=:projectId"
+        );
+        $stmt->execute(array(':projectId' => $projectID));
         return 1;
     } catch (PDOException $e) {
         echo  "<br>" . $e->getMessage();
@@ -65,14 +83,16 @@ function get_all_commit($projectID)
         return -1;
     }
 }
-/*function get_last_commit($projectID)
+function get_last_commit($projectID)
 {
     try {
         $bdd = dbConnect();
         $stmt = $bdd->prepare(
-            "SELECT 
+            "SELECT commitDate
                 FROM project_commit
-                WHERE id=:projectId"
+                WHERE project_id=:projectId
+                ORDER BY commitDate desc
+                LIMIT 1"
         );
 
         $stmt->execute(array(':projectId' => $projectID));
@@ -81,4 +101,4 @@ function get_all_commit($projectID)
         echo  "<br>" . $e->getMessage();
         return -1;
     }
-}*/
+}
