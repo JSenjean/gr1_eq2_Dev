@@ -122,9 +122,10 @@ function get_all_US_by_project_id($project_id)
     try {
         $bdd = dbConnect();
         $stmt = $bdd->prepare(
-            "SELECT us.*
+          "SELECT us.*
                 FROM user_story=us
-                WHERE us.project_id=:projectID"
+                WHERE us.project_id=:projectID
+                ORDER BY us.done DESC, us.id ASC"
         );
 
         $stmt->execute(array(':projectID' => $project_id));
