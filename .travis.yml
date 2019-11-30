@@ -1,9 +1,9 @@
 language: php
 
 php:
-  - 5.2
+  - nightly
 
-dist: precise
+dist: trusty
 
 script:
   - phpunit --log-junit logTests/$( date '+%Y-%m-%d' )-test.xml tests/backlog/backlogTest.php
