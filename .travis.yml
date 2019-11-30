@@ -11,7 +11,7 @@ services:
   - mysql
   
 before_install:
-  - mysql -u root --password="123456789" -h 127.0.0.1 < src/bdd.sql
+  - mysql -u root < src/bdd.sql
 
 script:
   - phpunit --log-junit logTests/$( date '+%Y-%m-%d' )-test.xml tests/backlog/backlogTest.php
