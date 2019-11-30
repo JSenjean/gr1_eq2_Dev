@@ -6,7 +6,7 @@ php:
 dist: trusty
 
 script:
-  - ./runTests.sh
+  - phpunit --log-junit logTests/$( date '+%Y-%m-%d' )-test.xml  --configuration  tests/phpunit.xml tests
 
 after_script:
   - rm -f tests/configTest.ini
