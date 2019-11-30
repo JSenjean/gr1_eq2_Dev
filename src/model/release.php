@@ -66,6 +66,47 @@ function deprecate_all_test($projectID)
         return -1;
     }
 }
+
+function change_git_url($projectID, $gitUrl)
+{
+    try {
+        $bdd = dbConnect();
+        $stmt = $bdd->prepare(
+            "UPDATE project SET release_git=:gitUrl WHERE id=:projectId"
+        );
+        $stmt->execute(
+            array(
+            ':projectId' => $projectID,
+            ':gitUrl' => $gitUrl,
+            )
+        );
+        delete_all_commits($projectID);
+        return 1;
+    } catch (PDOException $e) {
+        echo  "<br>" . $e->getMessage();
+        return -1;
+    }
+}
+
+function delete_all_commits($projectID)
+{
+    try {
+        $bdd = dbConnect();
+        $stmt = $bdd->prepare(
+            "DELETE FROM project_commit WHERE project_id=:projectId"
+        );
+        $stmt->execute(
+            array(
+            ':projectId' => $projectID,
+            )
+        );
+        return 1;
+    } catch (PDOException $e) {
+        echo  "<br>" . $e->getMessage();
+        return -1;
+    }
+}
+
 function get_all_commit($projectID)
 {
     try {

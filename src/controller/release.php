@@ -6,8 +6,12 @@ require_once "model/release.php";
 $UserID = $_SESSION["id"];
 if (isset($_POST["saveCommit"])) {
     $allCommits = json_decode($_POST["allCommits"]);
-    var_dump(save_all_commit($_POST["projectId"], $allCommits));
-//var_dump( $allCommits );
+    save_all_commit($_POST["projectId"], $allCommits);
+
+} elseif (isset($_POST["saveGitUrl"])) {
+    var_dump($_POST["saveGitUrl"]);
+    change_git_url($_POST["projectId"], $_POST["saveGitUrl"]);
+
 } else {
     $projectId = $_GET["projectId"];
     $isMaster = is_master($UserID, $projectId);
