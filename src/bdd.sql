@@ -15,6 +15,13 @@ SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 
 -- --------------------------------------------------------
 
+-- Create DB
+CREATE DATABASE IF NOT EXISTS `cdp` DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+USE `cdp`;
+
+
+-- Add Tables
+
 --
 -- Structure de la table `doc_section`
 --
