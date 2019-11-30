@@ -3,7 +3,7 @@
 require_once "src/model/projects.php";
 require_once "src/model/profile.php";
 require_once "tests/dbConnectTest.php";
-use PHPUnit\Framework\TestCase;
+use 'PHPUnit\Framework\TestCase';
 
 class ProfileTest extends TestCase 
 {

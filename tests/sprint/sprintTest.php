@@ -3,7 +3,7 @@
 require_once "src/model/projects.php";
 require_once "src/model/sprints.php";
 require_once "tests/dbConnectTest.php";
-use PHPUnit\Framework\TestCase;
+use 'PHPUnit\Framework\TestCase';
 
 class SprintTest extends TestCase 
 {
