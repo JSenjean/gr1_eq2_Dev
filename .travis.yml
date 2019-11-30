@@ -6,4 +6,8 @@ php:
 dist: precise
 
 script:
-  - phpunit --log-junit logTests/$( date '+%Y-%m-%d' )-test.xml  --configuration  tests/phpunit.xml tests
+  - phpunit --log-junit logTests/$( date '+%Y-%m-%d' )-test.xml tests/backlog/backlogTests.php
+  - phpunit --log-junit logTests/$( date '+%Y-%m-%d' )-test.xml tests/profile/profileTests.php
+  - phpunit --log-junit logTests/$( date '+%Y-%m-%d' )-test.xml tests/projects/projectsTests.php
+  - phpunit --log-junit logTests/$( date '+%Y-%m-%d' )-test.xml tests/selectedProject/selectedProjectTests.php
+  - phpunit --log-junit logTests/$( date '+%Y-%m-%d' )-test.xml tests/sprint/sprintTest.php
