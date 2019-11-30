@@ -5,7 +5,7 @@ require_once "src/model/backlog.php";
 require_once "src/model/projects.php";
 require_once "tests/dbConnectTest.php";
 
-use 'PHPUnit\Framework\TestCase';
+use PHPUnit\Framework\TestCase;
 
 class ProjectsTest extends TestCase
 {
