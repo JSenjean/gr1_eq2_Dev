@@ -1,12 +1,9 @@
 language: php
 
 php:
-  - nightly
+  - 5.2
 
-dist: trusty
+dist: xenial
 
 script:
   - phpunit --log-junit logTests/$( date '+%Y-%m-%d' )-test.xml  --configuration  tests/phpunit.xml tests
-
-after_script:
-  - rm -f tests/configTest.ini
