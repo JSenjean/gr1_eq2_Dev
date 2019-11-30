@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.com/JSenjean/gr1_eq2_Dev.svg?branch=master)](https://travis-ci.com/JSenjean/gr1_eq2_Dev)
+
 # Conduite de Projet
 
 ## Groupe 1 Equipe 2

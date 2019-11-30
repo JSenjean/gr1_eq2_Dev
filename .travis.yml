@@ -1,28 +1,28 @@
 language: php
 php:
-  - '5.4'
-  - '5.6'
-  - '7.0'
+  - '5.7'
   - hhvm
   - nightly
 dist:
-  -trusty
+  - trusty
 services:
   - mysql
 install:
   - composer install
 before_install:
-  - mysql -u root -p gfloret < src/bdd.sql
+  - MYSQL_ROOT="root"
+  - MYSQL_PASS="123456789"
+  - echo | mysql -u "$root" -p "$123456789" gfloret < src/bdd.sql
   - touch tests/configTest.ini
   - echo '[database]' >> tests/configTest.ini
   - echo 'servername = 127.0.0.1' >> tests/configTest.ini
   - echo 'username = root' >> tests/configTest.ini
-  - echo 'password = ' >> tests/configTest.ini
+  - echo 'password = 123456789' >> tests/configTest.ini
   - echo 'dbname = gfloret' >> tests/configTest.ini
   - ./install-phpunit.sh
 
 script:
   - ./runTests.sh
 
-after_install:
+after_script:
   - rm -f tests/configTest.ini
