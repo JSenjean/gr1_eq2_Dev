@@ -12,7 +12,7 @@
         <div class="col-lg-3 sprint" data-sprintid="<?php echo $value['id'] ?>">
           <div class="card mt-4 sprintCard bg-light" style="width: 15rem;">
             <div class="card-header <?php $currentProjectBg = add_sprint_background($startD, $endD);
-                                      echo $currentProjectBg ?>">
+                                        echo $currentProjectBg ?>">
               <div class="row">
                 <div class="col-lg-2">
                   <button class="btn btn-primary-outline float-left createOrModifySprintModal" data-target='#createOrModifySprintModal' data-toggle="modal" data-projectid="<?php echo $projectId; ?>" data-sprintid="<?php $sprintId = $value['id'];
@@ -33,16 +33,16 @@
               <div class="col">
                 <div>
                   <p class="card-text">Début : <?php $startDate = date("j/m/Y", strtotime($startD));
-                                                  echo $startDate; ?></p>
+                                                    echo $startDate; ?></p>
                 </div>
                 <div>
                   <p class="card-text">Fin : <?php $endDate = date("j/m/Y", strtotime($endD));
                                                 echo $endDate; ?></p>
                 </div>                
                   <div class="progress pBar" style="<?php $countAllTask = $value['todo'] + $value['onGoing'] + $value['done']; echo ($countAllTask != 0) ? "" : "display: none" ?>" data-alltask="<?php echo $countAllTask ?>">
-                    <div class="progress-bar bg-danger text-dark pBarTodo" role="progressbar" style="width: <?php echo ($value['todo'] / $countAllTask) * 100 ?>%" aria-valuenow="<?php echo $value['todo'] ?>" aria-valuemin="0" aria-valuemax="<?php echo $countAllTask ?>"><?php echo $value['todo'] ?></div>
-                    <div class="progress-bar bg-warning text-dark pBarOnGoing" role="progressbar" style="width: <?php echo ($value['onGoing'] / $countAllTask) * 100 ?>%" aria-valuenow="<?php echo $value['onGoing'] ?>" aria-valuemin="0" aria-valuemax="<?php echo $countAllTask ?>"><?php echo $value['onGoing'] ?></div>
-                    <div class="progress-bar bg-success text-dark pBarDone" role="progressbar" style="width: <?php echo ($value['done'] / $countAllTask) * 100 ?>%" aria-valuenow="<?php echo $value['done'] ?>" aria-valuemin="0" aria-valuemax="<?php echo $countAllTask ?>"><?php echo $value['done'] ?></div>
+                    <div class="progress-bar bg-danger text-dark pBarTodo" role="progressbar" style="width: <?php echo ($value['todo']/$countAllTask)*100 ?>%" aria-valuenow="<?php echo $value['todo'] ?>" aria-valuemin="0" aria-valuemax="<?php echo $countAllTask ?>"><?php echo $value['todo'] ?></div>
+                    <div class="progress-bar bg-warning text-dark pBarOnGoing" role="progressbar" style="width: <?php echo ($value['onGoing']/$countAllTask)*100 ?>%" aria-valuenow="<?php echo $value['onGoing'] ?>" aria-valuemin="0" aria-valuemax="<?php echo $countAllTask ?>"><?php echo $value['onGoing'] ?></div>
+                    <div class="progress-bar bg-success text-dark pBarDone" role="progressbar" style="width: <?php echo ($value['done']/$countAllTask)*100 ?>%" aria-valuenow="<?php echo $value['done'] ?>" aria-valuemin="0" aria-valuemax="<?php echo $countAllTask ?>"><?php echo $value['done'] ?></div>
                   </div>
               </div>
             </div>

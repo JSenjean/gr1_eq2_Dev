@@ -49,7 +49,7 @@
                             <?php echo $_SESSION['username'] ?>
                         </button>
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
-                            <h6 class="dropdown-header"><?php $_SESSION['role']=="admin" ? print 'Administrateur' : print "Administrateur"?></h6>
+                            <h6 class="dropdown-header"><?php $_SESSION['role'] == "admin" ? print 'Administrateur' : print "Administrateur"?></h6>
                             <a class="dropdown-item" href="index.php?action=profile">Profil</a>
                             <a class="dropdown-item" href="index.php?action=resetPassword&enterMailResetPassword=1">Réinitialiser le mot de passe</a>
                             <a class="dropdown-item" href="index.php?action=modPanel">Panneau d'administration</a>

@@ -14,12 +14,12 @@ if (isset($_GET['action'])) {
         include_once "controller/projects.php";
     } elseif ($_GET['action'] == 'projectDelete') {
         if (isset($_GET['projectId'])) {
-            $_SESSION["projectToDelete"]=$_GET['projectId'];
+            $_SESSION["projectToDelete"] = $_GET['projectId'];
             include_once "controller/projects.php";
         }
     } elseif ($_GET['action'] == 'leaveProject') {
         if (isset($_GET['projectId'])) {
-            $_SESSION["projectToLeave"]=$_GET['projectId'];
+            $_SESSION["projectToLeave"] = $_GET['projectId'];
             include_once "controller/projects.php";
         }
     } elseif ($_GET['action'] == 'logout') {
@@ -36,37 +36,37 @@ if (isset($_GET['action'])) {
         include_once "controller/faq.php";
     } elseif ($_GET['action'] == 'editQA') {
         if (isset($_GET['id'])) {
-            $_SESSION['qaToEdit']=$_GET['id'];
+            $_SESSION['qaToEdit'] = $_GET['id'];
             include_once "controller/faq.php";
         }
     } elseif ($_GET['action'] == 'delQA') {
         if (isset($_GET['id'])) {
-            $_SESSION['qaToDelete']=$_GET['id'];
+            $_SESSION['qaToDelete'] = $_GET['id'];
             include_once "controller/faq.php";
         }
     } elseif ($_GET['action'] == 'selectedProject') {
         include_once "controller/selectedProject.php";
     } elseif ($_GET['action'] == 'editSelectedProject') {
         if (isset($_GET['projectId'])) {
-            $_SESSION['projectToEdit']=$_GET['projectId'];
+            $_SESSION['projectToEdit'] = $_GET['projectId'];
             include_once "controller/selectedProject.php";
         }
     } elseif ($_GET['action'] == 'selectedProjectAcceptRequest') {
         if (isset($_GET['projectId']) && isset($_GET['userId'])) {
-            $_SESSION['projectAcceptMember']=$_GET['projectId'];
-            $_SESSION['acceptedUser']=$_GET['userId'];
+            $_SESSION['projectAcceptMember'] = $_GET['projectId'];
+            $_SESSION['acceptedUser'] = $_GET['userId'];
             include_once "controller/selectedProject.php";
         }
     } elseif ($_GET['action'] == 'selectedProjectDeletedMember') {
         if (isset($_GET['projectId']) && isset($_GET['userId'])) {
-            $_SESSION['projectDeleteMember']=$_GET['projectId'];
-            $_SESSION['userToDelete']=$_GET['userId'];
+            $_SESSION['projectDeleteMember'] = $_GET['projectId'];
+            $_SESSION['userToDelete'] = $_GET['userId'];
             include_once "controller/selectedProject.php";
         }
     } elseif ($_GET['action'] == 'selectedProjectDeleteInvitationOrRequest') {
         if (isset($_GET['projectId']) && isset($_GET['userId'])) {
-            $_SESSION['projectDeleteRequest']=$_GET['projectId'];
-            $_SESSION['userRequestToDelete']=$_GET['userId'];
+            $_SESSION['projectDeleteRequest'] = $_GET['projectId'];
+            $_SESSION['userRequestToDelete'] = $_GET['userId'];
             include_once "controller/selectedProject.php";
         }
     } elseif ($_GET['action'] == 'utility') {

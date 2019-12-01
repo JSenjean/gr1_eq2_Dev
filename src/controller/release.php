@@ -29,10 +29,10 @@ if (isset($_POST["saveCommit"])) {
     $gitUrl = get_git_url($projectId)->fetch()["release_git"];
     $commits = get_all_commit($projectId);
     $lastCommit = get_last_commit($projectId)->fetch()["commitDate"];
-    if ($lastCommit !=null) {
+    if ($lastCommit != null) {
         $lastCommit = new DateTime($lastCommit);
-        $lastCommit =$lastCommit->format("Y-m-d H:i:s");
-        $lastCommit=str_replace(" ", "T", $lastCommit);
+        $lastCommit = $lastCommit->format("Y-m-d H:i:s");
+        $lastCommit = str_replace(" ", "T", $lastCommit);
     }
 
     include_once "view/projectNav.php";
