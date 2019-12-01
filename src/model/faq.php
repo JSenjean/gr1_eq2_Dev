@@ -1,7 +1,16 @@
 <?php
+/** Faq
+ *  ---
+ *  @file
+ *  @brief Various functions to communicate with the faq
+ *  and faq_comments table of the database. Essentially
+ *  CRUD functions
+ */
 
     /**
-     * Return the id of the category specified by its name
+     * @brief This function get the id of a faq category from its name
+     * @param nameCat The name of the faq category
+     * @return id The id of the category specified by its name
      */
     function getIdCategory($nameCat) {
         try {
@@ -20,7 +29,9 @@
 
 
     /**
-     * Return all the FAQ from the database belonging to a specified category
+     * @brief This function get all the couples questions/answers belonging to a given faq category
+     * @param category The faq category we want the q/a from
+     * @return qa All the elements in the faq table corresponding the the specified category
      */
     function getQA($category) {
         try {
@@ -44,8 +55,9 @@
 
 
     /**
-     * Modify the informations of a FAQ specified by its id from a POST request
+     * @brief Modify the informations of a question/answer element from its id (given by a POST request)
      * For administrators only
+     * @param id The id of the element from the faq table
      */
     function editQA($id) {
         if ($_SESSION['role'] == 'admin') {
@@ -76,8 +88,9 @@
 
 
     /**
-     * Add a new FAQ to the database from a POST request
-     * For administrator only
+     * @brief Add a new question/answer element to the faq table
+     * The q/a is get from a POST request
+     * For administrators only
      */
     function addQA() {
         if ($_SESSION['role'] == 'admin') {
@@ -102,8 +115,9 @@
 
 
     /**
-     * Delete a FAQ from the database by specifying its id
+     * @brief Delete a question/answer element from the faq table from its id
      * For administrators only
+     * @param id The id of the question/answer element we want to delete
      */
     function delQA($id) {
         if ($_SESSION['role'] == 'admin') {
@@ -122,7 +136,9 @@
 
 
     /**
-     * Search in the database all the FAQ corresponding to specified keywords and return them
+     * @brief Get all question/answer elements from the faq table that match the given keyword
+     * @param keywords The keywords that will be searched in the database
+     * @return qa All the question/answer elements that match the request
      */
     function searchQA($keywords) {
         try {
@@ -143,7 +159,8 @@
 
 
     /**
-     * Add a new category of FAQ to the database
+     * @brief Add a new faq category to the database
+     * The category is get by a POST request
      * For administrators only
      */
     function addCategory() {
@@ -164,7 +181,8 @@
 
 
     /**
-     * Delete a category of FAQ from the database and all the FAQ it contains
+     * @brief Delete a faq category (and all the question/answer elements it contains by using sql cascades)
+     * The category is get by POST request
      * For administrators only
      */
     function delCategory() {
@@ -184,7 +202,8 @@
 
 
     /**
-     * Return all the categories of FAQ stored in the database
+     * @brief Get all the faq catagories that exist in the database
+     * @return categories All the categories found in the database
      */
     function getCategories() {
         try {
