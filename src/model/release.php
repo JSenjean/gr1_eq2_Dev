@@ -43,7 +43,7 @@ function save_all_commit($projectID, $allCommits)
                 }
             }
         }
-        if (count($allCommits[1])>0) {
+        if (count($allCommits[1]) > 0) {
             deprecate_all_test($projectID);
         }
         return 1;

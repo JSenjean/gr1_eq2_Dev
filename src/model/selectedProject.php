@@ -1,6 +1,6 @@
 <?php
 
-function get_project_master($id){
+function get_project_master($id) {
     try {
         $bdd = dbConnect();
         $stmt = $bdd->prepare(
@@ -78,11 +78,11 @@ function get_project_by_id($id) {
     }
 }
 
-function editProject ($id) {
+function editProject($id) {
     $name = trim(strip_tags($_POST['name']));
     $description = trim(strip_tags($_POST['description']));
     $visibility = isset($_POST['visibility']);
-    try{
+    try {
         $bdd = dbConnect();
         $stmt = $bdd->prepare(
             "UPDATE project 
@@ -96,12 +96,12 @@ function editProject ($id) {
             'visibility' => $visibility
         ));
     }
-    catch(PDOException $e){
+    catch (PDOException $e) {
         echo  "<br>" . $e->getMessage();
     }
 }
 
-function acceptRequest ($project_id, $user_id, $role) {
+function acceptRequest($project_id, $user_id, $role) {
     try {
         $bdd = dbConnect();
         $stmt = $bdd->prepare(
@@ -157,12 +157,12 @@ function is_master($id, $project_id) {
     } catch (PDOException $e) {
         echo "<br>" . $e->getMessage();
     }
-    if (isset($stmt)){
+    if (isset($stmt)) {
         $result = NULL;
-        foreach($stmt as $s){
+        foreach ($stmt as $s) {
             $result = $s['role'];
         }
-        if ($result == 'master'){
+        if ($result == 'master') {
             return true;
         } else {
             return false;
@@ -185,12 +185,12 @@ function is_member($id, $project_id) {
     } catch (PDOException $e) {
         echo "<br>" . $e->getMessage();
     }
-    if (isset($stmt)){
+    if (isset($stmt)) {
         $result = NULL;
-        foreach($stmt as $s){
+        foreach ($stmt as $s) {
             $result = $s['role'];
         }
-        if ($result == 'member'){
+        if ($result == 'member') {
             return true;
         } else {
             return false;

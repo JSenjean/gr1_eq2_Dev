@@ -49,7 +49,7 @@
                                         </h6>
                                         <h6>
                                             <span class="font-weight-bold">
-                                                <a href='index.php?action=selectedProject&projectId=<?php echo $u['id'];?>'>
+                                                <a href='index.php?action=selectedProject&projectId=<?php echo $u['id']; ?>'>
                                                     <em class='fas fa-arrow-alt-circle-right	 ' style="color:green ; cursor:pointer" data-toggle="tooltip" data-placement="top" title="Accéder au projet"></em>
                                                 </a>
                                             </span>

@@ -50,9 +50,9 @@ if (isset($_POST['delete']) && isset($_POST['sprintToDeleteId'])) {
     $counter = 0;
     foreach ($sprints as $item) {
         $currentTaskState = count_nb_task_by_state_in_sprint($item['id']);
-        $sprints[$counter] += array(""."todo"."" => "".$currentTaskState[0]."");
-        $sprints[$counter] += array(""."onGoing"."" => "".$currentTaskState[1]."");
-        $sprints[$counter] += array(""."done"."" => "".$currentTaskState[2]."");
+        $sprints[$counter] += array("" . "todo" . "" => "" . $currentTaskState[0] . "");
+        $sprints[$counter] += array("" . "onGoing" . "" => "" . $currentTaskState[1] . "");
+        $sprints[$counter] += array("" . "done" . "" => "" . $currentTaskState[2] . "");
         $counter++;
     }
     $projectMembers = get_all_project_members_and_master($projectId)->fetchAll();
