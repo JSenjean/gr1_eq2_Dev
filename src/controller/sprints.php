@@ -10,10 +10,28 @@ if (isset($_POST['delete']) && isset($_POST['sprintToDeleteId'])) {
     if ($memberId == 0) {
         $memberId = null;
     }
-    if ($_POST['modifyTask'] == "true") {
-        echo update_task($_POST['taskId'], $_POST['newTaskName'], $_POST['taskDescription'], $_POST['taskDod'], $_POST['taskPredecessor'], $_POST['taskTime'], $memberId);
+    $modify = $_POST['modifyTask'];
+    if ($modify == "true") {
+        $taskId = $_POST['taskId'];
     } else {
-        echo create_new_task($_POST['newTaskName'], $_POST['taskDescription'], $_POST['taskDod'], $_POST['taskPredecessor'], $_POST['taskTime'], $_POST['sprintId'], $memberId);
+        $taskId = create_new_task($_POST['newTaskName'], $_POST['taskDescription'], $_POST['taskDod'], $_POST['taskPredecessor'], $_POST['taskTime'], $_POST['sprintId'], $memberId);
+    }
+    if (isset($_POST['usToUnlinkTask'])) {
+        $usToUnlinkTask = $_POST['usToUnlinkTask'];
+        if (count($usToUnlinkTask) != 0) {
+            unlink_us_from_task($taskId, $usToUnlinkTask);
+        }
+    }
+    if (isset($_POST['usToLinkTask'])) {
+        $usToLinkTask = $_POST['usToLinkTask'];
+        if (count($usToLinkTask) != 0) {
+            link_us_to_task($taskId, $usToLinkTask);
+        }
+    }
+    if ($modify == "true") {
+        echo update_task($taskId, $_POST['newTaskName'], $_POST['taskDescription'], $_POST['taskDod'], $_POST['taskPredecessor'], $_POST['taskTime'], $memberId);
+    } else {
+        echo 1;
     }
 } elseif (isset($_POST['getTask'])) {
     echo json_encode(get_all_task_inside_sprint($_POST['sprintId'])->fetchAll());
@@ -21,6 +39,8 @@ if (isset($_POST['delete']) && isset($_POST['sprintToDeleteId'])) {
     echo json_encode(get_all_us_inside_sprint($_POST['sprintId'])->fetchAll());
 } elseif (isset($_POST['getAllUS'])) {
     echo json_encode(get_all_us_inside_project($_POST['projectId'])->fetchAll());
+} elseif (isset($_POST['linkedUSToTask'])) {
+    echo json_encode(get_all_us_inside_task($_POST['taskId'])->fetchAll());
 } elseif (isset($_POST['linkedUS'])) {
     echo json_encode(get_all_us_inside_sprint($_POST['sprintId'])->fetchAll());
 } elseif (isset($_POST['linkUsToSprint'])) {
@@ -50,9 +70,9 @@ if (isset($_POST['delete']) && isset($_POST['sprintToDeleteId'])) {
     $counter = 0;
     foreach ($sprints as $item) {
         $currentTaskState = count_nb_task_by_state_in_sprint($item['id']);
-        $sprints[$counter] += array("" . "todo" . "" => "" . $currentTaskState[0] . "");
-        $sprints[$counter] += array("" . "onGoing" . "" => "" . $currentTaskState[1] . "");
-        $sprints[$counter] += array("" . "done" . "" => "" . $currentTaskState[2] . "");
+        $sprints[$counter] += array(""."todo"."" => "".$currentTaskState[0]."");
+        $sprints[$counter] += array(""."onGoing"."" => "".$currentTaskState[1]."");
+        $sprints[$counter] += array(""."done"."" => "".$currentTaskState[2]."");
         $counter++;
     }
     $projectMembers = get_all_project_members_and_master($projectId)->fetchAll();

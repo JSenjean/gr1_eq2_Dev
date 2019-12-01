@@ -180,7 +180,6 @@
 
                 },
                 success: function(response) {
-                    console.log(response);
                     rolename = (roleName == "choisissez un role" ? "pas de role" : roleName);
 
                     done = (done ? 1:0);

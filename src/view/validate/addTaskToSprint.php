@@ -50,6 +50,10 @@
                                 <?php endforeach; ?>
                             </select>
                         </div>
+                        <div class="container">
+                            <select class="selectpicker multSelectTask" data-style="pb-4" id="multSelectTask" name="multSelectTask" multiple data-live-search="true">
+                            </select>
+                        </div>
                     </div>
             </div>
             <div class="modal-footer">
@@ -74,6 +78,9 @@
         var taskState = null;
         var modify = false;
         var button = null;
+        var SelectChildren = null;
+        var allSelected = null;
+        var allSelectedId = null;
 
         $("#createOrModifyTaskModal").on("shown.bs.modal", function(event) {
             button = $(event.relatedTarget);
@@ -106,6 +113,59 @@
             $("#taskPredecessor").val(taskPredecessor);
             $('#taskMember').val(taskMember);
             $('#taskTimeValue').val(taskTime);
+
+            $.ajax({
+                type: 'POST',
+                url: 'index.php?action=sprints',
+                data: {
+                    linkedUS: true,
+                    sprintId: sprintId
+                },
+                success: function(response) {            
+                    SelectChildren = $(".multSelectTask").parent().children("select").children();
+                    if (SelectChildren.length != 0) {
+                        for (let i = 0; i < SelectChildren.length; i++) {
+                            $(SelectChildren[i]).remove();
+                        }
+                        $('.multSelectTask').selectpicker('refresh');
+                    }
+                    var us = JSON.parse(response);
+                    var htmlToWrite = "";
+                    var where = ".multSelectTask";
+                    us.forEach(function(item) {
+                        htmlToWrite += "<option style='display: none;' value='" + item['id'] + "' >" + item['name'] + "</option>";
+                    });
+                    $(where).append(htmlToWrite);
+
+                    SelectChildren = $(".multSelectTask").parent().children("select").children();
+                    for (let i = 0; i < SelectChildren.length; i++) {
+                        $(SelectChildren[i]).show();
+                    }
+                    $('.multSelectTask').selectpicker('refresh');
+                }
+            })
+            
+            if (modify) {
+                $.ajax({
+                    type: 'POST',
+                    url: 'index.php?action=sprints',
+                    data: {
+                        linkedUSToTask: true,
+                        taskId: taskId
+                    },
+                    success: function(response) {
+                        var us = JSON.parse(response);
+                        allSelected = [];
+                        allSelectedId = [];
+                        us.forEach(function(item) {
+                            allSelected.push(item['id']);
+                            allSelectedId.push(item[0]);
+                        });
+                        $('.multSelectTask').val(allSelected);
+                        $('.multSelectTask').selectpicker('refresh');
+                    }
+                })
+            }
         });
 
         $("#addNewTask").on('submit', function(event) {
@@ -118,6 +178,19 @@
             taskPredecessor = $("#taskPredecessor").val();
             taskMember = $('#taskMember').val();;
             taskTime = $("#taskTimeValue").val();;
+
+            var USToLinkTask = $('#multSelectTask').val();
+            var USToUnlinkTask = new Array();
+            if (allSelected != null ) {
+                for (let i = 0; i < allSelected.length; i++) {
+                    curren_us_id = USToLinkTask.find(us_id => us_id === allSelected[i]);
+                    if (curren_us_id != undefined) {
+                        removeElement(USToLinkTask, curren_us_id);
+                    } else {
+                        USToUnlinkTask.push(allSelectedId[i]);
+                    }
+                }
+            }
 
             $.ajax({
                 type: 'POST',
@@ -132,6 +205,8 @@
                     taskTime: taskTime,
                     taskId: taskId,
                     sprintId: sprintId,
+                    usToLinkTask: USToLinkTask,
+                    usToUnlinkTask: USToUnlinkTask,
                     projectId: projectId
                 },
                 success: function(response) {
@@ -140,7 +215,7 @@
                     var where = "";
                     var whereModify = null;
                     if (!modify) {
-                        htmlToWrite += "<div class='card mt-2 task' data-taskid='" + response + "'  >"
+                        htmlToWrite += "<div class='card mt-2 task' data-taskid='" + response + "' data-sprintid='" + sprintId + "'  >"
                     } else {
                         whereModify = button.closest('.task');
                         whereModify.empty();
@@ -159,10 +234,10 @@
                         htmlToWrite += "<a class='col-lg-6 float-right switchArrow' data-target='done' data-taskid='"+ response +"'><em class='fas fa-arrow-alt-circle-right' style='color:green ; cursor:pointer' title='passer la tache en Done' ></em></a>"
                     } else if (taskState === "todo") {
                         where = ".Todo";
-                        htmlToWrite += "<a class='col-lg-12 float-right switchArrow' data-target='onGoing' data-taskid='"+ response +"'><em class='fas fa-arrow-alt-circle-right' style='color:green ; cursor:pointer' title='passer la tache en Doing' ></em></a>"
+                        htmlToWrite += "<a class='col-lg-12 float-right switchArrow' data-from='todo' data-target='onGoing' data-taskid='"+ response +"'><em class='fas fa-arrow-alt-circle-right' style='color:green ; cursor:pointer' title='passer la tache en Doing' ></em></a>"
                     } else if (taskState === "done") {
                         where = ".Done";
-                        htmlToWrite += "<a class='col-lg-12 float-left switchArrow' data-target='onGoing' data-taskid='"+ response +"'><em class='fas fa-arrow-alt-circle-left' style='color:green ; cursor:pointer' title='Accéder au projet' ></em></a>"
+                        htmlToWrite += "<a class='col-lg-12 float-left switchArrow' data-from='done' data-target='onGoing' data-taskid='"+ response +"'><em class='fas fa-arrow-alt-circle-left' style='color:green ; cursor:pointer' title='Accéder au projet' ></em></a>"
                     }
                     htmlToWrite += "</div>"
                     htmlToWrite += "</div>"
