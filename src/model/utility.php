@@ -25,7 +25,7 @@ function add_invitation_by_user_name($requesterUserName, $projectId)
 {
     try {
         $bdd = dbConnect();
-        if (check_if_request_already_exist($requesterUserName, $projectId,$bdd) == 0) {
+        if (check_if_request_already_exist($requesterUserName, $projectId, $bdd) == 0) {
             
             $stmt = $bdd->prepare(
                 "INSERT INTO project_invitation (project_invitation.user_id,project_invitation.project_id,project_invitation.request) 
@@ -49,7 +49,7 @@ function add_invitation_by_user_name($requesterUserName, $projectId)
 
     return 1;
 }
-function check_if_request_already_exist($requesterUserName, $projectId,$bdd)
+function check_if_request_already_exist($requesterUserName, $projectId, $bdd)
 {
     try {
         $stmt = $bdd->prepare(

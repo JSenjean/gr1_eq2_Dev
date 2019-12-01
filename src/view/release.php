@@ -44,7 +44,7 @@ $(document).ready(function() {
 var projectId= <?php echo $projectId; ?>;
 
 
-var lastCommitDate = <?php echo ($lastCommit!=null) ? "'" . $lastCommit ."'"  : "null"  ?>;
+var lastCommitDate = <?php echo ($lastCommit != null) ? "'" . $lastCommit . "'" : "null"  ?>;
 
 if($("#urlGit").val()!="")
 {

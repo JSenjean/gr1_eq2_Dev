@@ -78,7 +78,7 @@ function count_proportion($projectId) {
     $nbNeverRun = 0;
     $nbTotalTests = 0;
 
-    foreach ($stmt as $s){
+    foreach ($stmt as $s) {
         switch ($s['state']) {
             case 'passed':
                 ++$nbPassed;
@@ -114,19 +114,19 @@ function compute_proportion($projectId) {
 
     if ($nbTotalTests != 0) {
 
-        $percPassed = (int)(($nbPassed*100)/$nbTotalTests);
-        $percFailed = (int)(($nbFailed*100)/$nbTotalTests);
-        $percDeprecated = (int)(($nbDeprecated*100)/$nbTotalTests);
-        $percNeverRun = (int)(($nbNeverRun*100)/$nbTotalTests);
+        $percPassed = (int) (($nbPassed*100)/$nbTotalTests);
+        $percFailed = (int) (($nbFailed*100)/$nbTotalTests);
+        $percDeprecated = (int) (($nbDeprecated*100)/$nbTotalTests);
+        $percNeverRun = (int) (($nbNeverRun*100)/$nbTotalTests);
 
         // Avoid blank in progress bar
         $sum = $percPassed + $percFailed + $percDeprecated + $percNeverRun;
-        while ($sum < 100){
+        while ($sum < 100) {
             if ($percPassed > 0) { ++$percPassed; } 
             else if ($percNeverRun > 0) { ++$percNeverRun; }  
             else if ($percDeprecated > 0) { ++$percDeprecated; }  
             else if ($percFailed > 0) { ++$percFailed; }  
-            else {break;}
+            else {break; }
             $sum = $percPassed + $percFailed + $percDeprecated + $percNeverRun;
         }
     
@@ -184,7 +184,7 @@ function pass_all_tests($projectId) {
 }
 
 function edit_test($id, $name, $description, $state) {
-    try{
+    try {
         $bdd = dbConnect();
         $stmt = $bdd->prepare(
             "UPDATE test
@@ -205,7 +205,7 @@ function edit_test($id, $name, $description, $state) {
 }
 
 function delete_test($id, $state) {
-    try{
+    try {
         $bdd = dbConnect();
         $stmt = $bdd->prepare(
             "DELETE FROM test
@@ -271,9 +271,9 @@ function check_deprecated($projectId) {
         echo "<br>" . $e->getMessage();
         return -1;
     }
-    foreach($stmt as $s){
+    foreach ($stmt as $s) {
         $last_run = strtotime($s['last_run']);
-        if ($last_run < $treshold){ // If last_run date is older than threshold date
+        if ($last_run < $treshold) { // If last_run date is older than threshold date
             ++$nbNewDeprecatedTests;
             $stmt2 = $bdd->prepare(
                 "UPDATE test

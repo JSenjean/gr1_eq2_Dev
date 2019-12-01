@@ -19,7 +19,7 @@
                                 echo $pm['username']; 
                                 break;
                             } 
-                            if ($isMaster){ ?>
+                            if ($isMaster) { ?>
                             <a data-toggle="modal" data-target="#editInfoModal" class="btn">
                                 <em class='fas fa-crown' style="color:#F3E90A"></em>
                             </a>
@@ -33,7 +33,7 @@
                             echo $m['username'] . '<br>';
                             if ($isMaster) {
                                 echo '
-                                    <a href="index.php?action=selectedProjectDeletedMember&projectId='.$projectId.'&userId='.$m['user_id'].'" class="btn">
+                                    <a href="index.php?action=selectedProjectDeletedMember&projectId='.$projectId . '&userId=' . $m['user_id'] . '" class="btn">
                                         <em class="fas fa-times" style="color:#C12F2F; padding-right:4px;" alt="Delete"></em>
                                     </a>
                                     ';
@@ -52,10 +52,10 @@
                             if ($isMaster) {
                                 echo '
                                 <div>
-                                    <a href="index.php?action=selectedProjectAcceptRequest&projectId='.$projectId.'&userId='.$r['user_id'].'" class="btn">
+                                    <a href="index.php?action=selectedProjectAcceptRequest&projectId='.$projectId . '&userId=' . $r['user_id'] . '" class="btn">
                                         <em class="fas fa-check" style="color:#20CF2D" alt="Validate"></em>
                                     </a>
-                                    <a href="index.php?action=selectedProjectDeleteInvitationOrRequest&projectId='.$projectId.'&userId='.$r['user_id'].'" class="btn">
+                                    <a href="index.php?action=selectedProjectDeleteInvitationOrRequest&projectId='.$projectId . '&userId=' . $r['user_id'] . '" class="btn">
                                         <em class="fas fa-times" style="color:#C12F2F" alt="Deny"></em>
                                     </a>
                                 </div>
@@ -74,7 +74,7 @@
                             echo $i['username'] . '<br>';
                             if ($isMaster) {
                                 echo '
-                                    <a href="index.php?action=selectedProjectDeleteInvitationOrRequest&projectId='.$projectId.'&userId='.$i['user_id'].'" class="btn">
+                                    <a href="index.php?action=selectedProjectDeleteInvitationOrRequest&projectId='.$projectId . '&userId=' . $i['user_id'] . '" class="btn">
                                         <em class="fas fa-times" style="color:#C12F2F" alt="Cancel"></em>
                                     </a>
                                     ';
@@ -160,10 +160,10 @@
                             echo '<h5 style="display: inline">Nom : </h5><h6 style="display: inline">' . $name . '</h6><br><br>';
                             $description = $p['description'];
                             echo '<h5 style="display: inline">Description : </h5><br>' . $description . '<br><br>';
-                            if ($p['visibility'] == 1){
+                            if ($p['visibility'] == 1) {
                                 $visibility = 1;
                                 $v = 'Public';
-                            }else {
+                            } else {
                                 $visibility = 0;
                                 $v = 'Privé';
                             }
@@ -198,7 +198,7 @@
             <textarea type="textarea" class="form-control" id="InputName" name="description" required><?php echo $description?></textarea>
           </div>
           <div class="form-group ml-4">
-            <input class="form-check-input" type="checkbox" id="InputVisiblity" <?php if ($visibility == 1) { echo ' checked ';  } ?> name="visibility" value="<?php echo $visibility ?>">
+            <input class="form-check-input" type="checkbox" id="InputVisiblity" <?php if ($visibility == 1) { echo ' checked '; } ?> name="visibility" value="<?php echo $visibility ?>">
             <label for="InputVisibility" name="visibility">Public ?</label>
           </div>
           <button type="submit" class="btn btn-primary" name="submit">Modifier</button>
