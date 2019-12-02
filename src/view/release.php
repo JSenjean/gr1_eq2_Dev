@@ -209,7 +209,7 @@ function displayRelease(releases)
         htmlToWriteRealease += "</h6>"
         htmlToWriteRealease += "</div>"
         htmlToWriteRealease += "<div id='collapse" + oneRelease.id + "' class='collapse' aria-labelledby='heading" + oneRelease.id + "' data-parent='#accordionRole'>"
-        htmlToWriteRealease += "<div class='card-body'>" + converter.makeHtml(oneRelease.body) + "</div>"
+        htmlToWriteRealease += "<div class='card-body' style='max-height: 500px; overflow: auto;'>" + converter.makeHtml(oneRelease.body) + "</div>"
         htmlToWriteRealease += "<div class='card-footer bg-white text-right'>"
         htmlToWriteRealease += "<a class='btn btn-primary' href='" + oneRelease.html_url + "' target='_blank' role='button'>voir sur GitHub <i class='fas fa-arrow-right' style='color:white'></i></a>"
         htmlToWriteRealease += "<a class='btn btn-primary' href='" + oneRelease.zipball_url + "' target='_blank' role='button'>telecharger la release <i class='fas fa-arrow-right' style='color:white'></i></a>"
