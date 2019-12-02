@@ -69,18 +69,18 @@
   </br>
   <div class="container-fluid table-sprint" id="table-sprint">
     <div class="row">
-      <div class="col col-sm text-center US">
+      <div class="US col col-sm-2 text-center">
         <h5 class="firstCol">User Story</h5>
       </div>
-      <div class="col col-sm text-center Todo">
+      <div class="col col-sm text-center Todo colTask">
         <h5 class="firstCol bg-danger">Todo</h5>
 
       </div>
-      <div class="col col-sm text-center Doing">
+      <div class="col col-sm text-center Doing colTask">
         <h5 class="firstCol bg-warning">Doing</h5>
 
       </div>
-      <div class="col col-sm text-center Done">
+      <div class="col col-sm text-center Done colTask">
         <h5 class="firstCol bg-success">Done</h5>
 
       </div>
@@ -169,7 +169,6 @@
 
           htmlToWrite += "<div class='card mt-1'>"
           htmlToWrite += "<div class='card-header'>" + item["name"] + "</div>";
-          htmlToWrite += "<div class='card-body'>" + (item['description'] != undefined ? item['description'] : '') + "</div>";
           htmlToWrite += "</div>";
           $(".US").append(htmlToWrite);
 

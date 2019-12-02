@@ -2,15 +2,15 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="createOrModifyTaskModalLabel">Créer une tâche</h5>
+                <h5 class="modal-title" id="createOrModifyTaskModalLabel">Créer/Modifier une tâche</h5>
                 <button type="button" class="close closeCrossTask" data-dismiss="modal" aria-label="Close" id="closeCrossTask">
                     <span aria-hidden="true">×</span>
                 </button>
             </div>
             <div class="modal-body">
                 <form method="POST" data-toggle="validator addNewTask" action="index.php?action=sprints" id="addNewTask">
-                    <div class="form-group">
-                        <label for="taskName"> Nom de la tâche : </label>
+                    <div class="form-group row m-2">
+                        <label for="taskName">Nom de la tâche : </label>
                         <input type="text taskName" id="taskName" maxlength="50 " name="taskName" required>
                     </div>
                     <div>
@@ -50,8 +50,17 @@
                                 <?php endforeach; ?>
                             </select>
                         </div>
-                        <div class="container">
+                        <div class="container row m-2">
+                            <label for="multSelecTask">Ajouter des UserStory : </label>
                             <select class="selectpicker multSelectTask" data-style="pb-4" id="multSelectTask" name="multSelectTask" multiple data-live-search="true">
+                            </select>
+                        </div>
+                        <div class="container row m-2">
+                            <label for="taskType">Type de la tâche : </label>
+                            <select class="form-control taskType" id="taskType">
+                                <option value="basic">Tâche basique</option>
+                                <option value="test">Tâche de test</option>
+                                <option value="doc">Tâche de doc</option>
                             </select>
                         </div>
                     </div>
@@ -81,6 +90,7 @@
         var SelectChildren = null;
         var allSelected = null;
         var allSelectedId = null;
+        var taskType = null;
 
         $("#createOrModifyTaskModal").on("shown.bs.modal", function(event) {
             button = $(event.relatedTarget);
@@ -121,7 +131,7 @@
                     linkedUS: true,
                     sprintId: sprintId
                 },
-                success: function(response) {            
+                success: function(response) {
                     SelectChildren = $(".multSelectTask").parent().children("select").children();
                     if (SelectChildren.length != 0) {
                         for (let i = 0; i < SelectChildren.length; i++) {
@@ -144,7 +154,7 @@
                     $('.multSelectTask').selectpicker('refresh');
                 }
             })
-            
+
             if (modify) {
                 $.ajax({
                     type: 'POST',
@@ -158,7 +168,7 @@
                         allSelected = [];
                         allSelectedId = [];
                         us.forEach(function(item) {
-                            allSelected.push(item['id']);
+                            allSelected.push(item['user_story_id']);
                             allSelectedId.push(item[0]);
                         });
                         $('.multSelectTask').val(allSelected);
@@ -171,17 +181,18 @@
         $("#addNewTask").on('submit', function(event) {
             event.preventDefault();
 
-
+            
             taskName = $("#taskName").val();
             taskDescription = $("#taskDescription").val();
-            taskDod = $("#taskDod").val();;
+            taskDod = $("#taskDod").val();
             taskPredecessor = $("#taskPredecessor").val();
-            taskMember = $('#taskMember').val();;
-            taskTime = $("#taskTimeValue").val();;
+            taskMember = $('#taskMember').val();
+            taskTime = $("#taskTimeValue").val();
+            taskType = $("#taskType").val();
 
             var USToLinkTask = $('#multSelectTask').val();
             var USToUnlinkTask = new Array();
-            if (allSelected != null ) {
+            if (allSelected != null) {
                 for (let i = 0; i < allSelected.length; i++) {
                     curren_us_id = USToLinkTask.find(us_id => us_id === allSelected[i]);
                     if (curren_us_id != undefined) {
@@ -191,7 +202,7 @@
                     }
                 }
             }
-
+            console.log(taskType);
             $.ajax({
                 type: 'POST',
                 url: 'index.php?action=sprints',
@@ -207,6 +218,7 @@
                     sprintId: sprintId,
                     usToLinkTask: USToLinkTask,
                     usToUnlinkTask: USToUnlinkTask,
+                    taskType: taskType,
                     projectId: projectId
                 },
                 success: function(response) {
@@ -222,7 +234,7 @@
                     }
                     htmlToWrite += "<a class='btn btn-primary-outline pull-right removeTask' data-taskid='" + response + "' type='button'><em class='fas fa-times' style='color:red' title='supprimer Tache'></em> </a>"
                     htmlToWrite += "<a data-target='#createOrModifyTaskModal' data-toggle='modal' class='modalLink' style='cursor:pointer'"
-                    htmlToWrite += " data-memberid='" + taskMember + "' data-name='" + taskName + "' data-description='" + taskDescription + "' data-dod='" + taskDod + "' data-time='" + taskTime + "' data-sprintid='" + sprintId + "' data-pred='" + taskPredecessor + "' data-id='"+ response + "' data-state='" + taskState + "' >"
+                    htmlToWrite += " data-memberid='" + taskMember + "' data-name='" + taskName + "' data-description='" + taskDescription + "' data-dod='" + taskDod + "' data-time='" + taskTime + "' data-sprintid='" + sprintId + "' data-pred='" + taskPredecessor + "' data-id='" + response + "' data-state='" + taskState + "' >"
                     htmlToWrite += "<div class='card-header'>" + taskName + "</div>";
                     htmlToWrite += "</a>"
                     htmlToWrite += "<div class='card-body'>" + taskDescription + "</div>";
@@ -230,18 +242,18 @@
 
                     if (taskState === "onGoing") {
                         where = ".Doing";
-                        htmlToWrite += "<a class='col-lg-6 float-left switchArrow' data-target='todo' data-taskid='"+ response +"'><em class='fas fa-arrow-alt-circle-left' style='color:green ; cursor:pointer' title='passer la tache en Todo' ></em></a>"
-                        htmlToWrite += "<a class='col-lg-6 float-right switchArrow' data-target='done' data-taskid='"+ response +"'><em class='fas fa-arrow-alt-circle-right' style='color:green ; cursor:pointer' title='passer la tache en Done' ></em></a>"
+                        htmlToWrite += "<a class='col-lg-6 float-left switchArrow' data-target='todo' data-taskid='" + response + "'><em class='fas fa-arrow-alt-circle-left' style='color:green ; cursor:pointer' title='passer la tache en Todo' ></em></a>"
+                        htmlToWrite += "<a class='col-lg-6 float-right switchArrow' data-target='done' data-taskid='" + response + "'><em class='fas fa-arrow-alt-circle-right' style='color:green ; cursor:pointer' title='passer la tache en Done' ></em></a>"
                     } else if (taskState === "todo") {
                         where = ".Todo";
-                        htmlToWrite += "<a class='col-lg-12 float-right switchArrow' data-from='todo' data-target='onGoing' data-taskid='"+ response +"'><em class='fas fa-arrow-alt-circle-right' style='color:green ; cursor:pointer' title='passer la tache en Doing' ></em></a>"
+                        htmlToWrite += "<a class='col-lg-12 float-right switchArrow' data-from='todo' data-target='onGoing' data-taskid='" + response + "'><em class='fas fa-arrow-alt-circle-right' style='color:green ; cursor:pointer' title='passer la tache en Doing' ></em></a>"
                     } else if (taskState === "done") {
                         where = ".Done";
-                        htmlToWrite += "<a class='col-lg-12 float-left switchArrow' data-from='done' data-target='onGoing' data-taskid='"+ response +"'><em class='fas fa-arrow-alt-circle-left' style='color:green ; cursor:pointer' title='Accéder au projet' ></em></a>"
+                        htmlToWrite += "<a class='col-lg-12 float-left switchArrow' data-from='done' data-target='onGoing' data-taskid='" + response + "'><em class='fas fa-arrow-alt-circle-left' style='color:green ; cursor:pointer' title='Accéder au projet' ></em></a>"
                     }
                     htmlToWrite += "</div>"
                     htmlToWrite += "</div>"
-                    
+
                     if (modify) {
                         $(whereModify).append(htmlToWrite);
                     } else {

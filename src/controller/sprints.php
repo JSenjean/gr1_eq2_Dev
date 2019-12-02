@@ -1,7 +1,7 @@
 <?php
 include_once("model/selectedProject.php");
 include_once("model/sprints.php");
-
+include_once("model/tests.php");
 
 if (isset($_POST['delete']) && isset($_POST['sprintToDeleteId'])) {
     echo delete_sprint_by_id($_POST['sprintToDeleteId']);
@@ -30,7 +30,13 @@ if (isset($_POST['delete']) && isset($_POST['sprintToDeleteId'])) {
     }
     if ($modify == "true") {
         echo update_task($taskId, $_POST['newTaskName'], $_POST['taskDescription'], $_POST['taskDod'], $_POST['taskPredecessor'], $_POST['taskTime'], $memberId);
-    } else {
+    } elseif (isset($_POST['taskType'])) {
+        $taskType = $_POST['taskType'];
+        if ($taskType == "test") {
+            add_new_test($_POST['projectId'], $_POST['newTaskName'], $_POST['taskDescription'], "never_run");
+        } elseif ($taskType == "doc") {
+            // Create new doc section
+        }
         echo 1;
     }
 } elseif (isset($_POST['getTask'])) {
