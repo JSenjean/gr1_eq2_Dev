@@ -83,7 +83,8 @@ function prepareGetCommits() {
 
 
 function getLastCommit(iteration, name, repo, allCommits) {
-    since= (lastCommitDate!=null) ? "&since=" + lastCommitDate :""
+    since= (lastCommitDate!=null) ? "&since=" + lastCommitDate + "+01:00Z" :""
+    console.log(since);
     $.ajax({
         type: "GET",
         /*headers: {
@@ -110,9 +111,10 @@ function getLastCommit(iteration, name, repo, allCommits) {
 function displayCommit(allCommits) {
     var htmlToWrite = "";
     var date;
-
+    if(allCommits[1].length>0)
+    {
     lastCommitDate =JSON.stringify(new Date()).split(".")[0];
-
+    }
     allCommits.forEach(oneResult => {
         oneResult.forEach(oneCommit => {
             date = new Date(oneCommit.commit.author.date);
