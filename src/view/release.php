@@ -83,12 +83,12 @@ function prepareGetCommits() {
 
 
 function getLastCommit(iteration, name, repo, allCommits) {
-    since= (lastCommitDate!=null) ? "&since=" + lastCommitDate + "+01:00Z" :""
+    since= (lastCommitDate!=null) ? "&since=" + lastCommitDate + "Z" :""
     console.log(since);
     $.ajax({
         type: "GET",
         /*headers: {
-            'Authorization': `token 288f795f97ebc8b6c5a487a4cec5e89f3f2eaef6`,
+            'Authorization': `token b77f80cd817e370705ea022823a85c5db901e6f9`,
         },*/
         url: "https://api.github.com/repos/" + name + "/" + repo + "/commits?per_page=100" + since + "&page=" + iteration,
         dataType: "json",
@@ -111,15 +111,11 @@ function getLastCommit(iteration, name, repo, allCommits) {
 function displayCommit(allCommits) {
     var htmlToWrite = "";
     var date;
-    if(allCommits[1].length>0)
-    {
-    lastCommitDate =JSON.stringify(new Date()).split(".")[0];
-    }
     allCommits.forEach(oneResult => {
         oneResult.forEach(oneCommit => {
             date = new Date(oneCommit.commit.author.date);
 
-            htmlToWrite += "<div class='card' id='card" + oneCommit.sha + "'>"
+            htmlToWrite += "<div class='card bg-success' id='card" + oneCommit.sha + "'>"
             htmlToWrite += "<div class='card-header text-center' id='heading" + oneCommit.sha + "'>"
             htmlToWrite += "<button class='btn btn-link' type='button' data-toggle='collapse' data-target='#collapse" + oneCommit.sha + "' aria-expanded='false' aria-controls='collapse" + oneCommit.Sha + "'>"
             htmlToWrite += oneCommit.commit.author.name
@@ -199,7 +195,6 @@ function displayRelease(releases)
     var date;
    // console.log(releases);
     releases.forEach(oneRelease => {
-        console.log("yolo")
         date = new Date(oneRelease.published_at);
         htmlToWriteRealease += "<div class='card' id='card" + oneRelease.id + "'>"
         htmlToWriteRealease += "<div class='card-header text-center' id='heading" + oneRelease.id + "'>"

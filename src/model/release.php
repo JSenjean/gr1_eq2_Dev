@@ -157,7 +157,9 @@ function get_all_commit($projectID)
         $stmt = $bdd->prepare(
             "SELECT *
                 FROM project_commit
-                WHERE project_id=:projectId"
+                WHERE project_id=:projectId
+                ORDER BY commitDate DESC"
+
         );
 
         $stmt->execute(array(':projectId' => $projectID));
@@ -181,7 +183,7 @@ function get_last_commit($projectID)
             "SELECT commitDate
                 FROM project_commit
                 WHERE project_id=:projectId
-                ORDER BY commitDate desc
+                ORDER BY commitDate DESC
                 LIMIT 1"
         );
 

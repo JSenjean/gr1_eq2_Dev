@@ -31,6 +31,8 @@ if (isset($_POST["saveCommit"])) {
     $lastCommit = get_last_commit($projectId)->fetch()["commitDate"];
     if ($lastCommit != null) {
         $lastCommit = new DateTime($lastCommit);
+        $tosub = new DateInterval('PT59M59S');
+        $lastCommit->sub($tosub);
         $lastCommit = $lastCommit->format("Y-m-d H:i:s");
         $lastCommit = str_replace(" ", "T", $lastCommit);
     }
