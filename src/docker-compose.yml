@@ -25,14 +25,8 @@ services:
       MYSQL_PORT_3306_TCP_PORT: 3306
     ports:
       - 9906:3306
-
-  php:
-    image: php7.1-fpm
-    container-name: php
-    depends_on:
-      - database
-    ports:
-      9000:9000
+    volumes:
+      - ./:/var/www/html
 
   web:
     build:
