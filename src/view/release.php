@@ -240,7 +240,7 @@ $("#changeGitUrl").click(function(){
         if (confirm==1) {
             
             saveGitUrl(urlGit);
-            location.reload()
+           
 
         }
     }
@@ -258,7 +258,7 @@ function saveGitUrl(urlGit)
 
         },
         success: function(result) {
-           
+            location.reload()
         }
     });
 }
