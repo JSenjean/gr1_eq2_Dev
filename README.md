@@ -9,6 +9,15 @@
 - Joël Senjean
 
 
+# Documentation
+
+Toute la documentation se situe dans le dossier **/doc**, comprenant :
+- Manuel utilisateur
+- Manuel administrateur
+- Description de l'architecture
+- Documentation Doxygen des fonctions de **/src/model**
+
+
 # Définition des rôles
 
 ### Visiteur

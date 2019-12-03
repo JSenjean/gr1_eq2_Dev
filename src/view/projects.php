@@ -151,8 +151,8 @@
                     success: function(response) {
                         if (response == 1 || response == 0) {
                             console.log(response);
-                            alert("la demande est transmise");
-                            buttonRequest.html("invitation envoyer");
+                            alert("La demande est transmise");
+                            buttonRequest.html("Invitation envoyée");
                             buttonRequest.attr("disabled", true);
                         } else {
                             alert("une erreur est survenu");

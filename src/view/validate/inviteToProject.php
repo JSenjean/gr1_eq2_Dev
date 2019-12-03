@@ -12,7 +12,7 @@
                     <div class="form-group ">
                         <label for="userName"> Nom de l'utilisateur : </label>
                         <input type="text" id="userName" maxlength="50 " name="userName">
-                        <button type="button" class="btn btn-secondary" id="addUser" name="addUser">ajouter</button>
+                        <button type="button" class="btn btn-secondary" id="addUser" name="addUser">Ajouter</button>
                     </div>
                     <div class="form-group" id="userAdding">
 
