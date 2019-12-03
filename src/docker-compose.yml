@@ -1,6 +1,13 @@
 version: '3'
 
 services:
+
+  php:
+    image: bitnami/php-fpm:latest
+    container_name: php
+    depends_on:
+      - database
+
   phpmyadmin:
     image: phpmyadmin/phpmyadmin:latest
     container_name: phpmyadmin
@@ -24,7 +31,7 @@ services:
       MYSQL_PORT_3306_TCP_ADDR: mysql
       MYSQL_PORT_3306_TCP_PORT: 3306
     ports:
-      - 9906:3306
+      - 3306:3306
     volumes:
       - ./:/var/www/html
 
