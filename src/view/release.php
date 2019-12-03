@@ -115,7 +115,7 @@ function displayCommit(allCommits) {
         oneResult.forEach(oneCommit => {
             date = new Date(oneCommit.commit.author.date);
 
-            htmlToWrite += "<div class='card bg-success' id='card" + oneCommit.sha + "'>"
+            htmlToWrite += "<div class='card border-success border-width-3px' id='card" + oneCommit.sha + "'>"
             htmlToWrite += "<div class='card-header text-center' id='heading" + oneCommit.sha + "'>"
             htmlToWrite += "<button class='btn btn-link' type='button' data-toggle='collapse' data-target='#collapse" + oneCommit.sha + "' aria-expanded='false' aria-controls='collapse" + oneCommit.Sha + "'>"
             htmlToWrite += oneCommit.commit.author.name
