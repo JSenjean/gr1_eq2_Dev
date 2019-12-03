@@ -94,6 +94,7 @@
 
         $("#createOrModifyTaskModal").on("shown.bs.modal", function(event) {
             button = $(event.relatedTarget);
+
             sprintId = button.data('sprintid');
 
             if (typeof button.data('memberid') != 'undefined') {
@@ -181,7 +182,7 @@
         $("#addNewTask").on('submit', function(event) {
             event.preventDefault();
 
-            
+
             taskName = $("#taskName").val();
             taskDescription = $("#taskDescription").val();
             taskDod = $("#taskDod").val();
@@ -202,7 +203,6 @@
                     }
                 }
             }
-            console.log(taskType);
             $.ajax({
                 type: 'POST',
                 url: 'index.php?action=sprints',
@@ -224,40 +224,67 @@
                 success: function(response) {
                     $('#closeCrossTask').click();
                     var htmlToWrite = "";
-                    var where = "";
+                    //var where = "";
                     var whereModify = null;
+
                     if (!modify) {
-                        htmlToWrite += "<div class='card mt-2 task' data-taskid='" + response + "' data-sprintid='" + sprintId + "'  >"
+                        // progress Bar
+                        var divToAppend = document.getElementById(sprintId);
+                        var progressBar = divToAppend.children[0];
+                        var allTask = $(progressBar).data('alltask');
+                        var todo = $(progressBar).data('todo');
+                        var onGoing = $(progressBar).data('ongoing');
+                        var done = $(progressBar).data('done');
+
+                        // progress Bar
+                        var width;
+                        allTask++;
+                        todo++;
+                        htmlNewPBar = "";
+                        htmlNewPBar += "<div class='progress pBar' style='' data-alltask='" + allTask + "' data-todo='" + todo + "' data-ongoing='" + onGoing + "' data-done='" + done + "' >";
+                        width = (todo / allTask) * 100;
+                        htmlNewPBar += "<div class='progress-bar bg-danger text-dark pBarTodo' role='progressbar' style='width: " + width + "%' aria-valuenow='" + todo + "' aria-valuemin='0' aria-valuemax='" + allTask + "'>" + todo + "</div>";
+                        width = (onGoing / allTask) * 100;
+                        htmlNewPBar += "<div class='progress-bar bg-warning text-dark pBarOnGoing' role='progressbar' style='width: " + width + "%' aria-valuenow='" + onGoing + "' aria-valuemin='0' aria-valuemax='" + allTask + "'>" + onGoing + "</div>";
+                        width = (done / allTask) * 100;
+                        htmlNewPBar += "<div class='progress-bar bg-success text-dark pBarDone' role='progressbar' style='width: " + width + "%' aria-valuenow='" + done + "' aria-valuemin='0' aria-valuemax='" + allTask + "'>" + done + "</div>";
+                        htmlNewPBar += "</div>";
+                        $(divToAppend).empty();
+                        $(divToAppend).append(htmlNewPBar);
+                        width = null;
+                        progressBar = null;
+                        divToAppend = null;
+                        todo = null;
+                        onGoing = null;
+                        done = null;
+                        allTask = null;
+                        $('.sprint[data-sprintid="' + sprintId + '"]').click();
                     } else {
                         whereModify = button.closest('.task');
                         whereModify.empty();
-                    }
-                    htmlToWrite += "<a class='btn btn-primary-outline pull-right removeTask' data-taskid='" + response + "' type='button'><em class='fas fa-times' style='color:red' title='supprimer Tache'></em> </a>"
-                    htmlToWrite += "<a data-target='#createOrModifyTaskModal' data-toggle='modal' class='modalLink' style='cursor:pointer'"
-                    htmlToWrite += " data-memberid='" + taskMember + "' data-name='" + taskName + "' data-description='" + taskDescription + "' data-dod='" + taskDod + "' data-time='" + taskTime + "' data-sprintid='" + sprintId + "' data-pred='" + taskPredecessor + "' data-id='" + response + "' data-state='" + taskState + "' >"
-                    htmlToWrite += "<div class='card-header'>" + taskName + "</div>";
-                    htmlToWrite += "</a>"
-                    htmlToWrite += "<div class='card-body'>" + taskDescription + "</div>";
-                    htmlToWrite += "<div class='row switchDiv'>"
+                        htmlToWrite += "<a class='btn btn-primary-outline pull-right removeTask' data-taskid='" + response + "' data-state='" + taskState +  "' type='button'><em class='fas fa-times' style='color:red' title='supprimer Tache'></em> </a>"
+                        htmlToWrite += "<a data-target='#createOrModifyTaskModal' data-toggle='modal' class='modalLink' style='cursor:pointer'"
+                        htmlToWrite += " data-memberid='" + taskMember + "' data-name='" + taskName + "' data-description='" + taskDescription + "' data-dod='" + taskDod + "' data-time='" + taskTime + "' data-sprintid='" + sprintId + "' data-pred='" + taskPredecessor + "' data-id='" + response + "' data-state='" + taskState + "' >"
+                        htmlToWrite += "<div class='card-header'>" + taskName + "</div>";
+                        htmlToWrite += "</a>"
+                        htmlToWrite += "<div class='card-body'>" + taskDescription + "</div>";
+                        htmlToWrite += "<div class='row switchDiv'>"
 
-                    if (taskState === "onGoing") {
-                        where = ".Doing";
-                        htmlToWrite += "<a class='col-lg-6 float-left switchArrow' data-target='todo' data-taskid='" + response + "'><em class='fas fa-arrow-alt-circle-left' style='color:green ; cursor:pointer' title='passer la tache en Todo' ></em></a>"
-                        htmlToWrite += "<a class='col-lg-6 float-right switchArrow' data-target='done' data-taskid='" + response + "'><em class='fas fa-arrow-alt-circle-right' style='color:green ; cursor:pointer' title='passer la tache en Done' ></em></a>"
-                    } else if (taskState === "todo") {
-                        where = ".Todo";
-                        htmlToWrite += "<a class='col-lg-12 float-right switchArrow' data-from='todo' data-target='onGoing' data-taskid='" + response + "'><em class='fas fa-arrow-alt-circle-right' style='color:green ; cursor:pointer' title='passer la tache en Doing' ></em></a>"
-                    } else if (taskState === "done") {
-                        where = ".Done";
-                        htmlToWrite += "<a class='col-lg-12 float-left switchArrow' data-from='done' data-target='onGoing' data-taskid='" + response + "'><em class='fas fa-arrow-alt-circle-left' style='color:green ; cursor:pointer' title='Accéder au projet' ></em></a>"
-                    }
-                    htmlToWrite += "</div>"
-                    htmlToWrite += "</div>"
+                        if (taskState === "onGoing") {
+                            where = ".Doing";
+                            htmlToWrite += "<a class='col-lg-6 float-left switchArrow' data-from='onGoing' data-target='todo' data-taskid='" + response + "'><em class='fas fa-arrow-alt-circle-left' style='color:green ; cursor:pointer' title='passer la tache en Todo' ></em></a>"
+                            htmlToWrite += "<a class='col-lg-6 float-right switchArrow' data-from='onGoing' data-target='done' data-taskid='" + response + "'><em class='fas fa-arrow-alt-circle-right' style='color:green ; cursor:pointer' title='passer la tache en Done' ></em></a>"
+                        } else if (taskState === "todo") {
+                            where = ".Todo";
+                            htmlToWrite += "<a class='col-lg-12 float-right switchArrow' data-from='todo' data-target='onGoing' data-taskid='" + response + "'><em class='fas fa-arrow-alt-circle-right' style='color:green ; cursor:pointer' title='passer la tache en Doing' ></em></a>"
+                        } else if (taskState === "done") {
+                            where = ".Done";
+                            htmlToWrite += "<a class='col-lg-12 float-left switchArrow' data-from='done' data-target='onGoing' data-taskid='" + response + "'><em class='fas fa-arrow-alt-circle-left' style='color:green ; cursor:pointer' title='Accéder au projet' ></em></a>"
+                        }
+                        htmlToWrite += "</div>"
+                        htmlToWrite += "</div>"
 
-                    if (modify) {
                         $(whereModify).append(htmlToWrite);
-                    } else {
-                        $(where).append(htmlToWrite);
                     }
                 },
             });
