@@ -22,6 +22,8 @@ if (isset($_GET['action'])) {
             $_SESSION["projectToLeave"] = $_GET['projectId'];
             include_once "controller/projects.php";
         }
+    } elseif ($_GET['action'] == 'doc') {
+        include_once 'controller/doc.php';
     } elseif ($_GET['action'] == 'logout') {
         include_once "controller/logout.php";
     } elseif ($_GET['action'] == 'modPanel') {
