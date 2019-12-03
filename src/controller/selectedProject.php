@@ -14,7 +14,6 @@ $isMaster = is_master($_SESSION["id"], $projectId);
 $isMember = is_member($_SESSION["id"], $projectId);
 
 if ($isMaster || $isMember) {
-
     include_once("view/projectNav.php");
 
     $projectMaster = get_project_master($projectId);
@@ -31,6 +30,28 @@ if ($isMaster || $isMember) {
     $percDeprecated = $proportion[2];
     $percNeverRun = $proportion[3];
     
+    // Sprint progress bar
+    include_once("model/sprints.php");
+    $sprints = get_all_sprints($projectId)->fetchAll();
+    $sDone = 0;
+    $sDoing = 0;
+    $sUpcomming = 0;
+    foreach ($sprints as $sprint) {
+        $color = add_sprint_background($sprint['start'], $sprint['end']);
+        switch ($color) {
+            case "bg-success":
+                $sDone++;
+                break;
+            case "bg-danger":
+                $sDoing++;
+                break;
+            case "bg-info":
+                $sUpcomming++;
+                break;
+        }
+    }
+    $countSprint = count($sprints);
+
     // Edit project
     if (isset($_SESSION['projectToEdit'])) {
         if ($isMaster) {
