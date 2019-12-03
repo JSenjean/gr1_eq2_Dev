@@ -8,6 +8,15 @@ La base de données peut être installée avec le fichier **/src/bdd.sql**, qui 
 
 Pour connecter l'application à la base de données, il est nécessaire de paramétrer la connexion dans le fichier **/src/config.ini**. Différents exemples d'utilisations de ce fichier sont présentés dans le fichier **/doc/configs\_bdd.md**.
 
+### Docker
+
+Docker peut être utilisé pour déployer le site :
+Se placer dans le dossier **/src**, puis effectuer la commande :
+```bash
+docker-compose up --build
+```
+Si il est demandé de partager un disque local, accepter (le site ne fonctionnera pas autrement).
+
 
 ## Panneau d'administration
 

@@ -234,7 +234,7 @@ CREATE TABLE IF NOT EXISTS `user` (
 -- Contenu de la table `users`
 --
 
-INSERT INTO `users` (`id`, `username`, `first_name`, `last_name`, `password`, `email`, `role`, `reg_date`) VALUES
+INSERT INTO `user` (`id`, `username`, `first_name`, `last_name`, `password`, `email`, `role`, `reg_date`) VALUES
 (0, 'admin', 'admin', 'admin', 'd033e22ae348aeb5660fc2140aec35850c4da997', 'admin@mail.com', 'admin', NOW());
 
 -- --------------------------------------------------------
