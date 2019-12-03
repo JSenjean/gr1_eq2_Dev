@@ -3,5 +3,5 @@ composer/
 phpunit*
 vendor/
 20*.xml
-DOC/html/*
-DOC/latex/*
+doc/html/*
+doc/latex/*
