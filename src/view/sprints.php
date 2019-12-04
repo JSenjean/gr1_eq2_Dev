@@ -153,6 +153,9 @@
         });
       }
     })
+    generateUS();
+    function generateUS()
+    {
     //US
     $.ajax({
       type: 'POST',
@@ -162,13 +165,38 @@
         sprintId: sprintId
       },
       success: function(response) {
+        console.log(response);
         var us = JSON.parse(response);
         var htmlToWrite = "";
+        var percentTodo = 0;
+        var percentDoing = 0;
+        var percentDone = 0;
 
         us.forEach(function(item) {
+          nbTodo=(item["nbTodo"]===null) ? 0 : item["nbTodo"];
+          nbOnGoing=(item["nbOnGoing"]===null) ? 0 : item["nbOnGoing"];
+          nbDone=(item["nbDone"]===null) ? 0 : item["nbDone"];
+          nbMaxTache=(item["nbMaxTache"]===null) ? 1 : item["nbMaxTache"];
+
+          percentTodo = item["nbTodo"]/item["nbMaxTache"]*100;
+          percentDoing = item["nbOnGoing"]/item["nbMaxTache"]*100;
+          percentDone = item["nbDone"]/item["nbMaxTache"]*100;
+
 
           htmlToWrite += "<div class='card mt-1'>"
           htmlToWrite += "<div class='card-header'>" + item["name"] + "</div>";
+          htmlToWrite += "<div class='progress '>"
+          if(item["nbMaxTache"]!=null)
+          {
+          htmlToWrite += "<div class='progress-bar bg-danger' role='progressbar' style='width: " + percentTodo + "%' aria-valuenow='25' aria-valuemin='0' aria-valuemax='" + nbTodo + "'>" + nbTodo + "</div>"
+          htmlToWrite += "<div class='progress-bar bg-warning' role='progressbar' style='width: " + percentDoing + "%' aria-valuenow='25' aria-valuemin='0' aria-valuemax='" + nbOnGoing + "'>" + nbOnGoing + "</div>"
+          htmlToWrite += "<div class='progress-bar bg-success' role='progressbar' style='width: " + percentDone + "%' aria-valuenow='25' aria-valuemin='0' aria-valuemax='" + nbDone + "'>" + nbDone + "</div>"
+          }
+          else
+          {
+            htmlToWrite += "<div class='progress-bar bg-danger' role='progressbar' style='width: 100%' aria-valuenow='25' aria-valuemin='0' aria-valuemax='100'>aucunes taches</div>"
+          }
+          htmlToWrite += "</div>"
           htmlToWrite += "</div>";
           $(".US").append(htmlToWrite);
 
@@ -176,7 +204,9 @@
         });
       }
     })
+    }
   });
+
 
 
   $(document).ready(function() {

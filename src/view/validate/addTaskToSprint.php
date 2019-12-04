@@ -285,6 +285,7 @@
                         htmlToWrite += "</div>"
 
                         $(whereModify).append(htmlToWrite);
+                        $('.sprint[data-sprintid="' + sprintId + '"]').click();
                     }
                 },
             });
