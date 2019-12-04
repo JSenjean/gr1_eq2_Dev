@@ -21,14 +21,6 @@ if ($isMaster || $isMember) {
     $requests = get_all_project_joining_requests($projectId);
     $invitations = get_all_project_invitations($projectId);
     $project = get_project_by_id($projectId);
-
-    // Test progress bar
-    include_once("model/tests.php");
-    $proportion = compute_proportion($projectId);
-    $percPassed = $proportion[0];
-    $percFailed = $proportion[1];
-    $percDeprecated = $proportion[2];
-    $percNeverRun = $proportion[3];
     
     // Sprint progress bar
     include_once("model/sprints.php");
@@ -51,6 +43,21 @@ if ($isMaster || $isMember) {
         }
     }
     $countSprint = count($sprints);
+
+    // Test progress bar
+    include_once("model/tests.php");
+    $proportion = compute_proportion($projectId);
+    $percPassed = $proportion[0];
+    $percFailed = $proportion[1];
+    $percDeprecated = $proportion[2];
+    $percNeverRun = $proportion[3];
+
+    // Doc progress bar
+    include_once("model/doc.php");
+    $proportion2 = compute_proportion_doc($projectId);
+    $percDone = $proportion2[0];
+    $percTodo = $proportion2[1];
+    $percDeprecated = $proportion2[2];
 
     // Edit project
     if (isset($_SESSION['projectToEdit'])) {

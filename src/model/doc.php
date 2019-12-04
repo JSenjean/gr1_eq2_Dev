@@ -71,7 +71,7 @@ function get_all_deprecated_doc($projectId) {
  * @param projectId The id of the project we want to count doc from
  * @return counts Return an array containing the total number of docs, and the numbers of the done, to do, deprecated docs
  */
-function count_proportion($projectId) {
+function count_proportion_doc($projectId) {
     try {
         $bdd = dbConnect();
         $stmt = $bdd->prepare(
@@ -114,9 +114,9 @@ function count_proportion($projectId) {
  * @param projectId The id of the project we want to compute the doc proportions from
  * @return percentages Return an array containing the three percentages of done, todo and deprecated docs
  */
-function compute_proportion($projectId) {
+function compute_proportion_doc($projectId) {
 
-    $proportion = count_proportion($projectId);
+    $proportion = count_proportion_doc($projectId);
 
     $nbTotalDoc = $proportion[0];
     $nbDone = $proportion[1];
@@ -263,7 +263,7 @@ function delete_doc($id, $state) {
  * @param state The new state of the doc
  * @return stmt The returned statement of the executed sql request
  */
-function change_state($id, $state) {
+function change_state_doc($id, $state) {
     date_default_timezone_set('Europe/Paris');
     $currentDate = date('Y-m-d', time());
     try {
@@ -290,7 +290,7 @@ function change_state($id, $state) {
  * @param projectId The id of the project we want to check deprecated doc from
  * @return number Return the number of deprecated doc element found. If there was an error during execution, return -1
  */
-function check_deprecated($projectId) {
+function check_deprecated_doc($projectId) {
     
     date_default_timezone_set('Europe/Paris');
     $treshold = strtotime("-2 week"); // Arbitrary and temporary value

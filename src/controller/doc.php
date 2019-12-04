@@ -27,11 +27,11 @@
         } else if ($command == 'delete') {
             echo delete_doc($_POST["id"], $_POST["state"]);
         } else if ($command == 'done') {
-            echo change_state($_POST["id"], 'done');
+            echo change_state_doc($_POST["id"], 'done');
         } else if ($command == 'deprecated') {
-            echo change_state($_POST["id"], 'deprecated');
+            echo change_state_doc($_POST["id"], 'deprecated');
         } else if ($command == 'todo') {
-            echo change_state($_POST["id"], 'todo');
+            echo change_state_doc($_POST["id"], 'todo');
         }
 
     } else if (isset($_POST['divToRefresh'])) {
@@ -53,7 +53,7 @@
                 break;
         }
     } else if (isset($_POST['refreshProgressBar'])) {
-        $proportion = compute_proportion($_POST["projectId"]);
+        $proportion = compute_proportion_doc($_POST["projectId"]);
         if ($proportion != -1) {
             $percDone = $proportion[0];
             $percTodo = $proportion[1];
@@ -71,7 +71,7 @@
 
         include_once("view/projectNav.php");
 
-        $nbNewDeprecatedDoc = check_deprecated($projectId);
+        $nbNewDeprecatedDoc = check_deprecated_doc($projectId);
         if ($nbNewDeprecatedDoc > 0) {
             include_once("view/errors/newDeprecatedDoc.php");
         }
@@ -83,7 +83,7 @@
         $docDone = get_all_done_doc($projectId);
         $docDeprecated = get_all_deprecated_doc($projectId);
 
-        $proportion = compute_proportion($projectId);
+        $proportion = compute_proportion_doc($projectId);
         $percDone = $proportion[0];
         $percTodo = $proportion[1];
         $percDeprecated = $proportion[2];
