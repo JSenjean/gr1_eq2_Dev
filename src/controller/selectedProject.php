@@ -57,7 +57,7 @@ if ($isMaster || $isMember) {
     $proportion2 = compute_proportion_doc($projectId);
     $percDone = $proportion2[0];
     $percTodo = $proportion2[1];
-    $percDeprecated = $proportion2[2];
+    $percDeprecatedDoc = $proportion2[2];
 
     // Edit project
     if (isset($_SESSION['projectToEdit'])) {
