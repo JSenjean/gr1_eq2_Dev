@@ -32,8 +32,6 @@ services:
       MYSQL_PORT_3306_TCP_PORT: 3306
     ports:
       - 3306:3306
-    volumes:
-      - ./:/var/www/html
 
   web:
     build:
@@ -45,5 +43,3 @@ services:
       - database
     links:
       - database
-    volumes:
-      - ./:/var/www/html

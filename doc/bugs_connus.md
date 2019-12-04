@@ -23,7 +23,7 @@ Sur la page "Vue générale" d'un projet préalablement sélectionné, le bouton
 Privilégier l'ajout de membre directement depuis la page précédente : "Mes Projets", en cliquant sur l'icône de croix bleue.
 
 ## Origine du problème
-Le bouton n'a pas encore été associée aux fonctions d'ajout de membre.
+Le bouton n'a pas encore été associé aux fonctions d'ajout de membre.
 
 
 # Cliquer sur un sprint nécessite de recharger la page si l'on veut modifier les informations d'un autre sprint

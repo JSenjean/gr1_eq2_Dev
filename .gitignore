@@ -1,4 +1,3 @@
-src/config.ini
 composer/
 phpunit*
 vendor/

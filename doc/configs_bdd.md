@@ -3,7 +3,7 @@
 **src/config.ini**
 ```
 [database]
-servername = mysql
+servername = database
 username = root
 password = 123456789
 dbname = cdp
