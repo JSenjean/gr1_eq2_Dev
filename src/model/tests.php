@@ -283,8 +283,9 @@ function delete_test($id, $state) {
         return -1;
     }
 }
+
 /**
- * @brief Change the state of a state from its id and refresh its execution date. The function can be used only to refresh last execution date (without state change)
+ * @brief Change the state of a test from its id and refresh its execution date. The function can be used only to refresh last execution date (without state change)
  * @param id The id of the test that will change state
  * @param state The new state of the test
  * @return stmt The returned statement of the executed sql request

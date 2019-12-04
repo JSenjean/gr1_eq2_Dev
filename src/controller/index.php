@@ -81,6 +81,8 @@ if (isset($_GET['action'])) {
         include_once "controller/sprints.php";
     } elseif ($_GET['action'] == 'tests') {
         include_once "controller/tests.php";
+    } elseif ($_GET['action'] == 'doc') {
+      include_once "controller/doc.php";  
     } elseif ($_GET['action'] == 'release') {
         include_once "controller/release.php";
     }

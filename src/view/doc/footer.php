@@ -6,12 +6,12 @@
 
 
 <script>
-    $('#addfailed').change(function() {
+    $('#addtodo').change(function() {
         $this.stopPropagation();
-        if($('#displayfailed').prop('checked')) {
-            $('#addfailed').show();
+        if($('#displaytodo').prop('checked')) {
+            $('#addtodo').show();
         } else {
-            $('#addfailed').hide();
+            $('#addtodo').hide();
         }
     });
     
@@ -23,19 +23,11 @@
         }
     });
     
-    $('#addneverrun').change(function() {
-        if($('#displayneverrun').prop('checked')) {
-            $('#addneverrun').show();
+    $('#adddone').change(function() {
+        if($('#displaydone').prop('checked')) {
+            $('#adddone').show();
         } else {
-            $('#addneverrun').hide();
-        }
-    });
-    
-    $('#addpassed').change(function() {
-        if($('#displaypassed').prop('checked')) {
-            $('#addpassed').show();
-        } else {
-            $('#addpassed').hide();
+            $('#adddone').hide();
         }
     });
 
@@ -44,7 +36,7 @@
     function refreshDiv(state) {
         $.ajax({
             type: "POST",
-            url: 'index.php?action=tests',
+            url: 'index.php?action=doc',
             data: {
                 projectId: projectId,
                 divToRefresh: state
@@ -60,7 +52,7 @@
     function refreshProgressBar() {
         $.ajax({
             type: "POST",
-            url: 'index.php?action=tests',
+            url: 'index.php?action=doc',
             data: {
                 projectId: projectId,
                 refreshProgressBar: true

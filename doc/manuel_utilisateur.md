@@ -123,7 +123,23 @@ Cliquer sur un test permet d'étendre son affichage pour voir sa description, le
 
 # Documentation
 
-La page documentation n'a pas encore été implémentée et ne permet donc pas dans l'état actuel d'effectuer le suivi de la documentation d'un projet. A terme, elle devrait pouvoir permettre d'ajouter des sections de documentations, de mesuruer leur ancienneté, et d'ajouter des fichiers correspondants, pour une consultations rapide et centralisée.
+Cette page permet d'avoir une vue d'ensemble de tous les sections de documentation ajoutées, de leur date de dernière mise à jour, et de leur statut (faite, à faire, dépréciée).
+
+## Barre de progression
+
+La barre de progression résume l'état d'avancement de tous les éléments de documentation, répartis en 3 catégories : verts - fait, jaune - dépréciés, et gris - à faire.
+
+## Gestion
+
+### Filtres
+
+Les filtres permettent de cocher ou décocher des cases pour n'afficher que certaines documentation selon leur statut, par exemple, afficher uniquement les documentations dépréciées et à faire. Deux boutons sont présents : 
+- "Ajouter une nouvelle documentation", permet de créer une doc à partir d'un nom, d'une description, et d'un statut (faite, à faire, dépréciée).
+- "Marquer toutes les documentations comme terminées", permet de faire passer toutes les doc en "faites", et d'actualiser leur date de dernière exécution à la date courante
+
+### Etats
+
+Cliquer sur une doc permet d'étendre son affichage pour voir sa description, la modifier ou la supprimer. Chaque élément de documentation fait ou à déprécié dispose de deux boutons : un pour le marquer comme fait, un pour le marquer comme déprécié. Les éléments déjà validés peuvent être validés à nouveau pour actualiser leur date de denière mise à jour (idem pour les docs dépréciées). Si une doc est trop ancienne, (durée fixée actuellement à 2 semaines), elle sera automatiquement marquée comme dépréciée. Les docs qui ont été marquées comme dépréciées depuis la dernière visite de la page par un utilisateur provoqueront l'affichage d'une barre d'avertissement, informant du nombre d'éléments nouvellement marqués comme trop anciens.
 
 
 # Release

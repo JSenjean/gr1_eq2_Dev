@@ -26,6 +26,7 @@ USE `cdp`;
 CREATE TABLE IF NOT EXISTS `doc_section` (
   `id` int(10) unsigned NOT NULL auto_increment,
   `project_id` int(10) unsigned NOT NULL,
+  `name` varchar(50) collate utf8_unicode_ci NOT NULL,
   `category` varchar(50) collate utf8_unicode_ci NOT NULL,
   `description` text collate utf8_unicode_ci NOT NULL,
   `last_update` date NOT NULL,

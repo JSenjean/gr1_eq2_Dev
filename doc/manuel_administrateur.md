@@ -2,12 +2,6 @@
 
 ## Installation du site
 
-Le code du site est contenu dans le dossier **/src** et doit être hébergé sur un serveur php.
-
-La base de données peut être installée avec le fichier **/src/bdd.sql**, qui contient la base de données vide du site, avec les instructions sql pour créer une base nommée 'cdp', ainsi que toutes les tables nécessaires au fonctionnement du site. Un utilisateur avec les privilèges administrateurs sera alors créé, ses identifiants de connexion étant 'admin' et 'admin'.
-
-Pour connecter l'application à la base de données, il est nécessaire de paramétrer la connexion dans le fichier **/src/config.ini**. Différents exemples d'utilisations de ce fichier sont présentés dans le fichier **/doc/configs\_bdd.md**.
-
 ### Docker
 
 Docker peut être utilisé pour déployer le site :
@@ -16,6 +10,15 @@ Se placer dans le dossier **/src**, puis effectuer la commande :
 docker-compose up --build
 ```
 Si il est demandé de partager un disque local, accepter (le site ne fonctionnera pas autrement).
+
+
+### Installation manuelle
+
+Le code du site est contenu dans le dossier **/src** et doit être hébergé sur un serveur php.
+
+La base de données peut être installée avec le fichier **/src/bdd.sql**, qui contient la base de données vide du site, avec les instructions sql pour créer une base nommée 'cdp', ainsi que toutes les tables nécessaires au fonctionnement du site. Un utilisateur avec les privilèges administrateurs sera alors créé, ses identifiants de connexion étant 'admin' et 'admin'.
+
+Pour connecter l'application à la base de données, il est nécessaire de paramétrer la connexion dans le fichier **/src/config.ini**. Différents exemples d'utilisations de ce fichier sont présentés dans le fichier **/doc/configs\_bdd.md**.
 
 
 ## Panneau d'administration
