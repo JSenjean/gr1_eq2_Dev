@@ -101,7 +101,7 @@
                 <div class="card mt-4">
                     <div class="card-body">
                         <h5 class="card-title">Sprints</h5>
-                        <div class="progress mb-3">
+                        <div class="progress mb-3" style="<?php echo ($countSprint != 0) ? "" : "display: none" ?>">
                             <div class="progress-bar bg-success" role="progressbar" style="width: <?php echo ($sDone/$countSprint)*100 ?>%" aria-valuenow="<?php echo $sDone ?>" aria-valuemin="0" aria-valuemax="<?php echo $countSprint ?>"><?php echo $sDone ?></div>
                             <div class="progress-bar bg-danger" role="progressbar" style="width: <?php echo ($sDoing/$countSprint)*100 ?>%" aria-valuenow="<?php echo $sDoing ?>" aria-valuemin="0" aria-valuemax="<?php echo $countSprint ?>"><?php echo $sDoing ?></div>
                             <div class="progress-bar bg-info" role="progressbar" style="width: <?php echo ($sUpcomming/$countSprint)*100 ?>%" aria-valuenow="<?php echo $sUpcomming ?>" aria-valuemin="0" aria-valuemax="<?php echo $countSprint ?>"><?php echo $sUpcomming ?></div>
