@@ -5,11 +5,10 @@
 ### Docker
 
 Docker peut être utilisé pour déployer le site :
-Se placer dans le dossier **/src**, puis effectuer la commande :
+Depuis la racine, lancer la commande :
 ```bash
 docker-compose up --build
 ```
-Si il est demandé de partager un disque local, accepter (le site ne fonctionnera pas autrement).
 
 
 ### Installation manuelle

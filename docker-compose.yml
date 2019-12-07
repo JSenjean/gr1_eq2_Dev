@@ -23,12 +23,12 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.bdd
-    container_name: mysql
+    container_name: database
     environment:
       MYSQL_ROOT_PASSWORD: 123456789
       MYSQL_PASSWORD: 123456789
       MYSQL_DATABASE: gfloret
-      MYSQL_PORT_3306_TCP_ADDR: mysql
+      MYSQL_PORT_3306_TCP_ADDR: database
       MYSQL_PORT_3306_TCP_PORT: 3306
     ports:
       - 3306:3306

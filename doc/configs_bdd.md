@@ -21,9 +21,6 @@ password = 123456789
 dbname = cdp
 ```
 
-
-# Tests unitaires
-
 **src/tests/configTest.ini**
 ```
 [database]
