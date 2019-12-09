@@ -158,11 +158,7 @@ function compute_proportion($projectId) {
         // Avoid blank in progress bar
         $sum = $percPassed + $percFailed + $percDeprecated + $percNeverRun;
         while ($sum < 100) {
-            if ($percPassed > 0) { ++$percPassed; } 
-            else if ($percNeverRun > 0) { ++$percNeverRun; }  
-            else if ($percDeprecated > 0) { ++$percDeprecated; }  
-            else if ($percFailed > 0) { ++$percFailed; }  
-            else {break; }
+            if ($percPassed > 0) { ++$percPassed; } else if ($percNeverRun > 0) { ++$percNeverRun; } else if ($percDeprecated > 0) { ++$percDeprecated; } else if ($percFailed > 0) { ++$percFailed; } else {break; }
             $sum = $percPassed + $percFailed + $percDeprecated + $percNeverRun;
         }
     

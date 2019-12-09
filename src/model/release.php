@@ -8,11 +8,11 @@
  */
 
  
- /**
- * @brief This function return the git url of a given project 
- * @param projectID The identifier of the project that you want the url 
- * @return the PDOStatement contening the gitUrl return -1 if an exception occurs
- */
+    /**
+     * @brief This function return the git url of a given project 
+     * @param projectID The identifier of the project that you want the url 
+     * @return the PDOStatement contening the gitUrl return -1 if an exception occurs
+     */
 function get_git_url($projectID)
 {
     try {
@@ -30,12 +30,12 @@ function get_git_url($projectID)
         return -1;
     }
 }
- /**
- * @brief save all given commits int the database in project_commit table  
- * @param projectID The identifier of the project that you to save the commit
- * @param allCommits An array containing the commits to be inserted must be a two-dimensional array 
- * @return 1 if succes -1 if an exception occurs
- */
+    /**
+     * @brief save all given commits int the database in project_commit table  
+     * @param projectID The identifier of the project that you to save the commit
+     * @param allCommits An array containing the commits to be inserted must be a two-dimensional array 
+     * @return 1 if succes -1 if an exception occurs
+     */
 function save_all_commit($projectID, $allCommits)
 {
     //$command.="INSERT INTO project_commit(project_id,sha,committerName,commitMessage,commitUrl) VALUES(" . $projectID .",". $oneCommit->sha . ",". $oneCommit->commit->author->name . "," . $oneCommit->commit->message . "," . $oneCommit->html_url ." )";
@@ -62,7 +62,7 @@ function save_all_commit($projectID, $allCommits)
                 }
             }
         }
-        if (count($allCommits[1])>0) {
+        if (count($allCommits[1]) > 0) {
             deprecate_all_test($projectID);
         }
         return 1;
@@ -72,11 +72,11 @@ function save_all_commit($projectID, $allCommits)
     }
 }
 
- /**
- * @brief This function is automatically called when you insert a new commit in the database and makes all the tests of a project obsolete.  
- * @param projectID The identifier of the project
- * @return 1 if succes -1 if an exception occurs
- */
+    /**
+     * @brief This function is automatically called when you insert a new commit in the database and makes all the tests of a project obsolete.  
+     * @param projectID The identifier of the project
+     * @return 1 if succes -1 if an exception occurs
+     */
 function deprecate_all_test($projectID)
 {
     try {
@@ -92,12 +92,12 @@ function deprecate_all_test($projectID)
     }
 }
 
- /**
- * @brief This function allows you to modify the git URL associated with a project  
- * @param projectID The identifier of the project
- * @param gitUrl the new gitUrl
- * @return 1 if succes -1 if an exception occurs
- */
+    /**
+     * @brief This function allows you to modify the git URL associated with a project  
+     * @param projectID The identifier of the project
+     * @param gitUrl the new gitUrl
+     * @return 1 if succes -1 if an exception occurs
+     */
 function change_git_url($projectID, $gitUrl)
 {
     try {
@@ -120,11 +120,11 @@ function change_git_url($projectID, $gitUrl)
 }
 
 
- /**
- * @brief This function removes all commits for a project from the database. This function is automatically called when you change the URL of a project's git.   
- * @param projectID The identifier of the project
- * @return 1 if succes -1 if an exception occurs
- */
+    /**
+     * @brief This function removes all commits for a project from the database. This function is automatically called when you change the URL of a project's git.   
+     * @param projectID The identifier of the project
+     * @return 1 if succes -1 if an exception occurs
+     */
 function delete_all_commits($projectID)
 {
     try {
@@ -145,11 +145,11 @@ function delete_all_commits($projectID)
 }
 
 
- /**
- * @brief This function returns all the commits for a given project.  
- * @param projectID The identifier of the project that you the commits
- * @return the PDOStatement contening the all commit or return -1 if an exception occurs
- */
+    /**
+     * @brief This function returns all the commits for a given project.  
+     * @param projectID The identifier of the project that you the commits
+     * @return the PDOStatement contening the all commit or return -1 if an exception occurs
+     */
 function get_all_commit($projectID)
 {
     try {
@@ -170,11 +170,11 @@ function get_all_commit($projectID)
     }
 }
 
- /**
- * @brief This function returns the last commit for a given project.  
- * @param projectID The identifier of the project that you the commit
- * @return the PDOStatement contening the commit or return -1 if an exception occurs
- */
+    /**
+     * @brief This function returns the last commit for a given project.  
+     * @param projectID The identifier of the project that you the commit
+     * @return the PDOStatement contening the commit or return -1 if an exception occurs
+     */
 function get_last_commit($projectID)
 {
     try {
