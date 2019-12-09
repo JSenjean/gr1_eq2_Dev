@@ -1,8 +1,8 @@
 # Releases
 
-- <a href="#r1">Release n°1</a>
-- <a href="#r2">Release n°2</a>
-- <a href="#r3">Release n°3</a>
+- <a href="#r1">Release n°1 : 08/11/2019 + Sprint1.v0.1.0</a>
+- <a href="#r2">Release n°2 : 22/11/2019 + Sprint2.v0.1.0</a>
+- <a href="#r3">Release n°3 : 10/12/2019 + Sprint3.v0.1.0</a>
 
 ## Release n°3 <a name="r3"></a>
 
