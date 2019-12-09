@@ -45,6 +45,14 @@
                     <div class="progress-bar bg-success text-dark pBarDone" role="progressbar" style="width: <?php echo ($value['done'] / $countAllTask) * 100 ?>%" aria-valuenow="<?php echo $value['done'] ?>" aria-valuemin="0" aria-valuemax="<?php echo $countAllTask ?>"><?php echo $value['done'] ?></div>
                   </div>
                 </div>
+                <div class="row">
+                  <div class="col">
+                    <p>US: <?php echo $value['nbUS'] ?></p>
+                  </div>
+                  <div class="col">
+                    <p>Effort: <?php echo $value['efforts'] ?></p>
+                  </div>
+                </div>
               </div>
             </div>
           </div>

@@ -12,17 +12,34 @@
  * @param id the project id
  * @return The PDOStatement contening all the sprints or -1 if an exception occurs
  */
-function get_all_sprints($projectID)
+function get_all_sprints($projectId)
 {
     try {
         $bdd = dbConnect();
         $stmt = $bdd->prepare(
-        "SELECT *
-          FROM sprint
-          WHERE project_id=:projectId
-          ORDER BY start"
+        "SELECT t1.id, t1.name, t1.start, t1.end, t2.efforts, t2.nbUS, t1.project_id
+        FROM
+        (SELECT * FROM sprint WHERE project_id =:projectId) t1
+        LEFT JOIN
+        (SELECT s.id, sum(case us.effort 
+                when '1' then 1
+                when '2' then 2
+                when '3' then 3
+                when '5' then 5
+                when '8' then 8
+                when '13' then 13
+                when '21' then 21
+                when '34' then 34
+                else 0 END 
+                ) as efforts, count(us.id) as nbUS
+                  FROM sprint as s,inside_sprint_us as isu,user_story as us
+                  WHERE isu.sprint_id = s.id and s.project_id =:projectId and us.id=isu.user_story_id
+        group by s.id) t2
+        ON (t1.id = t2.id)
+        Order By start;
+        "
     );
-        $stmt->execute(array(':projectId' => $projectID));
+        $stmt->execute(array(':projectId' => $projectId));
         return $stmt;
     } catch (PDOException $e) {
         echo  "<br>" . $e->getMessage();
