@@ -30,8 +30,7 @@
                         $_SESSION['id'] = $result ["id"];
                         $_SESSION['role'] = $result ["role"];
                     }
-                }
-                catch (PDOException $e) {
+                } catch (PDOException $e) {
                     echo "Error: " . $e->getMessage();
                 }
             }

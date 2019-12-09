@@ -132,10 +132,7 @@ function compute_proportion_doc($projectId) {
         // Avoid blank in progress bar
         $sum = $percDone + $percTodo + $percDeprecated;
         while ($sum < 100) {
-            if ($percDone > 0) { ++$percDone; } 
-            else if ($percDeprecated > 0) { ++$percDeprecated; }  
-            else if ($percTodo > 0) { ++$percTodo; }  
-            else {break; }
+            if ($percDone > 0) { ++$percDone; } else if ($percDeprecated > 0) { ++$percDeprecated; } else if ($percTodo > 0) { ++$percTodo; } else {break; }
             $sum = $percDone + $percTodo + $percDeprecated;
         }
     

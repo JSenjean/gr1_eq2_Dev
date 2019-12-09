@@ -21,8 +21,7 @@
             ));
             $result = $stmt->fetch(PDO::FETCH_ASSOC);
             return $result['id'];
-        }
-        catch (PDOException $e) {
+        } catch (PDOException $e) {
             echo  "<br>" . $e->getMessage();
         }
     }
@@ -47,8 +46,7 @@
                 'id_category' => $id_category
             ));
             return $stmt;
-        }
-        catch (PDOException $e) {
+        } catch (PDOException $e) {
             echo  "<br>" . $e->getMessage();
         }
     }
@@ -77,8 +75,7 @@
                             'answer' => $answer,
                             'id' => $id
                         ));
-                    }
-                    catch (PDOException $e) {
+                    } catch (PDOException $e) {
                         echo  "<br>" . $e->getMessage();
                     }
                 }
@@ -106,8 +103,7 @@
                     'question' => $question,
                     'answer' => $answer
                 ));
-            }
-            catch (PDOException $e) {
+            } catch (PDOException $e) {
                 echo  "<br>" . $e->getMessage();
             }
         }
@@ -127,8 +123,7 @@
                 $stmt->execute(array(
                     'id' => $id
                 ));
-            }
-            catch (PDOException $e) {
+            } catch (PDOException $e) {
                 echo  "<br>" . $e->getMessage();
             }
         }
@@ -151,8 +146,7 @@
             );
             $stmt->execute();
             return $stmt;
-        }
-        catch (PDOException $e) {
+        } catch (PDOException $e) {
             echo  "<br>" . $e->getMessage();
         }
     }
@@ -172,8 +166,7 @@
                 $stmt->execute(array(
                     'category' => $category
                 ));
-            }
-            catch (PDOException $e) {
+            } catch (PDOException $e) {
                 echo  "<br>" . $e->getMessage();
             }
         }
@@ -193,8 +186,7 @@
                 $stmt->execute(array(
                     'category' => $_POST['category']
                 ));
-            }
-            catch (PDOException $e) {
+            } catch (PDOException $e) {
                 echo  "<br>" . $e->getMessage();
             }
         }
@@ -211,8 +203,7 @@
             $stmt = $bdd->prepare("SELECT * FROM faq_category");
             $stmt->execute();
             return $stmt;
-        }
-        catch (PDOException $e) {
+        } catch (PDOException $e) {
             echo  "<br>" . $e->getMessage();
         }
     }
