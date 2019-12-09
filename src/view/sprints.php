@@ -173,7 +173,6 @@
         sprintId: sprintId
       },
       success: function(response) {
-        console.log(response);
         var us = JSON.parse(response);
         var htmlToWrite = "";
         var percentTodo = 0;

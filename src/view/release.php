@@ -84,7 +84,6 @@ function prepareGetCommits() {
 
 function getLastCommit(iteration, name, repo, allCommits) {
     since= (lastCommitDate!=null) ? "&since=" + lastCommitDate + "Z" :""
-    console.log(since);
     $.ajax({
         type: "GET",
         /*headers: {
@@ -93,8 +92,6 @@ function getLastCommit(iteration, name, repo, allCommits) {
         url: "https://api.github.com/repos/" + name + "/" + repo + "/commits?per_page=100" + since + "&page=" + iteration,
         dataType: "json",
         success: function(result) {
-            console.log(allCommits)
-            console.log(iteration);
             allCommits[iteration] = result;
             if (result.length == 100) {
                 newIt = iteration + 1;
@@ -193,7 +190,6 @@ function displayRelease(releases)
     var htmlToWriteRealease ="";
     var converter = new showdown.Converter({tables: true});
     var date;
-   // console.log(releases);
     releases.forEach(oneRelease => {
         date = new Date(oneRelease.published_at);
         htmlToWriteRealease += "<div class='card' id='card" + oneRelease.id + "'>"
@@ -214,12 +210,8 @@ function displayRelease(releases)
         htmlToWriteRealease += "</div>"
         htmlToWriteRealease += "</div>"
 
-            /*htmlToWriteRealease += "<div>"
-            htmlToWriteRealease += converter.makeHtml(oneRelease.body)
-            htmlToWriteRealease += "</div>"*/
-
-            $("#release_list").append(htmlToWriteRealease);
-            htmlToWriteRealease="";
+        $("#release_list").append(htmlToWriteRealease);
+        htmlToWriteRealease="";
     });
 
 }
@@ -227,8 +219,7 @@ function displayRelease(releases)
 
 
 
-$("#changeGitUrl").click(function(){
-    
+$("#changeGitUrl").click(function(){   
     var urlGit = $("#urlGit").val();
     if (!checkUrl(urlGit)) {
         alert("ce n'est pas une url valide");

@@ -20,7 +20,6 @@
         unset($_GET['action']);
         $_GET['id'] = $s;
         include_once("view/index.php");
-        // include_once("view/verify.php"); // Can be changed to send mail with a verification link
     }
 
 ?>

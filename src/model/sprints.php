@@ -8,7 +8,7 @@
  */
 
 /**
- * @brief This function return a list of all sprint of a given project
+ * @brief This function return a list of all sprint with extra information(the number of us and the effort) of a given project
  * @param id the project id
  * @return The PDOStatement contening all the sprints or -1 if an exception occurs
  */
@@ -236,6 +236,11 @@ function get_all_task_inside_sprint($sprintId)
     }
 }
 
+/**
+ * @brief This function return the us linked to a task
+ * @param taskId The task id
+ * @return The PDOStatement contening the USs linked to the task
+ */
 function get_all_us_inside_task($taskId)
 {
     try {
@@ -252,6 +257,12 @@ function get_all_us_inside_task($taskId)
     }
 }
 
+/**
+ * @brief This function unlink USs to a given Task by deleting from the table inside_sprint_task_us
+ * @param taskId the task id
+ * @param allUSToUnlink Array composed of USs
+ * @return Return -1 if an error occurs or 1 if it pass
+ */
 function unlink_us_from_task($taskId, $allUSToUnlink)
 {
     try {
@@ -270,9 +281,15 @@ function unlink_us_from_task($taskId, $allUSToUnlink)
     } catch (PDOException $e) {
         echo "<br>" . $e->getMessage();
     }
-    return 1;
+    return -1;
 }
 
+/**
+ * @brief This function USs to a specified task
+ * @param taskId The task id
+ * @param allUSToLink Array composed of USs
+ * @return Return -1 if an error occurs or 1 if it pass
+ */
 function link_us_to_task($taskId, $allUSToLink)
 {
     try {
@@ -302,7 +319,7 @@ function link_us_to_task($taskId, $allUSToLink)
     } catch (PDOException $e) {
         echo "<br>" . $e->getMessage();
     }
-    return 1;
+    return -1;
 }
 
 /**
@@ -410,7 +427,7 @@ function remove_task($taskId)
 }
 
 /**
- * @brief  This function allows you to link the us to a sprint.
+ * @brief This function allows you to link the us to a sprint.
  * @param sprintId the sprint id
  * @param allUSToLink an array contening all the us to link
  * @return return 1 if success or -1 if an exception occurs
@@ -437,7 +454,7 @@ function link_us_to_sprint($sprintId, $allUSToLink)
 }
 
 /**
- * @brief  This function allows you to unlink the us to a sprint.
+ * @brief This function allows you to unlink the us to a sprint.
  * @param taskId the task id
  * @param allUSToLink an array contening all the us to unlink
  * @return return 1 if success or -1 if an exception occurs
@@ -464,7 +481,7 @@ function unlink_us_from_sprint($sprintId, $allUSToUnlink)
 }
 
 /**
- * @brief  This method returns an array of three columns with the number of tasks
+ * @brief This method returns an array of three columns with the number of tasks
  * @param sprintId the sprint id
  * @return an array with the task bomb to the number of tage onGoin and the number of task done  -1 if an exception occurs
  */

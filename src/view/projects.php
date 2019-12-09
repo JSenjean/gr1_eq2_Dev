@@ -136,7 +136,6 @@
 
         $(document).ready(function() {     
             $(".askForInvitationButton").click(function() {
-                console.log($(this).attr('id'));
                 var buttonRequest = $(this);
                 
                 
@@ -150,7 +149,6 @@
                     },
                     success: function(response) {
                         if (response == 1 || response == 0) {
-                            console.log(response);
                             alert("La demande est transmise");
                             buttonRequest.html("Invitation envoyée");
                             buttonRequest.attr("disabled", true);
