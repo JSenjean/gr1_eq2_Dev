@@ -1,3 +1,5 @@
+Dernière mise à jour : 09/12/2019 - Sprint°3
+
 # Bugs connus
 
 Ce fichier recense tous les bugs d'utilisation connus à destination des utilisateurs, ainsi que la manière de les contourner jusqu'à ce qu'ils soient fixés.

@@ -1,3 +1,5 @@
+Dernière mise à jour : 09/12/2019 - Sprint°3
+
 # Manuel administrateur
 
 ## Installation du site

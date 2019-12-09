@@ -1,6 +1,10 @@
+Dernière mise à jour : 09/12/2019 - Sprint°3
+
 # Tests unitaires
 
 ## Docker
+
+**Dû à un problème de configuration, les tests ne peuvent pas être lancés avec Docker dans la version actuelle du projet**
 
 Il est possible d'utiliser le ficher docker-compose alternatif pour forcer le lancement des tests unitaires avant celui des containers principaux. Attention ! Si les tests échouent, les containers seront fermés et il ne sera pas possible de naviguer sur le site.
 
