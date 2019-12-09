@@ -2,15 +2,15 @@
 <html lang="fr">
 <head>
     <title>WaterScrum</title>
-    <link rel="stylesheet" href="lib/bootstrapV4.0.0" >
-    <script src="lib/jquery.min"></script>
-    <script src="lib/popper.min"></script>
-    <script src="lib/bootstrap.min"></script>
-    <script src="lib/fontAwesome"></script>
+    <link rel="stylesheet" href="lib/bootstrapV4.0.0.css" >
+    <script src="lib/jquery.min.js"></script>
+    <script src="lib/popper.min.js"></script>
+    <script src="lib/bootstrap.min.js"></script>
+    <script src="lib/fontAwesome.js"></script>
 
-    <script src="lib/bootstrap-select.min"></script>
-    <link rel="stylesheet" href="lib/bootstrapV4.1.1" >
-    <link rel="stylesheet" href="lib/bootstrap-select" />
+    <script src="lib/bootstrap-select.min.js"></script>
+    <link rel="stylesheet" href="lib/bootstrapV4.1.1.css" >
+    <link rel="stylesheet" href="lib/bootstrap-select.css" />
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
