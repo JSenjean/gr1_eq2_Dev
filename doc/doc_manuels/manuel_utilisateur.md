@@ -1,3 +1,5 @@
+Dernière mise à jour : 09/12/2019 - Sprint°3
+
 # Inscription
 
 Pour s'inscrire sur le site, cliquer sur un des deux boutons 'Inscription' de la page d'accueil, remplir le formulaire avec des informations valides comme indiqué par les aides interactives, puis cliquer sur le bouton 'Inscription'. On considérera dans la suite de ce manuel que l'utilisateur dispose d'un compte inscrit.

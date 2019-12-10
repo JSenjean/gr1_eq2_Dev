@@ -6,9 +6,9 @@
  */
 
 
-  /**
- * @brief This function removes session variables to disconnect the user . 
- */
+    /**
+     * @brief This function removes session variables to disconnect the user . 
+     */
     function logout() {
         unset($_SESSION['username']);
         unset($_SESSION['id']);

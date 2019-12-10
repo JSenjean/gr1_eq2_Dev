@@ -1,3 +1,5 @@
+Dernière mise à jour : 09/12/2019 - Sprint°3
+
 # Architecture
 
 Le code du projet est contenu dans le dossier **/src**.

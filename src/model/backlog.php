@@ -147,7 +147,7 @@ function get_all_US_by_project_id($project_id)
      * @param done a boolean integer that indicates if the user story is finished  
      * @return The last insert index on the database or -1 if an exception occurs
      */
-function add_inside_project_US($projectID, $USName, $roleId, $iCan, $soThat,$difficulty,$workValue,$done)
+function add_inside_project_US($projectID, $USName, $roleId, $iCan, $soThat, $difficulty, $workValue, $done)
 {
     try {
         $bdd = dbConnect();
@@ -209,7 +209,7 @@ function remove_US_by_id($USId)
      * @param done the new value for the done  
      * @return The id of the US or -1 if an exception occurs
      */
-function modify_inside_project_US($usID,$projectID, $USName, $roleId, $iCan, $soThat,$difficulty,$workValue,$done)
+function modify_inside_project_US($usID, $projectID, $USName, $roleId, $iCan, $soThat, $difficulty, $workValue, $done)
 {
     try {
         $bdd = dbConnect();

@@ -7,11 +7,11 @@
  * project_invitation user essentially CRUD function.
  */
 
- /**
- * @brief This function return the information about the given user
- * @param userName The name of the user that you want the information 
- * @return an array contening the information about given user return -1 if an exception occurs
- */
+    /**
+     * @brief This function return the information about the given user
+     * @param userName The name of the user that you want the information 
+     * @return an array contening the information about given user return -1 if an exception occurs
+     */
 function getUserProfile($userName)
 {
     try {
@@ -32,11 +32,11 @@ function getUserProfile($userName)
 }
 
 
- /**
- * @brief This function Return the number of projects in which a user participates. 
- * @param userId The id of the user that you want the number of project
- * @return  the number of project about given user return -1 if an exception occurs
- */
+    /**
+     * @brief This function Return the number of projects in which a user participates. 
+     * @param userId The id of the user that you want the number of project
+     * @return  the number of project about given user return -1 if an exception occurs
+     */
 function getUserNbParticipation($userId)
 {
     try {
@@ -55,12 +55,12 @@ function getUserNbParticipation($userId)
     }
 }
 
- /**
- * @brief Returns all invitations or requests for a given user. 
- * @param isRequest 1 for a request and 0 for an invitation 
- * @param userId The id of the user that you want the number of project
- * @return  the PDOStatement contening thenumber of project about given user return -1 if an exception occurs
- */
+    /**
+     * @brief Returns all invitations or requests for a given user. 
+     * @param isRequest 1 for a request and 0 for an invitation 
+     * @param userId The id of the user that you want the number of project
+     * @return  the PDOStatement contening thenumber of project about given user return -1 if an exception occurs
+     */
 function getUserInvitationsOrRequest($isRequest, $userId)
 {
     try {
@@ -80,12 +80,12 @@ function getUserInvitationsOrRequest($isRequest, $userId)
         echo  "<br>" . $e->getMessage();
     }
 }
- /**
- * @brief This function allows you to cancel a request by deleting the line in the database. this function is automaticly call when you accept an invitation.
- * @param projectIdToCancel the project id
- * @param userId the user id 
- * @return  1 if succes -1 if an exception occurs
- */
+    /**
+     * @brief This function allows you to cancel a request by deleting the line in the database. this function is automaticly call when you accept an invitation.
+     * @param projectIdToCancel the project id
+     * @param userId the user id 
+     * @return  1 if succes -1 if an exception occurs
+     */
 function CancelRequest($projectIdToCancel, $userId)
 {
     try {

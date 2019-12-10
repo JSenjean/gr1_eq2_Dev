@@ -84,10 +84,10 @@ function create_new_sprint($name, $start, $end, $projectId)
           VALUES(:end,:start,:name,:project_id)"
     );
         $stmt->execute(array(
-      'end'   => $end,
-      'start' => $start,
-      'name'  => $name,
-      ':project_id' => $projectId
+        'end'   => $end,
+        'start' => $start,
+        'name'  => $name,
+        ':project_id' => $projectId
     ));
         return 1;
     } catch (PDOException $e) {
@@ -111,7 +111,7 @@ function delete_sprint_by_id($sprintId)
           WHERE id=:sprint_id"
     );
         $stmt->execute(array(
-      'sprint_id' => $sprintId
+        'sprint_id' => $sprintId
     ));
         return 1;
     } catch (PDOException $e) {
@@ -161,15 +161,15 @@ function create_new_task($name, $description, $dod, $predecessor, $time, $sprint
           VALUES(:sprintId,:memberId,:name,:predecessor,:description,:dod,:state,:time,:maquette)"
     );
         $stmt->execute(array(
-      'sprintId'    => $sprintId,
-      'memberId'    => $memberId,
-      'name'        => $name,
-      'predecessor' => $predecessor,
-      'description' => $description,
-      'dod'         => $dod,
-      'state'       => 'todo',
-      'time'        => $time,
-      'maquette'    => null
+        'sprintId'    => $sprintId,
+        'memberId'    => $memberId,
+        'name'        => $name,
+        'predecessor' => $predecessor,
+        'description' => $description,
+        'dod'         => $dod,
+        'state'       => 'todo',
+        'time'        => $time,
+        'maquette'    => null
     ));
         return $bdd->lastInsertId();
     } catch (PDOException $e) {
@@ -200,13 +200,13 @@ function update_task($id, $name, $description, $dod, $predecessor, $time, $membe
           WHERE id=:id"
     );
         $stmt->execute(array(
-      'memberId'    => $memberId,
-      'name'        => $name,
-      'predecessor' => $predecessor,
-      'description' => $description,
-      'dod'         => $dod,
-      'time'        => $time,
-      'id'          => $id
+        'memberId'    => $memberId,
+        'name'        => $name,
+        'predecessor' => $predecessor,
+        'description' => $description,
+        'dod'         => $dod,
+        'time'        => $time,
+        'id'          => $id
     ));
         return $id;
     } catch (PDOException $e) {
@@ -275,7 +275,7 @@ function unlink_us_from_task($taskId, $allUSToUnlink)
             $stmt->execute(array(
         'task_id' => $taskId,
         'us_id'   => $us_id
-      ));
+        ));
         }
         return 1;
     } catch (PDOException $e) {
@@ -302,18 +302,18 @@ function link_us_to_task($taskId, $allUSToLink)
         foreach ($allUSToLink as $us_id) {
             $stmt->execute(array(
         'us_id'   => $us_id
-      ));
+        ));
 
             $currentId = $stmt->fetchAll();
       
             $stmt2 = $bdd->prepare(
-          "INSERT INTO inside_sprint_task_us(task_id, inside_sprint_us_id)
+            "INSERT INTO inside_sprint_task_us(task_id, inside_sprint_us_id)
               VALUES(:task_id, :ius_id)"
-      );
+        );
             $stmt2->execute(array(
         'task_id' => $taskId,
         'ius_id'  => $currentId[0]['id']
-      ));
+        ));
         }
         return 1;
     } catch (PDOException $e) {
@@ -397,8 +397,8 @@ function switch_task_state($taskId, $state)
         WHERE id=:taskId"
     );
         $stmt->execute(array(
-      'state' => $state,
-      'taskId' => $taskId
+        'state' => $state,
+        'taskId' => $taskId
     ));
         return 1;
     } catch (PDOException $e) {
@@ -444,7 +444,7 @@ function link_us_to_sprint($sprintId, $allUSToLink)
             $stmt->execute(array(
         'sprint_id' => $sprintId,
         'us_id'     => $us_id
-      ));
+        ));
         }
         return 1;
     } catch (PDOException $e) {
@@ -471,7 +471,7 @@ function unlink_us_from_sprint($sprintId, $allUSToUnlink)
             $stmt->execute(array(
         'sprint_id' => $sprintId,
         'us_id'     => $us_id
-      ));
+        ));
         }
         return 1;
     } catch (PDOException $e) {
@@ -501,7 +501,7 @@ function count_nb_task_by_state_in_sprint($sprintId)
             $stmt->execute(array(
         'sprintId' => $sprintId,
         'state'    => $state[$i]
-      ));
+        ));
             $nb = $stmt->fetch(PDO::FETCH_NUM);
             $result[$i] = $nb[0];
         }
